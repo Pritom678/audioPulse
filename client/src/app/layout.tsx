@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Nunito } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/shared/Header";
-import Footer from "@/components/shared/Footer";
+import Header from "@/components/Shared/Header";
+import Footer from "@/components/Shared/Footer";
+import ToastProvider from "@/components/Shared/ToasterProvider";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -30,6 +31,7 @@ export default function RootLayout({
         <footer>
           <Footer />
         </footer>
+        <ToastProvider />
       </body>
     </html>
   );
