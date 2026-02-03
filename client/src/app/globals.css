@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+  themes: light --default;
+}
+
+@plugin "daisyui/theme" {
+  name: "light";
+  default: true;
+
+  /* Brand – quiet, confident */
+  --color-primary: oklch(62% 0.12 255); /* Apple-style blue */
+  --color-secondary: oklch(78% 0.02 250); /* subtle cool gray */
+  --color-accent: oklch(62% 0.12 255); /* SAME as primary (Apple rule) */
+
+  /* Base – clean Apple surfaces */
+  --color-base-100: oklch(99% 0.002 260); /* off-white */
+  --color-base-200: oklch(96% 0.004 260); /* section bg */
+  --color-base-300: oklch(92% 0.006 260); /* borders */
+
+  /* Neutral – Apple typography */
+  --color-neutral: oklch(22% 0.01 260); /* near-black text */
+  --color-neutral-content: oklch(98% 0 0);
+
+  /* Feedback – muted, never loud */
+  --color-success: oklch(66% 0.1 150); /* soft system green */
+  --color-error: oklch(58% 0.16 25); /* muted system red */
+}
+
+@custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
