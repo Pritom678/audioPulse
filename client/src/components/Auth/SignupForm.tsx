@@ -1,6 +1,7 @@
 "use client";
 import api from "@/lib/axios";
 import { Eye, EyeClosed } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 import React, { useState } from "react";
@@ -58,123 +59,174 @@ const SignupForm: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-base-200">
+    <div
+      className="flex items-center justify-center min-h-screen px-4
+                bg-gradient-to-br from-base-300 via-base-200 to-base-100"
+    >
       <form
-        className="w-full max-w-md p-8 rounded-xl shadow-lg bg-base-100 border border-base-300"
         onSubmit={handleSubmit}
+        className="w-full max-w-md rounded-2xl p-8
+               bg-base-100/80 backdrop-blur-xl
+               border border-base-300/60 shadow-2xl"
       >
-        <h2 className="text-3xl font-bold mb-6 text-primary text-center">
-          Sign Up
-        </h2>
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <h2 className="text-3xl font-bold text-primary tracking-tight">
+            Create Account
+          </h2>
+          <p className="mt-2 text-sm text-neutral/70">
+            Join us and start your journey today
+          </p>
+        </div>
+
+        {/* Name */}
         <div className="mb-4">
           <label
-            className="block text-sm font-medium text-neutral mb-1"
             htmlFor="name"
+            className="block mb-1 text-sm font-medium text-neutral/80"
           >
-            Name
+            Full Name
           </label>
           <input
             type="text"
-            name="name"
             id="name"
+            name="name"
             value={form.name}
             onChange={handleChange}
-            className="input input-bordered w-full bg-base-200 border-base-300 focus:border-primary text-neutral"
             autoComplete="name"
             required
+            className="input input-bordered w-full bg-base-200/60
+                   focus:border-primary focus:ring-2 focus:ring-primary/30
+                   transition-all"
           />
         </div>
+
+        {/* Email */}
         <div className="mb-4">
           <label
-            className="block text-sm font-medium text-neutral mb-1"
             htmlFor="email"
+            className="block mb-1 text-sm font-medium text-neutral/80"
           >
-            Email
+            Email Address
           </label>
           <input
             type="email"
-            name="email"
             id="email"
+            name="email"
             value={form.email}
             onChange={handleChange}
-            className="input input-bordered w-full bg-base-200 border-base-300 focus:border-primary text-neutral"
             autoComplete="email"
             required
+            className="input input-bordered w-full bg-base-200/60
+                   focus:border-primary focus:ring-2 focus:ring-primary/30
+                   transition-all"
           />
         </div>
+
+        {/* Password */}
         <div className="mb-4">
           <label
-            className="block text-sm font-medium text-neutral mb-1"
             htmlFor="password"
+            className="block mb-1 text-sm font-medium text-neutral/80"
           >
             Password
           </label>
           <div className="relative">
             <input
               type={showPassword ? "text" : "password"}
-              name="password"
               id="password"
+              name="password"
               value={form.password}
               onChange={handleChange}
-              className="input input-bordered w-full bg-base-200 border-base-300 focus:border-primary text-neutral pr-12"
               autoComplete="new-password"
               required
+              className="input input-bordered w-full bg-base-200/60 pr-12
+                     focus:border-primary focus:ring-2 focus:ring-primary/30
+                     transition-all"
             />
             <button
               type="button"
               tabIndex={-1}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-primary focus:outline-none"
-              onClick={() => setShowPassword((prev) => !prev)}
               aria-label={showPassword ? "Hide password" : "Show password"}
+              onClick={() => setShowPassword((prev) => !prev)}
+              className="absolute right-3 top-1/2 -translate-y-1/2
+                     text-primary/80 hover:text-primary transition-colors"
             >
               {showPassword ? <Eye /> : <EyeClosed />}
             </button>
           </div>
         </div>
+
+        {/* Confirm Password */}
         <div className="mb-6">
           <label
-            className="block text-sm font-medium text-neutral mb-1"
             htmlFor="confirmPassword"
+            className="block mb-1 text-sm font-medium text-neutral/80"
           >
             Confirm Password
           </label>
           <div className="relative">
             <input
               type={showConfirmPassword ? "text" : "password"}
-              name="confirmPassword"
               id="confirmPassword"
+              name="confirmPassword"
               value={form.confirmPassword}
               onChange={handleChange}
-              className="input input-bordered w-full bg-base-200 border-base-300 focus:border-primary text-neutral pr-12"
               autoComplete="new-password"
               required
+              className="input input-bordered w-full bg-base-200/60 pr-12
+                     focus:border-primary focus:ring-2 focus:ring-primary/30
+                     transition-all"
             />
             <button
               type="button"
               tabIndex={-1}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-primary focus:outline-none"
-              onClick={() => setShowConfirmPassword((prev) => !prev)}
               aria-label={
                 showConfirmPassword ? "Hide password" : "Show password"
               }
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+              className="absolute right-3 top-1/2 -translate-y-1/2
+                     text-primary/80 hover:text-primary transition-colors"
             >
               {showConfirmPassword ? <Eye /> : <EyeClosed />}
             </button>
           </div>
         </div>
+
+        {/* Messages */}
         {error && (
-          <div className="mb-4 text-error text-sm text-center">{error}</div>
+          <div className="mb-4 rounded-lg bg-error/10 text-error text-sm py-2 px-3 text-center">
+            {error}
+          </div>
         )}
         {success && (
-          <div className="mb-4 text-success text-sm text-center">{success}</div>
+          <div className="mb-4 rounded-lg bg-success/10 text-success text-sm py-2 px-3 text-center">
+            {success}
+          </div>
         )}
+
+        {/* Button */}
         <button
           type="submit"
-          className="btn w-full bg-primary text-neutral-content hover:bg-accent transition-colors font-semibold text-lg"
           disabled={loading}
+          className="btn w-full text-lg font-semibold
+                 bg-primary text-neutral-content
+                 hover:bg-accent hover:shadow-lg
+                 transition-all duration-200"
         >
           {loading ? "Signing up..." : "Create Account"}
         </button>
+
+        {/* Footer */}
+        <div className="mt-6 text-center text-sm text-neutral/70">
+          Already have an account?
+          <Link
+            href={"/login"}
+            className="ml-1 text-primary hover:underline cursor-pointer"
+          >
+            Login
+          </Link>
+        </div>
       </form>
     </div>
   );
