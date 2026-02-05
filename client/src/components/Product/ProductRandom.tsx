@@ -56,6 +56,7 @@ export default function ProductRandom() {
     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-10">
       {products.map((product, index) => (
         <ProductCard
+        id={product._id}
           key={product._id}
           name={product.name}
           price={product.price}
