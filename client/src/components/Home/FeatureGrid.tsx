@@ -61,7 +61,7 @@ const FeatureGrid = () => {
   }, []);
 
   return (
-    <section className="bg-base-100 py-32">
+    <section className="bg-base-100 py-20 my-5">
       <div className="mx-auto max-w-6xl px-6">
         {/* Section heading */}
         <div className="mb-20 flex items-center gap-6">
@@ -157,7 +157,7 @@ const FeatureGrid = () => {
             ].map((item) => (
               <div
                 key={item}
-                className="border-b border-base-300 pb-3 text-sm text-neutral cursor-pointer hover:text-neutral/80 transition-colors duration-200"
+                className="border-b border-base-300 pb-3 text-sm text-neutral cursor-pointer"
               >
                 {item}
               </div>

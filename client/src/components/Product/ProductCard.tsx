@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import { ArrowRight, Heart } from "lucide-react";
 
 type ProductCardProps = {
   id: string;
@@ -54,9 +55,8 @@ export default function ProductCard({
     { scope: cardRef },
   );
 
-  console.log(id);
   return (
-    <div className="relative rounded-2xl bg-black/10 backdrop-blur-md">
+    <div className="relative rounded-2xl bg-black/10 backdrop-blur-md overflow-visible">
       <div
         ref={cardRef}
         className={`relative rounded-3xl p-6 inset-0 ${gradient}`}
@@ -77,7 +77,8 @@ export default function ProductCard({
         </div>
 
         {/* Content Panel */}
-        <div className="mt-4 rounded-2xl bg-white/85 backdrop-blur-sm p-4">
+        <div className="mt-4 rounded-2xl bg-white/85 backdrop-blur-sm p-4 pb-16 relative">
+          {/* Product Info */}
           <div className="flex justify-between items-center mb-1">
             <h3 className="text-sm font-semibold text-gray-900">{name}</h3>
             <span className="text-sm font-bold text-gray-900">
@@ -89,33 +90,38 @@ export default function ProductCard({
             {description}
           </p>
 
-          <div className="flex gap-2">
+          {/* Buttons container at bottom inside the card */}
+          <div className="absolute bottom-4 left-0 right-0 flex justify-between px-4">
+            {/* Wishlist button (left) */}
             <button
               aria-label="Add product to wishlist"
               className="
-                flex-1 py-2 rounded-full border border-white/30
-                text-xs font-semibold tracking-wide text-black
-                hover:bg-white hover:text-black
-                hover:scale-105 hover:shadow-md
-                transition-all duration-200
+                flex items-center gap-2
+                bg-white/30 backdrop-blur-md border border-white/30
+                text-netural px-4 py-2 rounded-full
+                text-sm font-semibold
+                hover:bg-white/40 hover:scale-105 hover:shadow-lg
+                transition-all duration-300
               "
             >
-              ADD TO WISHLIST
+              <Heart className="w-4 h-4" />
             </button>
 
+            {/* View Details button (right) */}
             <Link
               href={`/products/${id}`}
               aria-label={`View details for ${name}`}
               className="
-                flex-1 py-2 rounded-full border border-primary
-                text-xs font-semibold tracking-wide text-white bg-primary
-                hover:bg-primary-dark
-                hover:scale-105 hover:shadow-md
-                text-center
-                transition-all duration-200
+                flex items-center gap-2
+                bg-accent/30 backdrop-blur-md border border-white/30
+                text-neutral px-4 py-2 rounded-full
+                text-sm font-semibold
+                hover:bg-accent/40 hover:scale-105 hover:shadow-lg
+                transition-all duration-300
               "
             >
-              VIEW DETAILS
+              View Details
+              <ArrowRight className="w-4 h-4" />
             </Link>
           </div>
         </div>

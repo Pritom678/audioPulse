@@ -30,7 +30,7 @@ const ProductHighlight = () => {
   }, []);
 
   return (
-    <section className="bg-base-200 py-24 rounded-2xl">
+    <section className="bg-gradient-to-tr from-primary/10 to-base-200 py-24 rounded-2xl">
       <div className="mx-auto max-w-6xl grid md:grid-cols-2 gap-16 items-center">
         {/* Text content */}
         <div ref={textRef} className="space-y-5">

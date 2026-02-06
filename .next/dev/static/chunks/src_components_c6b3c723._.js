@@ -11,6 +11,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/gsap/index.js [app-client] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$ScrollTrigger$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/gsap/ScrollTrigger.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@gsap/react/src/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
@@ -18,60 +19,172 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
+;
 __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].registerPlugin(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$ScrollTrigger$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ScrollTrigger"]);
 const AudioExperience = ()=>{
     _s();
-    const ref = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const sectionRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const textRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const imgOneRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const imgTwoRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const waveRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGSAP"])({
         "AudioExperience.useGSAP": ()=>{
-            if (!ref.current) return;
-            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].from(ref.current, {
-                opacity: 0,
-                y: 40,
-                scrollTrigger: {
-                    trigger: ref.current,
-                    start: "top 80%"
-                },
-                duration: 0.8,
-                ease: "power2.out"
+            if (!sectionRef.current) return;
+            // Floating wave animation
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].to(waveRef.current, {
+                backgroundPositionX: "-200%",
+                duration: 18,
+                ease: "linear",
+                repeat: -1
             });
+            // Scroll-triggered animations
+            const tl = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].timeline({
+                scrollTrigger: {
+                    trigger: sectionRef.current,
+                    start: "top 80%"
+                }
+            });
+            tl.from(textRef.current?.children || [], {
+                opacity: 0,
+                y: 30,
+                duration: 0.8,
+                ease: "power3.out",
+                stagger: 0.15
+            }).from(imgOneRef.current, {
+                opacity: 0,
+                y: 80,
+                rotate: -12,
+                duration: 1,
+                ease: "power3.out"
+            }, "-=0.4").from(imgTwoRef.current, {
+                opacity: 0,
+                y: 100,
+                rotate: 8,
+                duration: 1,
+                ease: "power3.out"
+            }, "-=0.6");
         }
     }["AudioExperience.useGSAP"], []);
+    // Hover handlers for 3D pop-out
+    const handleHover3D = (ref, rotate, scale, z, rotateY = 0, rotateX = 0)=>{
+        if (!ref.current) return;
+        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].to(ref.current, {
+            rotate,
+            scale,
+            z,
+            rotateY,
+            rotateX,
+            duration: 0.3,
+            ease: "power1.out"
+        });
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "bg-base-200 py-32",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            ref: ref,
-            className: "mx-auto max-w-3xl text-center space-y-6",
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                    className: "text-3xl font-semibold text-neutral",
-                    children: "Designed for how you listen"
-                }, void 0, false, {
+        ref: sectionRef,
+        className: "relative bg-gradient-to-tr from-primary/30 to-base-200 py-40 my-5 overflow-hidden rounded-2xl",
+        style: {
+            perspective: 1200
+        },
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                ref: waveRef,
+                className: "   absolute inset-0    opacity-60   bg-[linear-gradient(90deg,rgba(0,0,0,0.2),rgba(0,0,0,0.4),rgba(0,0,0,0.2))]   bg-[length:200%_100%]   "
+            }, void 0, false, {
+                fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                lineNumber: 96,
+                columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "relative mx-auto max-w-4xl text-center space-y-6 z-20",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    ref: textRef,
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                            className: "text-3xl font-semibold text-neutral",
+                            children: "Designed for how you listen"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                            lineNumber: 109,
+                            columnNumber: 11
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "text-neutral/80",
+                            children: "From music to movies, AudioPluse adapts to every moment."
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                            lineNumber: 112,
+                            columnNumber: 11
+                        }, ("TURBOPACK compile-time value", void 0))
+                    ]
+                }, void 0, true, {
                     fileName: "[project]/src/components/Home/AudioExperience.tsx",
-                    lineNumber: 29,
-                    columnNumber: 9
-                }, ("TURBOPACK compile-time value", void 0)),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                    className: "text-neutral",
-                    children: "From music to movies, AudioPluse adapts to every moment."
-                }, void 0, false, {
-                    fileName: "[project]/src/components/Home/AudioExperience.tsx",
-                    lineNumber: 32,
+                    lineNumber: 108,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
-            ]
-        }, void 0, true, {
-            fileName: "[project]/src/components/Home/AudioExperience.tsx",
-            lineNumber: 28,
-            columnNumber: 7
-        }, ("TURBOPACK compile-time value", void 0))
-    }, void 0, false, {
+            }, void 0, false, {
+                fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                lineNumber: 107,
+                columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "pointer-events-auto",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        ref: imgOneRef,
+                        className: "absolute top-16 right-10 w-64 z-10",
+                        onMouseEnter: ()=>handleHover3D(imgOneRef, -8, 1.1, 60, 15, -5),
+                        onMouseLeave: ()=>handleHover3D(imgOneRef, -12, 1, 0, 0, 0),
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            src: "https://res.cloudinary.com/do3iu9q7d/image/upload/v1770363508/titled2_ihv9lr.png",
+                            alt: "Headphone floating",
+                            width: 400,
+                            height: 400,
+                            className: "object-contain drop-shadow-xl"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                            lineNumber: 127,
+                            columnNumber: 11
+                        }, ("TURBOPACK compile-time value", void 0))
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                        lineNumber: 121,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        ref: imgTwoRef,
+                        className: "absolute bottom-20 left-10 w-72 z-10",
+                        onMouseEnter: ()=>handleHover3D(imgTwoRef, 12, 1.1, 60, -15, 5),
+                        onMouseLeave: ()=>handleHover3D(imgTwoRef, 8, 1, 0, 0, 0),
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                            src: "https://res.cloudinary.com/do3iu9q7d/image/upload/v1770363509/titled_liu37c.png",
+                            alt: "Headphone angled",
+                            width: 450,
+                            height: 450,
+                            className: "object-contain drop-shadow-xl"
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                            lineNumber: 143,
+                            columnNumber: 11
+                        }, ("TURBOPACK compile-time value", void 0))
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                        lineNumber: 137,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0))
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                lineNumber: 119,
+                columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0))
+        ]
+    }, void 0, true, {
         fileName: "[project]/src/components/Home/AudioExperience.tsx",
-        lineNumber: 27,
+        lineNumber: 90,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
-_s(AudioExperience, "nKKHggZXpngBxL+e4Le1LUPYkpw=", false, function() {
+_s(AudioExperience, "TNlfUy5SHa+2BztMwDfuc+tnWbY=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGSAP"]
     ];
@@ -95,9 +208,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/gsap/index.js [app-client] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@gsap/react/src/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -109,43 +224,65 @@ const CallToAction = ()=>{
             if (!ref.current) return;
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].from(ref.current, {
                 opacity: 0,
+                y: 30,
                 scale: 0.97,
-                duration: 0.6,
-                ease: "power2.out"
+                duration: 0.8,
+                ease: "power3.out"
             });
         }
     }["CallToAction.useGSAP"], []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "bg-base-100 py-24",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            ref: ref,
-            className: "mx-auto max-w-4xl text-center space-y-6",
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                    className: "text-2xl font-semibold text-neutral",
-                    children: "Experience AudioPluse"
-                }, void 0, false, {
-                    fileName: "[project]/src/components/Home/CallToAction.tsx",
-                    lineNumber: 23,
-                    columnNumber: 9
-                }, ("TURBOPACK compile-time value", void 0)),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                    className: "btn btn-primary rounded-full px-10",
-                    children: "Shop Now"
-                }, void 0, false, {
-                    fileName: "[project]/src/components/Home/CallToAction.tsx",
-                    lineNumber: 26,
-                    columnNumber: 9
-                }, ("TURBOPACK compile-time value", void 0))
-            ]
-        }, void 0, true, {
-            fileName: "[project]/src/components/Home/CallToAction.tsx",
-            lineNumber: 22,
-            columnNumber: 7
-        }, ("TURBOPACK compile-time value", void 0))
-    }, void 0, false, {
+        className: "my-10 relative bg-gradient-to-tr from-primary/20 to-base-200 py-32 overflow-hidden rounded-2xl",
+        style: {
+            perspective: 1200
+        },
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "absolute inset-0 opacity-30 bg-[linear-gradient(90deg,rgba(0,0,0,0.05),rgba(0,0,0,0.1),rgba(0,0,0,0.05))] bg-[length:200%_100%] animate-[wave_20s_linear_infinite]"
+            }, void 0, false, {
+                fileName: "[project]/src/components/Home/CallToAction.tsx",
+                lineNumber: 28,
+                columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0)),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                ref: ref,
+                className: "relative mx-auto max-w-4xl text-center space-y-6 z-10",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        className: "text-3xl md:text-4xl font-bold text-neutral",
+                        children: "Experience AudioPluse Like Never Before"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Home/CallToAction.tsx",
+                        lineNumber: 34,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-neutral/70 text-lg md:text-xl",
+                        children: "Discover premium sound, tailored for every moment and every mood."
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Home/CallToAction.tsx",
+                        lineNumber: 37,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                        href: "/products",
+                        className: "btn bg-primary/30 backdrop-blur-md border border-white/30 hover:bg-primary/20 hover:scale-105 transition-all duration-300 rounded-full px-12 py-4 text-lg font-semibold text-white shadow-lg",
+                        children: "Shop Now"
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Home/CallToAction.tsx",
+                        lineNumber: 40,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0))
+                ]
+            }, void 0, true, {
+                fileName: "[project]/src/components/Home/CallToAction.tsx",
+                lineNumber: 30,
+                columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0))
+        ]
+    }, void 0, true, {
         fileName: "[project]/src/components/Home/CallToAction.tsx",
-        lineNumber: 21,
+        lineNumber: 23,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -226,7 +363,7 @@ const FeatureGrid = ()=>{
         }
     }["FeatureGrid.useGSAP"], []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "bg-base-100 py-32",
+        className: "bg-base-100 py-20 my-5",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "mx-auto max-w-6xl px-6",
             children: [
@@ -378,7 +515,7 @@ const FeatureGrid = ()=>{
                                 "Minimal durable build",
                                 "Seamless connectivity"
                             ].map((item)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "border-b border-base-300 pb-3 text-sm text-neutral cursor-pointer hover:text-neutral/80 transition-colors duration-200",
+                                    className: "border-b border-base-300 pb-3 text-sm text-neutral cursor-pointer",
                                     children: item
                                 }, item, false, {
                                     fileName: "[project]/src/components/Home/FeatureGrid.tsx",
@@ -749,7 +886,7 @@ const ProductHighlight = ()=>{
         }
     }["ProductHighlight.useGSAP"], []);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "bg-base-200 py-24 rounded-2xl",
+        className: "bg-gradient-to-tr from-primary/10 to-base-200 py-24 rounded-2xl",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "mx-auto max-w-6xl grid md:grid-cols-2 gap-16 items-center",
             children: [
@@ -854,9 +991,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/gsap/index.js [app-client] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@gsap/react/src/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-client] (ecmascript) <export default as ArrowRight>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Heart$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/heart.js [app-client] (ecmascript) <export default as Heart>");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -899,9 +1039,8 @@ function ProductCard({ id, name, price, description, image, gradient }) {
     }["ProductCard.useGSAP"], {
         scope: cardRef
     });
-    console.log(id);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "relative rounded-2xl bg-black/10 backdrop-blur-md",
+        className: "relative rounded-2xl bg-black/10 backdrop-blur-md overflow-visible",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             ref: cardRef,
             className: `relative rounded-3xl p-6 inset-0 ${gradient}`,
@@ -927,7 +1066,7 @@ function ProductCard({ id, name, price, description, image, gradient }) {
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "mt-4 rounded-2xl bg-white/85 backdrop-blur-sm p-4",
+                    className: "mt-4 rounded-2xl bg-white/85 backdrop-blur-sm p-4 pb-16 relative",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "flex justify-between items-center mb-1",
@@ -937,7 +1076,7 @@ function ProductCard({ id, name, price, description, image, gradient }) {
                                     children: name
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 82,
+                                    lineNumber: 83,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -948,13 +1087,13 @@ function ProductCard({ id, name, price, description, image, gradient }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 83,
+                                    lineNumber: 84,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                            lineNumber: 81,
+                            lineNumber: 82,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -962,35 +1101,50 @@ function ProductCard({ id, name, price, description, image, gradient }) {
                             children: description
                         }, void 0, false, {
                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                            lineNumber: 88,
+                            lineNumber: 89,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex gap-2",
+                            className: "absolute bottom-4 left-0 right-0 flex justify-between px-4",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     "aria-label": "Add product to wishlist",
-                                    className: "   flex-1 py-2 rounded-full border border-white/30   text-xs font-semibold tracking-wide text-black   hover:bg-white hover:text-black   hover:scale-105 hover:shadow-md   transition-all duration-200   ",
-                                    children: "ADD TO WISHLIST"
+                                    className: "   flex items-center gap-2   bg-white/30 backdrop-blur-md border border-white/30   text-netural px-4 py-2 rounded-full   text-sm font-semibold   hover:bg-white/40 hover:scale-105 hover:shadow-lg   transition-all duration-300   ",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Heart$3e$__["Heart"], {
+                                        className: "w-4 h-4"
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Product/ProductCard.tsx",
+                                        lineNumber: 107,
+                                        columnNumber: 15
+                                    }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 93,
+                                    lineNumber: 96,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: `/products/${id}`,
                                     "aria-label": `View details for ${name}`,
-                                    className: "   flex-1 py-2 rounded-full border border-primary   text-xs font-semibold tracking-wide text-white bg-primary   hover:bg-primary-dark   hover:scale-105 hover:shadow-md   text-center   transition-all duration-200   ",
-                                    children: "VIEW DETAILS"
-                                }, void 0, false, {
+                                    className: "   flex items-center gap-2   bg-accent/30 backdrop-blur-md border border-white/30   text-neutral px-4 py-2 rounded-full   text-sm font-semibold   hover:bg-accent/40 hover:scale-105 hover:shadow-lg   transition-all duration-300   ",
+                                    children: [
+                                        "View Details",
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
+                                            className: "w-4 h-4"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Product/ProductCard.tsx",
+                                            lineNumber: 124,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 106,
+                                    lineNumber: 111,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                            lineNumber: 92,
+                            lineNumber: 94,
                             columnNumber: 11
                         }, this)
                     ]
