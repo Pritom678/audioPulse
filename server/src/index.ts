@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser";
 import { connectDB } from "./lib/db.js";
 import authRoutes from "./routes/auth.js";
 import productRoutes from "./routes/product.js";
-
+import cartRoutes from "./routes/cart.js";
 
 const app = express();
 const PORT = 8080;
@@ -24,8 +24,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/auth", authRoutes);
-app.use('/products', productRoutes)
-
+app.use("/products", productRoutes);
+app.use("/cart", cartRoutes);
 
 await connectDB();
 app.listen(PORT, () => {

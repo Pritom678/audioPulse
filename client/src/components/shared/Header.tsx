@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import api from "@/lib/axios";
+import { ShoppingCart } from "lucide-react";
 
 const navLinks = [
   { name: "Products", href: "/products" },
@@ -70,14 +71,14 @@ const Header: React.FC = () => {
           {authenticated ? (
             <>
               <Link
-                href="/dashboard"
+                href="/cart"
                 className={`border border-white/20 ${glassBase} ${
-                  pathname === "/dashboard"
+                  pathname === "/cart"
                     ? glassActive
-                    : "bg-primary/20 hover:bg-primary/30 text-primary"
-                } px-6`}
+                    : "bg-primary/20 hover:bg-primary/20 text-primary"
+                } px-6 flex items-center`}
               >
-                Dashboard
+                Cart <ShoppingCart />
               </Link>
 
               <button

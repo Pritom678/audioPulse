@@ -4,6 +4,8 @@ import api from "@/lib/axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 interface Product {
   _id: string;
@@ -25,6 +27,8 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
   const [activeImage, setActiveImage] = useState<string | null>(null);
+  const [adding, setAdding] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     if (!productId) return;
@@ -44,6 +48,27 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
       <div className="py-20 text-center text-gray-500">Loading product...</div>
     );
   }
+
+  const handleAddToCart = async () => {
+    if (!product) return;
+
+    try {
+      setAdding(true);
+
+      await api.post("/cart/", {
+        productId: product._id,
+        quantity: 1,
+      });
+
+      toast.success("Added to cart 🛒");
+      router.push("/cart/");
+    } catch (error) {
+      console.error("Add to cart failed", error);
+      toast.error("Please login to add items to cart");
+    } finally {
+      setAdding(false);
+    }
+  };
 
   return (
     <div
@@ -124,6 +149,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
 
               {/* Glass Button */}
               <button
+                onClick={handleAddToCart}
                 disabled={!product.isActive || product.stock === 0}
                 className="
                   px-6 py-3 rounded-xl font-semibold text-white
