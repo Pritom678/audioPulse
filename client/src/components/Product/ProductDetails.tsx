@@ -3,6 +3,7 @@
 import api from "@/lib/axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
+import { Heart } from "lucide-react";
 
 interface Product {
   _id: string;
@@ -23,136 +24,119 @@ interface ProductDetailsProps {
 const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
   const [product, setProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const [activeImage, setActiveImage] = useState<string | null>(null);
 
   useEffect(() => {
     if (!productId) return;
 
     const fetchProduct = async () => {
-      try {
-        const res = await api.get(`/products/${productId}`);
-        setProduct(res.data);
-        setActiveImage(res.data.images?.[0] || null);
-      } catch (err) {
-        console.error("Fetch product error:", err);
-        setError("Failed to load product.");
-      } finally {
-        setLoading(false);
-      }
+      const res = await api.get(`/products/${productId}`);
+      setProduct(res.data);
+      setActiveImage(res.data.images?.[0] || null);
+      setLoading(false);
     };
 
     fetchProduct();
   }, [productId]);
 
-  /* -------------------- UI STATES -------------------- */
-
-  if (loading) {
+  if (loading || !product) {
     return (
-      <div className="max-w-5xl mx-auto py-20 text-center text-gray-500">
-        Loading product details...
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="max-w-5xl mx-auto py-20 text-center text-red-500">
-        {error}
-      </div>
-    );
-  }
-
-  if (!product) {
-    return (
-      <div className="max-w-5xl mx-auto py-20 text-center text-red-500">
-        Product not found.
-      </div>
+      <div className="py-20 text-center text-gray-500">Loading product...</div>
     );
   }
 
   return (
-    <div className="max-w-5xl mx-auto py-10 px-4">
-      <div className="flex flex-col md:flex-row gap-10">
-        {/* Images */}
-        <div className="w-full md:w-1/2">
-          {activeImage ? (
-            <Image
-              src={activeImage}
-              alt={product.name}
-              width={500}
-              height={500}
-              className="w-full h-[420px] object-contain rounded-xl bg-white"
-              priority
-            />
-          ) : (
-            <div className="w-full h-[420px] bg-gray-200 flex items-center justify-center rounded-xl">
-              No Image
-            </div>
-          )}
-
-          {/* Thumbnails */}
-          {product.images.length > 1 && (
-            <div className="flex gap-3 mt-4">
-              {product.images.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveImage(img)}
-                  className={`border rounded-lg p-1 transition ${
-                    activeImage === img
-                      ? "border-primary"
-                      : "border-transparent"
-                  }`}
-                >
-                  <Image
-                    src={img}
-                    alt={`${product.name}-${idx}`}
-                    width={80}
-                    height={80}
-                    className="object-contain rounded"
-                  />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Product Info */}
-        <div className="flex flex-col gap-4 md:w-1/2">
-          <h1 className="text-4xl font-bold">{product.name}</h1>
-
-          {product.brand && (
-            <p className="text-sm text-gray-500">Brand: {product.brand}</p>
-          )}
-
-          <p className="text-gray-700">{product.description}</p>
-
-          <p className="text-3xl font-semibold text-primary">
-            ${product.price.toFixed(2)}
-          </p>
-
-          <p
-            className={`font-medium ${
-              product.isActive ? "text-green-600" : "text-red-600"
-            }`}
+    <div
+      className=" min-h-screen flex items-center justify-center px-4
+      bg-gradient-to-br from-primary/40 via-secondary/30 to-primary/50
+    "
+    >
+      {/* Glass Card */}
+      <div
+        className="my-10 w-full max-w-4xl rounded-3xl overflow-hidden
+        bg-white/20 backdrop-blur-xl border border-white/20 shadow-2xl
+      "
+      >
+        <div className="grid md:grid-cols-2">
+          {/* IMAGE SIDE */}
+          <div
+            className="relative flex items-center justify-center p-10
+            bg-gradient-to-br from-primary/60 to-secondary/60
+          "
           >
-            {product.isActive ? "In Stock" : "Unavailable"}
-          </p>
+            {activeImage && (
+              <Image
+                src={activeImage}
+                alt={product.name}
+                width={420}
+                height={420}
+                className="object-contain drop-shadow-2xl"
+                priority
+              />
+            )}
 
-          <p className="text-sm text-gray-500">Stock: {product.stock}</p>
-          <p className="text-sm text-gray-400">Category: {product.category}</p>
-
-          <button
-            disabled={!product.isActive || product.stock === 0}
-            className="
-              mt-6 px-6 py-3 rounded-lg text-white font-semibold
-              bg-primary hover:bg-primary-dark
-              disabled:opacity-50 disabled:cursor-not-allowed
-              transition
+            {/* Wishlist */}
+            <button
+              className="absolute top-6 right-6 w-10 h-10 rounded-full
+              bg-white/20 backdrop-blur-md border border-white/30
+              flex items-center justify-center
+              hover:bg-white/30 transition
             "
-          >
-            {product.stock > 0 ? "Add to Cart" : "Out of Stock"}
-          </button>
+            >
+              <Heart className="w-5 h-5 text-white" />
+            </button>
+          </div>
+
+          {/* INFO SIDE */}
+          <div className="p-8 flex flex-col gap-4 text-base-content">
+            <h1 className="text-2xl font-bold">{product.name}</h1>
+
+            {/* Pills */}
+            <div className="flex gap-2">
+              <span
+                className="px-3 py-1 text-xs rounded-full
+                bg-white/20 backdrop-blur border border-white/30
+              "
+              >
+                EU38
+              </span>
+              <span
+                className="px-3 py-1 text-xs rounded-full
+                bg-white/20 backdrop-blur border border-white/30
+              "
+              >
+                BLACK / WHITE
+              </span>
+            </div>
+
+            <p className="text-sm opacity-80 leading-relaxed text-neutral">
+              {product.description}
+            </p>
+
+            {/* PRICE + BUTTON */}
+            <div className="mt-auto flex items-center justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase opacity-60">Price</p>
+                <p className="text-2xl font-bold">
+                  ${product.price.toFixed(2)}
+                </p>
+              </div>
+
+              {/* Glass Button */}
+              <button
+                disabled={!product.isActive || product.stock === 0}
+                className="
+                  px-6 py-3 rounded-xl font-semibold text-white
+                  bg-primary/70 backdrop-blur-md border border-white/30
+                  hover:bg-primary/80 hover:shadow-xl
+                  disabled:opacity-50 disabled:cursor-not-allowed
+                  transition-all duration-200
+                "
+              >
+                {product.stock > 0 ? "Add to cart" : "Out of stock"}
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

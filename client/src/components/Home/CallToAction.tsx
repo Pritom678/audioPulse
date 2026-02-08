@@ -39,7 +39,7 @@ const CallToAction = () => {
         </p>
         <Link
           href={"/products"}
-          className="btn bg-primary/30 backdrop-blur-md border border-white/30 hover:bg-primary/20 hover:scale-105 transition-all duration-300 rounded-full px-12 py-4 text-lg font-semibold text-white shadow-lg"
+          className="btn bg-primary/50 backdrop-blur-md border border-white/30 hover:bg-primary/40 hover:scale-105 transition-all duration-300 rounded-full px-12 py-4 text-lg font-semibold text-white shadow-lg"
         >
           Shop Now
         </Link>

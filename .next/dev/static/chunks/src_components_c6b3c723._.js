@@ -80,58 +80,67 @@ const AudioExperience = ()=>{
         });
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        ref: sectionRef,
-        className: "relative bg-gradient-to-tr from-primary/30 to-base-200 py-40 my-5 overflow-hidden rounded-2xl",
-        style: {
-            perspective: 1200
-        },
+        className: "relative",
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                ref: waveRef,
-                className: "   absolute inset-0    opacity-60   bg-[linear-gradient(90deg,rgba(0,0,0,0.2),rgba(0,0,0,0.4),rgba(0,0,0,0.2))]   bg-[length:200%_100%]   "
-            }, void 0, false, {
-                fileName: "[project]/src/components/Home/AudioExperience.tsx",
-                lineNumber: 96,
-                columnNumber: 7
-            }, ("TURBOPACK compile-time value", void 0)),
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "relative mx-auto max-w-4xl text-center space-y-6 z-20",
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    ref: textRef,
-                    children: [
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                            className: "text-3xl font-semibold text-neutral",
-                            children: "Designed for how you listen"
-                        }, void 0, false, {
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                ref: sectionRef,
+                className: "relative bg-gradient-to-tr from-primary/30 to-base-200 py-40 my-5 overflow-hidden rounded-2xl",
+                style: {
+                    perspective: 1200
+                },
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        ref: waveRef,
+                        className: "   absolute inset-0    opacity-60   bg-[linear-gradient(90deg,rgba(0,0,0,0.2),rgba(0,0,0,0.4),rgba(0,0,0,0.2))]   bg-[length:200%_100%]   "
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                        lineNumber: 97,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0)),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "relative mx-auto max-w-4xl text-center space-y-6 z-20",
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            ref: textRef,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                    className: "text-3xl font-semibold text-neutral",
+                                    children: "Designed for how you listen"
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                                    lineNumber: 110,
+                                    columnNumber: 13
+                                }, ("TURBOPACK compile-time value", void 0)),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                    className: "text-neutral/80",
+                                    children: "From music to movies, AudioPluse adapts to every moment."
+                                }, void 0, false, {
+                                    fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                                    lineNumber: 113,
+                                    columnNumber: 13
+                                }, ("TURBOPACK compile-time value", void 0))
+                            ]
+                        }, void 0, true, {
                             fileName: "[project]/src/components/Home/AudioExperience.tsx",
                             lineNumber: 109,
                             columnNumber: 11
-                        }, ("TURBOPACK compile-time value", void 0)),
-                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "text-neutral/80",
-                            children: "From music to movies, AudioPluse adapts to every moment."
-                        }, void 0, false, {
-                            fileName: "[project]/src/components/Home/AudioExperience.tsx",
-                            lineNumber: 112,
-                            columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
-                    ]
-                }, void 0, true, {
-                    fileName: "[project]/src/components/Home/AudioExperience.tsx",
-                    lineNumber: 108,
-                    columnNumber: 9
-                }, ("TURBOPACK compile-time value", void 0))
-            }, void 0, false, {
+                    }, void 0, false, {
+                        fileName: "[project]/src/components/Home/AudioExperience.tsx",
+                        lineNumber: 108,
+                        columnNumber: 9
+                    }, ("TURBOPACK compile-time value", void 0))
+                ]
+            }, void 0, true, {
                 fileName: "[project]/src/components/Home/AudioExperience.tsx",
-                lineNumber: 107,
+                lineNumber: 91,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "pointer-events-auto",
+                className: "absolute pointer-events-auto",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         ref: imgOneRef,
-                        className: "absolute top-16 right-10 w-64 z-10",
+                        className: "absolute bottom-10 left-220 w-64 z-10",
                         onMouseEnter: ()=>handleHover3D(imgOneRef, -8, 1.1, 60, 15, -5),
                         onMouseLeave: ()=>handleHover3D(imgOneRef, -12, 1, 0, 0, 0),
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -142,12 +151,12 @@ const AudioExperience = ()=>{
                             className: "object-contain drop-shadow-xl"
                         }, void 0, false, {
                             fileName: "[project]/src/components/Home/AudioExperience.tsx",
-                            lineNumber: 127,
+                            lineNumber: 129,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/Home/AudioExperience.tsx",
-                        lineNumber: 121,
+                        lineNumber: 123,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -163,18 +172,18 @@ const AudioExperience = ()=>{
                             className: "object-contain drop-shadow-xl"
                         }, void 0, false, {
                             fileName: "[project]/src/components/Home/AudioExperience.tsx",
-                            lineNumber: 143,
+                            lineNumber: 145,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/src/components/Home/AudioExperience.tsx",
-                        lineNumber: 137,
+                        lineNumber: 139,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/src/components/Home/AudioExperience.tsx",
-                lineNumber: 119,
+                lineNumber: 121,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
@@ -266,7 +275,7 @@ const CallToAction = ()=>{
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         href: "/products",
-                        className: "btn bg-primary/30 backdrop-blur-md border border-white/30 hover:bg-primary/20 hover:scale-105 transition-all duration-300 rounded-full px-12 py-4 text-lg font-semibold text-white shadow-lg",
+                        className: "btn bg-primary/50 backdrop-blur-md border border-white/30 hover:bg-primary/40 hover:scale-105 transition-all duration-300 rounded-full px-12 py-4 text-lg font-semibold text-white shadow-lg",
                         children: "Shop Now"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Home/CallToAction.tsx",

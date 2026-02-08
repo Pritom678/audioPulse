@@ -50,7 +50,7 @@ const AudioExperience = () => {
           duration: 1,
           ease: "power3.out",
         },
-        "-=0.4"
+        "-=0.4",
       )
       .from(
         imgTwoRef.current,
@@ -61,7 +61,7 @@ const AudioExperience = () => {
           duration: 1,
           ease: "power3.out",
         },
-        "-=0.6"
+        "-=0.6",
       );
   }, []);
 
@@ -72,7 +72,7 @@ const AudioExperience = () => {
     scale: number,
     z: number,
     rotateY = 0,
-    rotateX = 0
+    rotateX = 0,
   ) => {
     if (!ref.current) return;
     gsap.to(ref.current, {
@@ -87,40 +87,42 @@ const AudioExperience = () => {
   };
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative bg-gradient-to-tr from-primary/30 to-base-200 py-40 my-5 overflow-hidden rounded-2xl"
-      style={{ perspective: 1200 }} // Enables 3D effect
-    >
-      {/* Animated sound wave background */}
-      <div
-        ref={waveRef}
-        className="
+    <section className="relative">
+      <section
+        ref={sectionRef}
+        className="relative bg-gradient-to-tr from-primary/30 to-base-200 py-40 my-5 overflow-hidden rounded-2xl"
+        style={{ perspective: 1200 }} // Enables 3D effect
+      >
+        {/* Animated sound wave background */}
+        <div
+          ref={waveRef}
+          className="
           absolute inset-0 
           opacity-60
           bg-[linear-gradient(90deg,rgba(0,0,0,0.2),rgba(0,0,0,0.4),rgba(0,0,0,0.2))]
           bg-[length:200%_100%]
         "
-      />
+        />
 
-      {/* Content */}
-      <div className="relative mx-auto max-w-4xl text-center space-y-6 z-20">
-        <div ref={textRef}>
-          <h2 className="text-3xl font-semibold text-neutral">
-            Designed for how you listen
-          </h2>
-          <p className="text-neutral/80">
-            From music to movies, AudioPluse adapts to every moment.
-          </p>
+        {/* Content */}
+        <div className="relative mx-auto max-w-4xl text-center space-y-6 z-20">
+          <div ref={textRef}>
+            <h2 className="text-3xl font-semibold text-neutral">
+              Designed for how you listen
+            </h2>
+            <p className="text-neutral/80">
+              From music to movies, AudioPluse adapts to every moment.
+            </p>
+          </div>
         </div>
-      </div>
 
-      {/* Floating Images */}
-      <div className="pointer-events-auto">
-        {/* Image 1 – top right with 3D pop-out */}
+        {/* Floating Images */}
+      </section>
+      <div className="absolute pointer-events-auto">
+        {/* Image 1 */}
         <div
           ref={imgOneRef}
-          className="absolute top-16 right-10 w-64 z-10"
+          className="absolute bottom-10 left-220 w-64 z-10"
           onMouseEnter={() => handleHover3D(imgOneRef, -8, 1.1, 60, 15, -5)}
           onMouseLeave={() => handleHover3D(imgOneRef, -12, 1, 0, 0, 0)}
         >
@@ -133,7 +135,7 @@ const AudioExperience = () => {
           />
         </div>
 
-        {/* Image 2 – bottom left with 3D pop-out */}
+        {/* Image 2 */}
         <div
           ref={imgTwoRef}
           className="absolute bottom-20 left-10 w-72 z-10"
@@ -148,6 +150,36 @@ const AudioExperience = () => {
             className="object-contain drop-shadow-xl"
           />
         </div>
+        {/* Image 3 */}
+        {/* <div
+          ref={imgTwoRef}
+          className="absolute bottom-50 left-250 w-72 z-10"
+          onMouseEnter={() => handleHover3D(imgTwoRef, 12, 1.1, 60, -15, 5)}
+          onMouseLeave={() => handleHover3D(imgTwoRef, 8, 1, 0, 0, 0)}
+        >
+          <Image
+            src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770393143/title3_jwghlb.png"
+            alt="Headphone angled"
+            width={450}
+            height={450}
+            className="object-contain drop-shadow-xl"
+          />
+        </div> */}
+        {/* Image 4 */}
+        {/* <div
+          ref={imgTwoRef}
+          className="absolute top-50 right-250 w-72 z-10"
+          onMouseEnter={() => handleHover3D(imgTwoRef, 12, 1.1, 60, -15, 5)}
+          onMouseLeave={() => handleHover3D(imgTwoRef, 8, 1, 0, 0, 0)}
+        >
+          <Image
+            src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770393142/title4_w7t4p5.png"
+            alt="Headphone angled"
+            width={450}
+            height={450}
+            className="object-contain drop-shadow-xl"
+          />
+        </div> */}
       </div>
     </section>
   );
