@@ -6,6 +6,8 @@ import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ArrowRight, Heart } from "lucide-react";
+import StarRating from "@/components/Rating/StarRating";
+import { formatPrice } from "@/utils/priceFormat";
 
 type ProductCardProps = {
   id: string;
@@ -14,6 +16,8 @@ type ProductCardProps = {
   description: string;
   image: string;
   gradient: string;
+  rating?: number;
+  reviewCount?: number;
 };
 
 export default function ProductCard({
@@ -23,6 +27,8 @@ export default function ProductCard({
   description,
   image,
   gradient,
+  rating = 0,
+  reviewCount = 0,
 }: ProductCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
@@ -80,10 +86,19 @@ export default function ProductCard({
         <div className="mt-4 rounded-2xl bg-white/85 backdrop-blur-sm p-4 pb-16 relative">
           {/* Product Info */}
           <div className="flex justify-between items-center mb-1">
-            <h3 className="text-sm font-semibold text-gray-900">{name}</h3>
-            <span className="text-sm font-bold text-gray-900">
-              ${price.toFixed(2)}
-            </span>
+            <div className="flex-1">
+              <h3 className="text-sm font-semibold text-gray-900">{name}</h3>
+              {rating > 0 && (
+                <StarRating
+                  rating={rating}
+                  reviewCount={reviewCount}
+                  size="sm"
+                />
+              )}
+            </div>
+            <div className="text-sm font-bold text-gray-900">
+              {formatPrice(price)}
+            </div>
           </div>
 
           <p className="text-xs text-gray-600 mb-4 line-clamp-2">

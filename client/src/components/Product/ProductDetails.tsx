@@ -6,6 +6,7 @@ import React, { useEffect, useState } from "react";
 import { Heart } from "lucide-react";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { formatPrice } from "@/utils/priceFormat";
 
 interface Product {
   _id: string;
@@ -143,7 +144,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
               <div>
                 <p className="text-xs uppercase opacity-60">Price</p>
                 <p className="text-2xl font-bold">
-                  ${product.price.toFixed(2)}
+                  {formatPrice(product.price)}
                 </p>
               </div>
 

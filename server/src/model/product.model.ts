@@ -1,16 +1,19 @@
 import mongoose, { Document, model, Schema } from "mongoose";
 
-export interface IProduct extends Document{
-    name: string;
-    description?: string;
-    price: number;
-    images: string[];
-    category: string;
-    brand?: string;
-    stock: number;
-    isActive: boolean;
-    createdAt: Date;
-    updatedAt: Date;
+export interface IProduct extends Document {
+  name: string;
+  description?: string;
+  price: number;
+  images: string[];
+  category: string;
+  brand?: string;
+  stock: number;
+  isActive: boolean;
+  rating: number;
+  reviewCount: number;
+  ratingSum: number;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const productSchema = new Schema<IProduct>(
@@ -57,12 +60,30 @@ const productSchema = new Schema<IProduct>(
       type: Boolean,
       default: true,
     },
+
+    rating: {
+      type: Number,
+      default: 0,
+      min: 0,
+      max: 5,
+    },
+
+    reviewCount: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
+    ratingSum: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
   },
   {
     timestamps: true,
-  }
+  },
 );
-
 
 const Product = model<IProduct>("Product", productSchema);
 

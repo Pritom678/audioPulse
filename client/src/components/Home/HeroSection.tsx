@@ -129,12 +129,10 @@ export default function HeroSection() {
             {/* 🧊 GLASS BUTTON */}
             <Link
               href={"/products"}
-              className="group relative mt-20 inline-flex items-center  gap-2 rounded-full px-8 py-4
+              className="group relative mt-20 inline-flex items-center gap-2 rounded-full px-8 py-4
               bg-white/25 backdrop-blur-xl
               ring-1 ring-white/50
-              shadow-[0_10px_30px_rgba(0,0,0,0.15)]
-              transition-all duration-300
-              hover:-translate-y-1 hover:shadow-[0_20px_50px_rgba(0,0,0,0.25)]"
+              shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
             >
               {/* Noise */}
               <span
@@ -148,9 +146,7 @@ export default function HeroSection() {
                 Explore Collection
               </span>
 
-              <span className="relative transition-transform duration-300 group-hover:translate-x-1">
-                →
-              </span>
+              <span className="relative">→</span>
             </Link>
           </div>
 

@@ -14,6 +14,17 @@ type Product = {
   brand: string;
   stock: number;
   isActive: boolean;
+  rating?: number;
+  reviewCount?: number;
+};
+
+type ProductGridProps = {
+  searchQuery?: string;
+  category?: string;
+  brand?: string;
+  minPrice?: number;
+  maxPrice?: number;
+  sortBy?: string;
 };
 
 const gradients = [
@@ -23,15 +34,48 @@ const gradients = [
   "bg-gradient-to-br from-white-100/90 via-orange-400/70 to-amber-500/40",
 ];
 
-export default function ProductGrid() {
+export default function ProductGrid({
+  searchQuery,
+  category,
+  brand,
+  minPrice,
+  maxPrice,
+  sortBy,
+}: ProductGridProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const res = await api.get("/products/");
-        setProducts(res.data);
+        const params = new URLSearchParams();
+
+        if (searchQuery) params.set("q", searchQuery);
+        if (category) params.set("category", category);
+        if (brand) params.set("brand", brand);
+        if (minPrice) params.set("minPrice", minPrice.toString());
+        if (maxPrice) params.set("maxPrice", maxPrice.toString());
+        if (sortBy) params.set("sortBy", sortBy);
+
+        const endpoint =
+          searchQuery || category || brand || minPrice || maxPrice || sortBy
+            ? "/products/search?" + params.toString()
+            : "/products/";
+
+        const res = await api.get(endpoint);
+
+        if (
+          searchQuery ||
+          category ||
+          brand ||
+          minPrice ||
+          maxPrice ||
+          sortBy
+        ) {
+          setProducts(res.data.products || []);
+        } else {
+          setProducts(res.data || []);
+        }
       } catch (err) {
         console.error("Failed to load products", err);
       } finally {
@@ -40,7 +84,7 @@ export default function ProductGrid() {
     };
 
     fetchProducts();
-  }, []);
+  }, [searchQuery, category, brand, minPrice, maxPrice, sortBy]);
 
   if (loading) {
     return <p className="text-center text-gray-500">Loading products...</p>;
@@ -57,6 +101,8 @@ export default function ProductGrid() {
           description={product.description}
           image={product.images[0]}
           gradient={gradients[index % gradients.length]}
+          rating={product.rating}
+          reviewCount={product.reviewCount}
         />
       ))}
     </section>

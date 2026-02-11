@@ -4,6 +4,7 @@ import api from "@/lib/axios";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
+import { formatPrice } from "@/utils/priceFormat";
 
 interface Product {
   _id: string;
@@ -47,7 +48,7 @@ const CartItems = () => {
 
   const subtotal = cart.items.reduce(
     (sum, i) => sum + Number(i.product.price) * i.quantity,
-    0
+    0,
   );
   const discount = subtotal * 0.1;
   const delivery = 50;
@@ -64,9 +65,7 @@ const CartItems = () => {
     setCart({
       ...cart,
       items: cart.items.map((item) =>
-        item.product._id === productId
-          ? { ...item, quantity: qty }
-          : item
+        item.product._id === productId ? { ...item, quantity: qty } : item,
       ),
     });
 
@@ -90,9 +89,7 @@ const CartItems = () => {
     setTimeout(() => {
       setCart({
         ...cart,
-        items: cart.items.filter(
-          (item) => item.product._id !== productId
-        ),
+        items: cart.items.filter((item) => item.product._id !== productId),
       });
     }, 200);
 
@@ -120,8 +117,7 @@ const CartItems = () => {
 
           <div className="divide-y divide-white/90">
             {cart.items.map((item) => {
-              const itemTotal =
-                Number(item.product.price) * item.quantity;
+              const itemTotal = Number(item.product.price) * item.quantity;
 
               return (
                 <div
@@ -149,7 +145,7 @@ const CartItems = () => {
                     <div>
                       <p className="font-medium">{item.product.name}</p>
                       <p className="text-sm text-gray-500">
-                        ${item.product.price}
+                        {formatPrice(Number(item.product.price))}
                       </p>
                     </div>
                   </div>
@@ -160,7 +156,7 @@ const CartItems = () => {
                       onClick={() =>
                         handleQuantityChange(
                           item.product._id,
-                          item.quantity - 1
+                          item.quantity - 1,
                         )
                       }
                       className="w-9 h-9 rounded-lg bg-white/40 hover:bg-white/60 transition"
@@ -186,7 +182,7 @@ const CartItems = () => {
                       onClick={() =>
                         handleQuantityChange(
                           item.product._id,
-                          item.quantity + 1
+                          item.quantity + 1,
                         )
                       }
                       className="w-9 h-9 rounded-lg bg-white/40 hover:bg-white/60 transition"
@@ -199,7 +195,7 @@ const CartItems = () => {
                   <div className="flex items-center gap-6">
                     <p
                       className={`
-                        font-semibold min-w-[80px] text-right
+                        font-semibold min-w-20 text-right
                         transition-all duration-200
                         ${
                           animatingId === item.product._id
@@ -208,7 +204,7 @@ const CartItems = () => {
                         }
                       `}
                     >
-                      ${itemTotal}
+                      {formatPrice(itemTotal)}
                     </p>
 
                     <button
@@ -231,17 +227,17 @@ const CartItems = () => {
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
               <span>Sub Total</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>{formatPrice(subtotal)}</span>
             </div>
 
             <div className="flex justify-between text-green-600">
               <span>Discount (10%)</span>
-              <span>- ${discount.toFixed(2)}</span>
+              <span>- {formatPrice(discount)}</span>
             </div>
 
             <div className="flex justify-between">
               <span>Delivery Fee</span>
-              <span>${delivery}</span>
+              <span>{formatPrice(delivery)}</span>
             </div>
 
             <div
@@ -252,7 +248,7 @@ const CartItems = () => {
               `}
             >
               <span>Total</span>
-              <span>${total.toFixed(2)}</span>
+              <span>{formatPrice(total)}</span>
             </div>
           </div>
 
@@ -265,7 +261,6 @@ const CartItems = () => {
             Checkout Now
           </button>
         </div>
-      
       </div>
     </div>
   );
