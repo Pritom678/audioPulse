@@ -101,7 +101,26 @@ const api = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$axio
     withCredentials: true,
     headers: {
         "Content-Type": "application/json"
+    },
+    timeout: 10000
+});
+// Add request interceptor for debugging
+api.interceptors.request.use((config)=>{
+    console.log("API Request:", config.method?.toUpperCase(), config.url);
+    return config;
+}, (error)=>{
+    return Promise.reject(error);
+});
+// Add response interceptor for debugging
+api.interceptors.response.use((response)=>{
+    console.log("API Response:", response.status, response.config.url);
+    return response;
+}, (error)=>{
+    console.error("API Error:", error.message);
+    if (error.code === "NETWORK_ERROR") {
+        console.error("Network error - server might be down");
     }
+    return Promise.reject(error);
 });
 const __TURBOPACK__default__export__ = api;
 if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
@@ -307,9 +326,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Shared$
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$axios$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/axios.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/search.js [app-client] (ecmascript) <export default as Search>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/menu.js [app-client] (ecmascript) <export default as Menu>");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/image.js [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -431,37 +452,12 @@ const Header = ()=>{
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Shared$2f$Logo$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                     fileName: "[project]/src/components/Shared/Header.tsx",
-                                    lineNumber: 109,
-                                    columnNumber: 13
-                                }, ("TURBOPACK compile-time value", void 0)),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                                    className: "flex gap-6 ml-50",
-                                    children: navLinks.map((link)=>{
-                                        const isActive = pathname === link.href;
-                                        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                href: link.href,
-                                                className: `border border-white/20 ${glassBase} ${isActive ? glassActive : glassInactive}`,
-                                                children: link.name
-                                            }, void 0, false, {
-                                                fileName: "[project]/src/components/Shared/Header.tsx",
-                                                lineNumber: 116,
-                                                columnNumber: 21
-                                            }, ("TURBOPACK compile-time value", void 0))
-                                        }, link.name, false, {
-                                            fileName: "[project]/src/components/Shared/Header.tsx",
-                                            lineNumber: 115,
-                                            columnNumber: 19
-                                        }, ("TURBOPACK compile-time value", void 0));
-                                    })
-                                }, void 0, false, {
-                                    fileName: "[project]/src/components/Shared/Header.tsx",
                                     lineNumber: 110,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     ref: searchRef,
-                                    className: "relative ml-50",
+                                    className: "relative",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: `flex items-center bg-white/90 backdrop-blur-sm border border-gray-300 rounded-lg transition-all duration-300 ease-in-out ${isSearchExpanded ? "w-32" : "w-32"}`,
@@ -471,7 +467,7 @@ const Header = ()=>{
                                                     className: "w-4 h-4 text-gray-400 ml-3"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Shared/Header.tsx",
-                                                    lineNumber: 137,
+                                                    lineNumber: 120,
                                                     columnNumber: 17
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -485,13 +481,13 @@ const Header = ()=>{
                                                     readOnly: !isSearchExpanded
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Shared/Header.tsx",
-                                                    lineNumber: 138,
+                                                    lineNumber: 121,
                                                     columnNumber: 17
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Shared/Header.tsx",
-                                            lineNumber: 131,
+                                            lineNumber: 114,
                                             columnNumber: 15
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         isSearchExpanded && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -504,7 +500,7 @@ const Header = ()=>{
                                                             className: "w-4 h-4 text-gray-400 ml-3"
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/Shared/Header.tsx",
-                                                            lineNumber: 156,
+                                                            lineNumber: 139,
                                                             columnNumber: 21
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -517,13 +513,13 @@ const Header = ()=>{
                                                             autoFocus: true
                                                         }, void 0, false, {
                                                             fileName: "[project]/src/components/Shared/Header.tsx",
-                                                            lineNumber: 157,
+                                                            lineNumber: 140,
                                                             columnNumber: 21
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/src/components/Shared/Header.tsx",
-                                                    lineNumber: 155,
+                                                    lineNumber: 138,
                                                     columnNumber: 19
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 searchQuery.trim().length >= 2 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -533,14 +529,14 @@ const Header = ()=>{
                                                         children: "Searching..."
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Shared/Header.tsx",
-                                                        lineNumber: 172,
+                                                        lineNumber: 155,
                                                         columnNumber: 25
                                                     }, ("TURBOPACK compile-time value", void 0)) : searchResults.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "p-4 text-center text-gray-500",
                                                         children: "No products found"
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Shared/Header.tsx",
-                                                        lineNumber: 176,
+                                                        lineNumber: 159,
                                                         columnNumber: 25
                                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "py-2",
@@ -553,19 +549,21 @@ const Header = ()=>{
                                                                 },
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "w-10 h-10 rounded bg-gray-100 flex-shrink-0",
-                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                                                        className: "w-10 h-10 rounded bg-gray-100 shrink-0",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                                             src: product.images[0] || "/placeholder.png",
                                                                             alt: product.name,
-                                                                            className: "w-full h-full object-cover rounded"
+                                                                            className: "w-full h-full object-cover rounded",
+                                                                            width: 40,
+                                                                            height: 40
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/src/components/Shared/Header.tsx",
-                                                                            lineNumber: 192,
+                                                                            lineNumber: 175,
                                                                             columnNumber: 33
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/src/components/Shared/Header.tsx",
-                                                                        lineNumber: 191,
+                                                                        lineNumber: 174,
                                                                         columnNumber: 31
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -576,7 +574,7 @@ const Header = ()=>{
                                                                                 children: product.name
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/src/components/Shared/Header.tsx",
-                                                                                lineNumber: 199,
+                                                                                lineNumber: 184,
                                                                                 columnNumber: 33
                                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -587,51 +585,76 @@ const Header = ()=>{
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/src/components/Shared/Header.tsx",
-                                                                                lineNumber: 202,
+                                                                                lineNumber: 187,
                                                                                 columnNumber: 33
                                                                             }, ("TURBOPACK compile-time value", void 0))
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/src/components/Shared/Header.tsx",
-                                                                        lineNumber: 198,
+                                                                        lineNumber: 183,
                                                                         columnNumber: 31
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, product._id, true, {
                                                                 fileName: "[project]/src/components/Shared/Header.tsx",
-                                                                lineNumber: 182,
+                                                                lineNumber: 165,
                                                                 columnNumber: 29
                                                             }, ("TURBOPACK compile-time value", void 0)))
                                                     }, void 0, false, {
                                                         fileName: "[project]/src/components/Shared/Header.tsx",
-                                                        lineNumber: 180,
+                                                        lineNumber: 163,
                                                         columnNumber: 25
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/components/Shared/Header.tsx",
-                                                    lineNumber: 170,
+                                                    lineNumber: 153,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/components/Shared/Header.tsx",
-                                            lineNumber: 154,
+                                            lineNumber: 137,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Shared/Header.tsx",
-                                    lineNumber: 130,
+                                    lineNumber: 113,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Shared/Header.tsx",
-                            lineNumber: 108,
+                            lineNumber: 109,
+                            columnNumber: 11
+                        }, ("TURBOPACK compile-time value", void 0)),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
+                            className: "flex gap-6",
+                            children: navLinks.map((link)=>{
+                                const isActive = pathname === link.href;
+                                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                        href: link.href,
+                                        className: `border border-white/20 ${glassBase} ${isActive ? glassActive : glassInactive}`,
+                                        children: link.name
+                                    }, void 0, false, {
+                                        fileName: "[project]/src/components/Shared/Header.tsx",
+                                        lineNumber: 209,
+                                        columnNumber: 19
+                                    }, ("TURBOPACK compile-time value", void 0))
+                                }, link.name, false, {
+                                    fileName: "[project]/src/components/Shared/Header.tsx",
+                                    lineNumber: 208,
+                                    columnNumber: 17
+                                }, ("TURBOPACK compile-time value", void 0));
+                            })
+                        }, void 0, false, {
+                            fileName: "[project]/src/components/Shared/Header.tsx",
+                            lineNumber: 203,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex items-center ml-50",
+                            className: "flex items-center",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex items-center gap-3",
                                 children: authenticated ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -642,12 +665,12 @@ const Header = ()=>{
                                         className: "w-5 h-5 text-gray-600"
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Shared/Header.tsx",
-                                        lineNumber: 226,
+                                        lineNumber: 231,
                                         columnNumber: 19
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Shared/Header.tsx",
-                                    lineNumber: 221,
+                                    lineNumber: 226,
                                     columnNumber: 17
                                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/signup",
@@ -655,28 +678,28 @@ const Header = ()=>{
                                     children: "Get Started"
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Shared/Header.tsx",
-                                    lineNumber: 229,
+                                    lineNumber: 234,
                                     columnNumber: 17
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Shared/Header.tsx",
-                                lineNumber: 219,
+                                lineNumber: 224,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/src/components/Shared/Header.tsx",
-                            lineNumber: 218,
+                            lineNumber: 223,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/Shared/Header.tsx",
-                    lineNumber: 106,
+                    lineNumber: 107,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/src/components/Shared/Header.tsx",
-                lineNumber: 105,
+                lineNumber: 106,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             authenticated && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Shared$2f$UserSidebar$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -684,7 +707,7 @@ const Header = ()=>{
                 onToggle: ()=>setIsSidebarOpen(!isSidebarOpen)
             }, void 0, false, {
                 fileName: "[project]/src/components/Shared/Header.tsx",
-                lineNumber: 247,
+                lineNumber: 252,
                 columnNumber: 9
             }, ("TURBOPACK compile-time value", void 0))
         ]

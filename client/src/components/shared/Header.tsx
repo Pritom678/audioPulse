@@ -7,6 +7,7 @@ import Logo from "./Logo";
 import UserSidebar from "./UserSidebar";
 import api from "@/lib/axios";
 import { Search, Menu } from "lucide-react";
+import Image from "next/image";
 
 const navLinks = [
   { name: "Products", href: "/products" },
@@ -104,30 +105,12 @@ const Header: React.FC = () => {
     <>
       <header className="sticky top-0 z-30 w-full bg-base-100/70 backdrop-blur-lg border-b border-base-300">
         <nav className="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
-          {/* Logo and Navigation Links - Left Side */}
+          {/* Logo and Search Bar - Left Side */}
           <div className="flex items-center gap-8">
             <Logo />
-            <ul className="flex gap-6 ml-50">
-              {navLinks.map((link) => {
-                const isActive = pathname === link.href;
-
-                return (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className={`border border-white/20 ${glassBase} ${
-                        isActive ? glassActive : glassInactive
-                      }`}
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                );
-              })}
-            </ul>
 
             {/* Clean Search Bar with Results */}
-            <div ref={searchRef} className="relative ml-50">
+            <div ref={searchRef} className="relative">
               <div
                 className={`flex items-center bg-white/90 backdrop-blur-sm border border-gray-300 rounded-lg transition-all duration-300 ease-in-out ${
                   isSearchExpanded ? "w-32" : "w-32"
@@ -188,11 +171,13 @@ const Header: React.FC = () => {
                                 setIsSearchExpanded(false);
                               }}
                             >
-                              <div className="w-10 h-10 rounded bg-gray-100 flex-shrink-0">
-                                <img
+                              <div className="w-10 h-10 rounded bg-gray-100 shrink-0">
+                                <Image
                                   src={product.images[0] || "/placeholder.png"}
                                   alt={product.name}
                                   className="w-full h-full object-cover rounded"
+                                  width={40}
+                                  height={40}
                                 />
                               </div>
                               <div className="flex-1 min-w-0">
@@ -214,8 +199,28 @@ const Header: React.FC = () => {
             </div>
           </div>
 
+          {/* Navigation Links - Center */}
+          <ul className="flex gap-6">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+
+              return (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className={`border border-white/20 ${glassBase} ${
+                      isActive ? glassActive : glassInactive
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+
           {/* Right Side - Auth Actions */}
-          <div className="flex items-center ml-50">
+          <div className="flex items-center">
             <div className="flex items-center gap-3">
               {authenticated ? (
                 <button

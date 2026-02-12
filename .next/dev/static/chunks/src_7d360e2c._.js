@@ -1133,6 +1133,47 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
 }),
+"[project]/src/lib/wishlist.ts [app-client] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "addToWishlist",
+    ()=>addToWishlist,
+    "getWishlist",
+    ()=>getWishlist,
+    "removeFromWishlist",
+    ()=>removeFromWishlist
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$axios$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/axios.ts [app-client] (ecmascript)");
+;
+const addToWishlist = async (productId)=>{
+    try {
+        const res = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$axios$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].post(`/wishlist/${productId}`);
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+};
+const removeFromWishlist = async (productId)=>{
+    try {
+        const res = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$axios$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].delete(`/wishlist/${productId}`);
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+};
+const getWishlist = async ()=>{
+    try {
+        const res = await __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$axios$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].get("/wishlist");
+        return res.data;
+    } catch (error) {
+        throw error;
+    }
+};
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
 "[project]/src/components/Product/ProductCard.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -1150,9 +1191,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Heart$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/heart.js [app-client] (ecmascript) <export default as Heart>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Rating$2f$StarRating$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/Rating/StarRating.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$priceFormat$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/priceFormat.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$wishlist$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/lib/wishlist.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/react-hot-toast/dist/index.mjs [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
+;
 ;
 ;
 ;
@@ -1165,6 +1210,8 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
     _s();
     const cardRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const imageRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const [isInWishlist, setIsInWishlist] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     // GSAP animations
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGSAP"])({
         "ProductCard.useGSAP": ()=>{
@@ -1202,6 +1249,35 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
         if (text.length <= limit) return text;
         return text.slice(0, limit) + "...";
     };
+    const handleWishlistToggle = async ()=>{
+        if (isLoading) return;
+        try {
+            setIsLoading(true);
+            if (isInWishlist) {
+                await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$wishlist$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["removeFromWishlist"])(id);
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].success("Removed from wishlist ❌");
+                setIsInWishlist(false);
+            } else {
+                await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$lib$2f$wishlist$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["addToWishlist"])(id);
+                __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].success("Added to wishlist ❤️");
+                setIsInWishlist(true);
+            }
+            // GSAP animation
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].to(cardRef.current, {
+                scale: [
+                    1,
+                    0.95,
+                    1
+                ],
+                duration: 0.2,
+                ease: "power2.inOut"
+            });
+        } catch (error) {
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$react$2d$hot$2d$toast$2f$dist$2f$index$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].error("Please login to manage wishlist");
+        } finally{
+            setIsLoading(false);
+        }
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative h-full flex flex-col",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1220,12 +1296,12 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                         className: "object-contain drop-shadow-xl transition-transform duration-300 hover:scale-105"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Product/ProductCard.tsx",
-                        lineNumber: 80,
+                        lineNumber: 113,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                    lineNumber: 76,
+                    lineNumber: 109,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1242,7 +1318,7 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                                             children: name
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                            lineNumber: 95,
+                                            lineNumber: 128,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Rating$2f$StarRating$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1251,13 +1327,13 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                                             size: "sm"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                            lineNumber: 96,
+                                            lineNumber: 129,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 94,
+                                    lineNumber: 127,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1265,13 +1341,13 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                                     children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$priceFormat$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatPrice"])(price)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 98,
+                                    lineNumber: 131,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                            lineNumber: 93,
+                            lineNumber: 126,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1280,30 +1356,51 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                                 children: truncateDescription(description, 80)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                lineNumber: 105,
+                                lineNumber: 138,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                            lineNumber: 104,
+                            lineNumber: 137,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "mt-auto flex justify-between px-4",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: handleWishlistToggle,
+                                    disabled: isLoading,
                                     "aria-label": "Add product to wishlist",
-                                    className: "   flex items-center gap-2   bg-white/30 backdrop-blur-md border border-white/30   text-neutral px-4 py-2 rounded-full   text-sm font-semibold   hover:bg-white/40 hover:scale-105 hover:shadow-lg   transition-all duration-300   ",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Heart$3e$__["Heart"], {
-                                        className: "w-4 h-4"
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                        lineNumber: 122,
-                                        columnNumber: 15
-                                    }, this)
-                                }, void 0, false, {
+                                    className: `
+                flex items-center gap-2
+                bg-white/30 backdrop-blur-md border border-white/30
+                text-neutral px-4 py-2 rounded-full
+                text-sm font-semibold
+                hover:bg-white/40 hover:scale-105 hover:shadow-lg
+                transition-all duration-300
+                ${isInWishlist ? "text-red-500" : ""}
+                disabled:opacity-50 disabled:cursor-not-allowed
+              `,
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Heart$3e$__["Heart"], {
+                                            className: `w-4 h-4 ${isInWishlist ? "fill-current text-red-500" : ""}`
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Product/ProductCard.tsx",
+                                            lineNumber: 159,
+                                            columnNumber: 15
+                                        }, this),
+                                        isLoading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "ml-2 text-xs",
+                                            children: "..."
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/components/Product/ProductCard.tsx",
+                                            lineNumber: 162,
+                                            columnNumber: 29
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 111,
+                                    lineNumber: 144,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1316,40 +1413,40 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                                             className: "w-4 h-4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                            lineNumber: 139,
+                                            lineNumber: 179,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 126,
+                                    lineNumber: 166,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                            lineNumber: 109,
+                            lineNumber: 142,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                    lineNumber: 91,
+                    lineNumber: 124,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/Product/ProductCard.tsx",
-            lineNumber: 71,
+            lineNumber: 104,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Product/ProductCard.tsx",
-        lineNumber: 70,
+        lineNumber: 103,
         columnNumber: 5
     }, this);
 }
-_s(ProductCard, "CpcBU5Z66J+kl0qigEmRdelEKXc=", false, function() {
+_s(ProductCard, "cstCUw9YtK7/GRO9WaVM/o//Kwg=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGSAP"]
     ];
@@ -1447,4 +1544,4 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 }),
 ]);
 
-//# sourceMappingURL=src_1e89954b._.js.map
+//# sourceMappingURL=src_7d360e2c._.js.map

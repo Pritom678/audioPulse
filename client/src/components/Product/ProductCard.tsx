@@ -61,59 +61,59 @@ export default function ProductCard({
     { scope: cardRef },
   );
 
+  const truncateDescription = (text: string, limit: number) => {
+    if (text.length <= limit) return text;
+    return text.slice(0, limit) + "...";
+  };
+
   return (
-    <div className="relative rounded-2xl bg-black/10 backdrop-blur-md overflow-visible">
+    <div className="relative h-full flex flex-col">
       <div
         ref={cardRef}
-        className={`relative rounded-3xl p-6 inset-0 ${gradient}`}
+        className={`relative rounded-3xl p-6 inset-0 flex-1 flex flex-col ${gradient}`}
       >
         {/* Product Image */}
         <div
           ref={imageRef}
-          className="relative -mt-3 h-52 flex items-center justify-center"
+          className="relative h-48 flex items-center justify-center"
         >
           <Image
             src={image}
             alt={name}
-            width={240}
-            height={240}
+            width={180}
+            height={180}
             priority={false}
             className="object-contain drop-shadow-xl transition-transform duration-300 hover:scale-105"
           />
         </div>
 
         {/* Content Panel */}
-        <div className="mt-4 rounded-2xl bg-white/85 backdrop-blur-sm p-4 pb-16 relative">
+        <div className="mt-4 flex-1 flex flex-col">
           {/* Product Info */}
-          <div className="flex justify-between items-center mb-1">
+          <div className="flex justify-between items-center mb-2">
             <div className="flex-1">
               <h3 className="text-sm font-semibold text-gray-900">{name}</h3>
-              {rating > 0 && (
-                <StarRating
-                  rating={rating}
-                  reviewCount={reviewCount}
-                  size="sm"
-                />
-              )}
+              <StarRating rating={rating} reviewCount={reviewCount} size="sm" />
             </div>
             <div className="text-sm font-bold text-gray-900">
               {formatPrice(price)}
             </div>
           </div>
 
-          <p className="text-xs text-gray-600 mb-4 line-clamp-2">
-            {description}
-          </p>
+          {/* Description */}
+          <div className="text-xs text-gray-600 mb-4">
+            <p>{truncateDescription(description, 80)}</p>
+          </div>
 
-          {/* Buttons container at bottom inside the card */}
-          <div className="absolute bottom-4 left-0 right-0 flex justify-between px-4">
+          {/* Buttons container at bottom */}
+          <div className="mt-auto flex justify-between px-4">
             {/* Wishlist button (left) */}
             <button
               aria-label="Add product to wishlist"
               className="
                 flex items-center gap-2
                 bg-white/30 backdrop-blur-md border border-white/30
-                text-netural px-4 py-2 rounded-full
+                text-neutral px-4 py-2 rounded-full
                 text-sm font-semibold
                 hover:bg-white/40 hover:scale-105 hover:shadow-lg
                 transition-all duration-300

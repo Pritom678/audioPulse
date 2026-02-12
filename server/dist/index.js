@@ -3,6 +3,8 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import { connectDB } from "./lib/db.js";
 import authRoutes from "./routes/auth.js";
+import productRoutes from "./routes/product.js";
+import cartRoutes from "./routes/cart.js";
 const app = express();
 const PORT = 8080;
 app.use(cookieParser());
@@ -15,6 +17,8 @@ app.get("/", (req, res) => {
     res.send("Hello from the server!");
 });
 app.use("/auth", authRoutes);
+app.use("/products", productRoutes);
+app.use("/cart", cartRoutes);
 await connectDB();
 app.listen(PORT, () => {
     console.log(`Server is running on http://localhost:${PORT}`);

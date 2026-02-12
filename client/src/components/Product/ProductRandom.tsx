@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
 import api from "@/lib/axios";
 
-
 type Product = {
   _id: string;
   name: string;
@@ -15,6 +14,8 @@ type Product = {
   brand: string;
   stock: number;
   isActive: boolean;
+  rating?: number;
+  reviewCount?: number;
 };
 
 const gradients = [
@@ -23,7 +24,6 @@ const gradients = [
   "bg-gradient-to-br from-white-100/90 via-emerald-400/70 to-teal-600/40",
   "bg-gradient-to-br from-white-100/90 via-orange-400/70 to-amber-500/40",
 ];
-
 
 export default function ProductRandom() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -45,24 +45,22 @@ export default function ProductRandom() {
   }, []);
 
   if (loading) {
-    return (
-      <p className="text-center text-gray-500">
-        Loading products...
-      </p>
-    );
+    return <p className="text-center text-gray-500">Loading products...</p>;
   }
 
   return (
     <section className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-10">
       {products.map((product, index) => (
         <ProductCard
-        id={product._id}
+          id={product._id}
           key={product._id}
           name={product.name}
           price={product.price}
           description={product.description}
           image={product.images[0]}
           gradient={gradients[index % gradients.length]}
+          rating={product.rating}
+          reviewCount={product.reviewCount}
         />
       ))}
     </section>
