@@ -8,6 +8,7 @@ import { useGSAP } from "@gsap/react";
 import { ArrowRight, Heart } from "lucide-react";
 import StarRating from "@/components/Rating/StarRating";
 import { formatPrice } from "@/utils/priceFormat";
+import { useWishlist } from "@/context/WishlistContext";
 
 type ProductCardProps = {
   id: string;
@@ -32,21 +33,22 @@ export default function ProductCard({
 }: ProductCardProps) {
   const cardRef = useRef<HTMLDivElement>(null);
   const imageRef = useRef<HTMLDivElement>(null);
+  const heartRef = useRef<SVGSVGElement>(null);
 
-  // GSAP animations
+  const { toggleWishlist, isWishlisted } = useWishlist();
+
+  // GSAP animations for card entrance & image float
   useGSAP(
     () => {
       if (!cardRef.current || !imageRef.current) return;
 
       const ctx = gsap.context(() => {
-        // Entrance animation
         gsap.fromTo(
           cardRef.current,
           { opacity: 0, y: 30 },
           { opacity: 1, y: 0, duration: 0.6, ease: "power2.out" },
         );
 
-        // Gentle image float
         gsap.to(imageRef.current, {
           y: -8,
           duration: 2.5,
@@ -61,9 +63,33 @@ export default function ProductCard({
     { scope: cardRef },
   );
 
+  // Truncate long descriptions
   const truncateDescription = (text: string, limit: number) => {
     if (text.length <= limit) return text;
     return text.slice(0, limit) + "...";
+  };
+
+  // Handle wishlist toggle with GSAP heart animation
+  const handleWishlistClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    await toggleWishlist(id);
+
+    // Animate heart bounce
+    if (heartRef.current) {
+      gsap.fromTo(
+        heartRef.current,
+        { scale: 0.8 },
+        {
+          scale: 1.4,
+          duration: 0.2,
+          yoyo: true,
+          repeat: 1,
+          ease: "power2.out",
+        },
+      );
+    }
   };
 
   return (
@@ -82,7 +108,6 @@ export default function ProductCard({
             alt={name}
             width={180}
             height={180}
-            priority={false}
             className="object-contain drop-shadow-xl transition-transform duration-300 hover:scale-105"
           />
         </div>
@@ -105,27 +130,34 @@ export default function ProductCard({
             <p>{truncateDescription(description, 80)}</p>
           </div>
 
-          {/* Buttons container at bottom */}
+          {/* Buttons */}
           <div className="mt-auto flex justify-between px-4">
-            {/* Wishlist button (left) */}
+            {/* Wishlist Button */}
             <button
-              aria-label="Add product to wishlist"
-              className="
+              onClick={handleWishlistClick}
+              className={`
                 flex items-center gap-2
-                bg-white/30 backdrop-blur-md border border-white/30
-                text-neutral px-4 py-2 rounded-full
+                backdrop-blur-md border px-4 py-2 rounded-full
                 text-sm font-semibold
-                hover:bg-white/40 hover:scale-105 hover:shadow-lg
                 transition-all duration-300
-              "
+                ${
+                  isWishlisted(id)
+                    ? "bg-red-500 text-white border-red-500 shadow-lg"
+                    : "bg-white/30 border-white/30 hover:bg-white/40"
+                }
+              `}
             >
-              <Heart className="w-4 h-4" />
+              <Heart
+                ref={heartRef}
+                className={`w-4 h-4 transition-all duration-300 ${
+                  isWishlisted(id) ? "fill-white" : ""
+                }`}
+              />
             </button>
 
-            {/* View Details button (right) */}
+            {/* View Details Button */}
             <Link
               href={`/products/${id}`}
-              aria-label={`View details for ${name}`}
               className="
                 flex items-center gap-2
                 bg-accent/30 backdrop-blur-md border border-white/30

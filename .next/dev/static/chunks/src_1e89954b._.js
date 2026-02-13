@@ -1150,9 +1150,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$re
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Heart$3e$__ = __turbopack_context__.i("[project]/node_modules/lucide-react/dist/esm/icons/heart.js [app-client] (ecmascript) <export default as Heart>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Rating$2f$StarRating$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/components/Rating/StarRating.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$priceFormat$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/utils/priceFormat.ts [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$WishlistContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/src/context/WishlistContext.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 "use client";
+;
 ;
 ;
 ;
@@ -1165,13 +1167,14 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
     _s();
     const cardRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const imageRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
-    // GSAP animations
+    const heartRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
+    const { toggleWishlist, isWishlisted } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$WishlistContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useWishlist"])();
+    // GSAP animations for card entrance & image float
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGSAP"])({
         "ProductCard.useGSAP": ()=>{
             if (!cardRef.current || !imageRef.current) return;
             const ctx = __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].context({
                 "ProductCard.useGSAP.ctx": ()=>{
-                    // Entrance animation
                     __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].fromTo(cardRef.current, {
                         opacity: 0,
                         y: 30
@@ -1181,7 +1184,6 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                         duration: 0.6,
                         ease: "power2.out"
                     });
-                    // Gentle image float
                     __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].to(imageRef.current, {
                         y: -8,
                         duration: 2.5,
@@ -1198,9 +1200,28 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
     }["ProductCard.useGSAP"], {
         scope: cardRef
     });
+    // Truncate long descriptions
     const truncateDescription = (text, limit)=>{
         if (text.length <= limit) return text;
         return text.slice(0, limit) + "...";
+    };
+    // Handle wishlist toggle with GSAP heart animation
+    const handleWishlistClick = async (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        await toggleWishlist(id);
+        // Animate heart bounce
+        if (heartRef.current) {
+            __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].fromTo(heartRef.current, {
+                scale: 0.8
+            }, {
+                scale: 1.4,
+                duration: 0.2,
+                yoyo: true,
+                repeat: 1,
+                ease: "power2.out"
+            });
+        }
     };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative h-full flex flex-col",
@@ -1216,16 +1237,15 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                         alt: name,
                         width: 180,
                         height: 180,
-                        priority: false,
                         className: "object-contain drop-shadow-xl transition-transform duration-300 hover:scale-105"
                     }, void 0, false, {
                         fileName: "[project]/src/components/Product/ProductCard.tsx",
-                        lineNumber: 80,
+                        lineNumber: 106,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                    lineNumber: 76,
+                    lineNumber: 102,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1242,7 +1262,7 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                                             children: name
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                            lineNumber: 95,
+                                            lineNumber: 120,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$Rating$2f$StarRating$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1251,13 +1271,13 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                                             size: "sm"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                            lineNumber: 96,
+                                            lineNumber: 121,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 94,
+                                    lineNumber: 119,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1265,13 +1285,13 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                                     children: (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$utils$2f$priceFormat$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["formatPrice"])(price)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 98,
+                                    lineNumber: 123,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                            lineNumber: 93,
+                            lineNumber: 118,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1280,35 +1300,41 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                                 children: truncateDescription(description, 80)
                             }, void 0, false, {
                                 fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                lineNumber: 105,
+                                lineNumber: 130,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                            lineNumber: 104,
+                            lineNumber: 129,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "mt-auto flex justify-between px-4",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    "aria-label": "Add product to wishlist",
-                                    className: "   flex items-center gap-2   bg-white/30 backdrop-blur-md border border-white/30   text-neutral px-4 py-2 rounded-full   text-sm font-semibold   hover:bg-white/40 hover:scale-105 hover:shadow-lg   transition-all duration-300   ",
+                                    onClick: handleWishlistClick,
+                                    className: `
+                flex items-center gap-2
+                backdrop-blur-md border px-4 py-2 rounded-full
+                text-sm font-semibold
+                transition-all duration-300
+                ${isWishlisted(id) ? "bg-red-500 text-white border-red-500 shadow-lg" : "bg-white/30 border-white/30 hover:bg-white/40"}
+              `,
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heart$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Heart$3e$__["Heart"], {
-                                        className: "w-4 h-4"
+                                        ref: heartRef,
+                                        className: `w-4 h-4 transition-all duration-300 ${isWishlisted(id) ? "fill-white" : ""}`
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                        lineNumber: 122,
+                                        lineNumber: 150,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 111,
+                                    lineNumber: 136,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: `/products/${id}`,
-                                    "aria-label": `View details for ${name}`,
                                     className: "   flex items-center gap-2   bg-accent/30 backdrop-blur-md border border-white/30   text-neutral px-4 py-2 rounded-full   text-sm font-semibold   hover:bg-accent/40 hover:scale-105 hover:shadow-lg   transition-all duration-300   ",
                                     children: [
                                         "View Details",
@@ -1316,41 +1342,42 @@ function ProductCard({ id, name, price, description, image, gradient, rating = 0
                                             className: "w-4 h-4"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                            lineNumber: 139,
+                                            lineNumber: 171,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                                    lineNumber: 126,
+                                    lineNumber: 159,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/components/Product/ProductCard.tsx",
-                            lineNumber: 109,
+                            lineNumber: 134,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/components/Product/ProductCard.tsx",
-                    lineNumber: 91,
+                    lineNumber: 116,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/components/Product/ProductCard.tsx",
-            lineNumber: 71,
+            lineNumber: 97,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/components/Product/ProductCard.tsx",
-        lineNumber: 70,
+        lineNumber: 96,
         columnNumber: 5
     }, this);
 }
-_s(ProductCard, "CpcBU5Z66J+kl0qigEmRdelEKXc=", false, function() {
+_s(ProductCard, "/SVP+/T7xNdchrVy3D0X9QcDXAg=", false, function() {
     return [
+        __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$context$2f$WishlistContext$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useWishlist"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGSAP"]
     ];
 });

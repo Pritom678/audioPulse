@@ -5,6 +5,7 @@ import { connectDB } from "./lib/db.js";
 import authRoutes from "./routes/auth.js";
 import productRoutes from "./routes/product.js";
 import cartRoutes from "./routes/cart.js";
+import wishlistRoutes from "./routes/wishlist.js";
 
 const app = express();
 const PORT = 8080;
@@ -26,6 +27,7 @@ app.get("/", (req, res) => {
 app.use("/auth", authRoutes);
 app.use("/products", productRoutes);
 app.use("/cart", cartRoutes);
+app.use("/wishlist", wishlistRoutes);
 
 await connectDB();
 app.listen(PORT, () => {

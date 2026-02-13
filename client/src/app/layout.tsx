@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from "@/components/Shared/Header";
 import Footer from "@/components/Shared/Footer";
 import ToastProvider from "@/components/Shared/ToasterProvider";
+import { WishlistProvider } from "@/context/WishlistContext";
 
 const nunito = Nunito({
   subsets: ["latin"],
@@ -24,14 +25,16 @@ export default function RootLayout({
   return (
     <html lang="en" data-theme="light">
       <body className={`${nunito.className} antialiased`}>
-        <header>
-          <Header />
-        </header>
-        <main>{children}</main>
-        <footer>
-          <Footer />
-        </footer>
-        <ToastProvider />
+        <WishlistProvider>
+          <header>
+            <Header />
+          </header>
+          <main>{children}</main>
+          <footer>
+            <Footer />
+          </footer>
+          <ToastProvider />
+        </WishlistProvider>
       </body>
     </html>
   );
