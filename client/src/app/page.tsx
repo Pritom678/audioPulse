@@ -1,5 +1,6 @@
 import AudioExperience from "@/components/Home/AudioExperience";
 import CallToAction from "@/components/Home/CallToAction";
+import FAQ from "@/components/Home/FAQ";
 import FeatureGrid from "@/components/Home/FeatureGrid";
 import HeroSection from "@/components/Home/HeroSection";
 import ProductHighlight from "@/components/Home/ProductHighlight";
@@ -14,6 +15,7 @@ export default function Home() {
         <ProductRandom />
         <ProductHighlight />
         <FeatureGrid />
+        <FAQ />
         <AudioExperience />
         <CallToAction />
       </Container>
