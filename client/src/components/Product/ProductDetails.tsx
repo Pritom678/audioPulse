@@ -10,6 +10,7 @@ import { formatPrice } from "@/utils/priceFormat";
 import { gsap } from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useWishlist } from "@/context/WishlistContext";
+import Loading from "../Shared/Loading";
 
 interface Product {
   _id: string;
@@ -96,7 +97,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
 
   if (loading || !product) {
     return (
-      <div className="py-20 text-center text-gray-500">Loading product...</div>
+      <Loading className="flex flex-col items-center justify-center" />
     );
   }
 
@@ -140,7 +141,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
   return (
     <div
       ref={container}
-      className="min-h-screen flex items-center justify-center px-6 bg-gradient-to-br from-primary/40 via-secondary/30 to-primary/50"
+      className="min-h-screen flex items-center justify-center px-6 bg-gradient-to-br from-primary/40 via-secondary/30 to-primary/50 py-10"
     >
       {/* Glass Container */}
       <div className="w-full max-w-6xl py-20 px-10 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-2xl">

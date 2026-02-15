@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import ProductCard from "./ProductCard";
+import Loading from "@/components/Shared/Loading";
 import api from "@/lib/axios";
 
 type Product = {
@@ -45,7 +46,11 @@ export default function ProductRandom() {
   }, []);
 
   if (loading) {
-    return <p className="text-center text-gray-500">Loading products...</p>;
+    return (
+      <div className="flex justify-center items-center py-20">
+        <Loading size="lg" text="Loading products..." />
+      </div>
+    );
   }
 
   return (

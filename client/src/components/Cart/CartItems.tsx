@@ -5,6 +5,7 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { Trash2 } from "lucide-react";
 import { formatPrice } from "@/utils/priceFormat";
+import Loading from "@/components/Shared/Loading";
 
 interface Product {
   _id: string;
@@ -40,7 +41,13 @@ const CartItems = () => {
     fetchCart();
   }, []);
 
-  if (loading) return <p className="text-center mt-10">Loading cart...</p>;
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center py-20">
+        <Loading size="lg" text="Loading cart..." />
+      </div>
+    );
+  }
   if (!cart || cart.items.length === 0)
     return <p className="text-center mt-10">Your cart is empty 🛒</p>;
 

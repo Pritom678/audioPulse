@@ -166,9 +166,8 @@ const LoginForm: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary w-full text-lg"
+              className="btn btn-primary w-full text-lg flex items-center justify-center gap-2"
             >
-              {" "}
               {loading ? "Logging in..." : "Login"}{" "}
             </button>{" "}
             {/* Footer */}{" "}
