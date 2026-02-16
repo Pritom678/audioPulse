@@ -34,8 +34,9 @@ const Header: React.FC = () => {
         setAuthenticated(false);
       }
     };
+
     checkAuth();
-  }, []);
+  });
 
   // Handle outside click to collapse search
   useEffect(() => {

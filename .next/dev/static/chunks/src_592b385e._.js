@@ -1612,83 +1612,116 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-const Loading = ()=>{
+const Loading = ({ size = "md", text = "Loading", fullScreen = false })=>{
     _s();
     const containerRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])(null);
     const barsRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRef"])([]);
+    // Size configurations
+    const sizeConfig = {
+        sm: {
+            bars: 4,
+            barWidth: "w-1.5",
+            barHeight: 20,
+            gap: "gap-1.5",
+            textSize: "text-xs"
+        },
+        md: {
+            bars: 5,
+            barWidth: "w-2",
+            barHeight: 30,
+            gap: "gap-2",
+            textSize: "text-sm"
+        },
+        lg: {
+            bars: 6,
+            barWidth: "w-2.5",
+            barHeight: 40,
+            gap: "gap-2.5",
+            textSize: "text-base"
+        }
+    };
+    const config = sizeConfig[size];
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$gsap$2f$react$2f$src$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useGSAP"])({
         "Loading.useGSAP": ()=>{
             if (!containerRef.current) return;
-            // Fade in
+            // Fade in container
             __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].fromTo(containerRef.current, {
-                opacity: 0
+                opacity: 0,
+                scale: 0.9
             }, {
                 opacity: 1,
-                duration: 0.4,
-                ease: "power2.out"
+                scale: 1,
+                duration: 0.3,
+                ease: "back.out(1.2)"
             });
-            // Continuous smooth looping wave
+            // Animate bars with wave effect
             barsRef.current.forEach({
                 "Loading.useGSAP": (bar, i)=>{
-                    __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].to(bar, {
-                        scaleY: 1.6,
-                        duration: 0.8,
-                        repeat: -1,
-                        yoyo: true,
-                        ease: "sine.inOut",
-                        delay: i * 0.1
-                    });
+                    if (bar) {
+                        __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$gsap$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$locals$3e$__["default"].to(bar, {
+                            scaleY: 1.8,
+                            duration: 0.6,
+                            repeat: -1,
+                            yoyo: true,
+                            ease: "sine.inOut",
+                            delay: i * 0.12
+                        });
+                    }
                 }
             }["Loading.useGSAP"]);
         }
     }["Loading.useGSAP"], []);
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+    const content = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         ref: containerRef,
-        className: "fixed inset-0 flex items-center justify-center bg-background z-50",
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "flex flex-col items-center gap-6",
-            children: [
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex items-end gap-2 h-16",
-                    children: [
-                        ...Array(6)
-                    ].map((_, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            ref: (el)=>{
-                                if (el) barsRef.current[i] = el;
-                            },
-                            className: "w-2 rounded-full origin-bottom bg-gradient-to-t from-primary to-secondary",
-                            style: {
-                                height: 30
-                            }
-                        }, i, false, {
-                            fileName: "[project]/src/components/Shared/Loading.tsx",
-                            lineNumber: 43,
-                            columnNumber: 13
-                        }, ("TURBOPACK compile-time value", void 0)))
-                }, void 0, false, {
-                    fileName: "[project]/src/components/Shared/Loading.tsx",
-                    lineNumber: 41,
-                    columnNumber: 9
-                }, ("TURBOPACK compile-time value", void 0)),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                    className: "text-sm tracking-widest text-foreground/70 uppercase",
-                    children: "Loading"
-                }, void 0, false, {
-                    fileName: "[project]/src/components/Shared/Loading.tsx",
-                    lineNumber: 54,
-                    columnNumber: 9
-                }, ("TURBOPACK compile-time value", void 0))
-            ]
-        }, void 0, true, {
-            fileName: "[project]/src/components/Shared/Loading.tsx",
-            lineNumber: 39,
-            columnNumber: 7
-        }, ("TURBOPACK compile-time value", void 0))
-    }, void 0, false, {
+        className: "flex flex-col items-center gap-4",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: `flex items-end ${config.gap} h-16`,
+                children: [
+                    ...Array(config.bars)
+                ].map((_, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        ref: (el)=>{
+                            if (el) barsRef.current[i] = el;
+                        },
+                        className: `${config.barWidth} rounded-full origin-bottom bg-gradient-to-t from-primary via-primary/80 to-primary/60`,
+                        style: {
+                            height: config.barHeight
+                        }
+                    }, i, false, {
+                        fileName: "[project]/src/components/Shared/Loading.tsx",
+                        lineNumber: 78,
+                        columnNumber: 11
+                    }, ("TURBOPACK compile-time value", void 0)))
+            }, void 0, false, {
+                fileName: "[project]/src/components/Shared/Loading.tsx",
+                lineNumber: 76,
+                columnNumber: 7
+            }, ("TURBOPACK compile-time value", void 0)),
+            text && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                className: `${config.textSize} tracking-wider text-gray-600 font-medium animate-pulse`,
+                children: text
+            }, void 0, false, {
+                fileName: "[project]/src/components/Shared/Loading.tsx",
+                lineNumber: 91,
+                columnNumber: 9
+            }, ("TURBOPACK compile-time value", void 0))
+        ]
+    }, void 0, true, {
         fileName: "[project]/src/components/Shared/Loading.tsx",
-        lineNumber: 35,
+        lineNumber: 74,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
+    if (fullScreen) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "fixed inset-0 flex items-center justify-center bg-white/80 backdrop-blur-sm z-50",
+            children: content
+        }, void 0, false, {
+            fileName: "[project]/src/components/Shared/Loading.tsx",
+            lineNumber: 102,
+            columnNumber: 7
+        }, ("TURBOPACK compile-time value", void 0));
+    }
+    return content;
 };
 _s(Loading, "mBHtr0cvr7cJgB51ZUp0VbbLV5U=", false, function() {
     return [

@@ -5,9 +5,10 @@ import { Eye, EyeClosed } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
 import { gsap } from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const SignupForm: React.FC = () => {
   const [form, setForm] = useState({
@@ -16,12 +17,15 @@ const SignupForm: React.FC = () => {
     password: "",
     confirmPassword: "",
   });
+
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const router = useRouter();
+
+  const container = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -55,6 +59,7 @@ const SignupForm: React.FC = () => {
       });
 
       toast.success("Signup successful! Welcome aboard.");
+
       setTimeout(() => {
         setLoading(false);
         setForm({
@@ -71,48 +76,56 @@ const SignupForm: React.FC = () => {
     }
   };
 
-  /* GSAP Animations */
-  useEffect(() => {
-    const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+  /* ✅ Proper GSAP Setup */
+  useGSAP(
+    () => {
+      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-    tl.from(leftRef.current, {
-      x: -70,
-      opacity: 0,
-      duration: 0.9,
-    })
-      .from(
-        formRef.current,
-        {
-          x: 70,
-          opacity: 0,
-          duration: 0.9,
-        },
-        "-=0.5",
-      )
-      .from(
-        formRef.current?.querySelectorAll("input, button, p"),
-        {
-          y: 20,
-          opacity: 0,
-          stagger: 0.1,
-          duration: 0.4,
-        },
-        "-=0.4",
-      );
+      tl.from(leftRef.current, {
+        x: -70,
+        opacity: 0,
+        duration: 0.9,
+      })
+        .from(
+          formRef.current,
+          {
+            x: 70,
+            opacity: 0,
+            duration: 0.9,
+          },
+          "-=0.5"
+        )
+        .from(
+          formRef.current?.querySelectorAll("input, button, p"),
+          {
+            y: 20,
+            opacity: 0,
+            stagger: 0.1,
+            duration: 0.4,
+          },
+          "-=0.4"
+        );
 
-    gsap.to(".auth-glow", {
-      scale: 1.05,
-      duration: 2,
-      repeat: -1,
-      yoyo: true,
-      ease: "power1.inOut",
-    });
-  }, []);
+      // Glow Animation
+      gsap.to(".auth-glow", {
+        scale: 1.05,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut",
+      });
+    },
+    { scope: container }
+  );
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-base-200 px-4">
+    <div
+      ref={container}
+      className="min-h-screen flex items-center justify-center bg-base-200 px-4"
+    >
       <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden shadow-2xl bg-base-100 my-10">
-        {/* Left Info Section */}
+        
+        {/* Left Section */}
         <div
           ref={leftRef}
           className="hidden md:flex flex-col bg-gradient-to-br from-primary to-accent py-8 pl-3 mr-10 rounded-br-2xl rounded-tr-2xl text-white"
@@ -144,7 +157,7 @@ const SignupForm: React.FC = () => {
           </div>
         </div>
 
-        {/* Right Form Section */}
+        {/* Right Section */}
         <div className="flex items-center justify-center p-8 sm:p-12">
           <form
             ref={formRef}
@@ -168,7 +181,9 @@ const SignupForm: React.FC = () => {
 
             {/* Email */}
             <div className="mb-4">
-              <label className="block mb-1 text-sm font-medium">Email</label>
+              <label className="block mb-1 text-sm font-medium">
+                Email
+              </label>
               <input
                 type="email"
                 name="email"
@@ -181,7 +196,9 @@ const SignupForm: React.FC = () => {
 
             {/* Password */}
             <div className="mb-4">
-              <label className="block mb-1 text-sm font-medium">Password</label>
+              <label className="block mb-1 text-sm font-medium">
+                Password
+              </label>
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -217,7 +234,9 @@ const SignupForm: React.FC = () => {
                 />
                 <button
                   type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  onClick={() =>
+                    setShowConfirmPassword(!showConfirmPassword)
+                  }
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-primary"
                 >
                   {showConfirmPassword ? <Eye /> : <EyeClosed />}
@@ -241,7 +260,10 @@ const SignupForm: React.FC = () => {
 
             <p className="mt-6 text-center text-sm text-neutral/70">
               Already have an account?
-              <Link href="/login" className="ml-1 text-primary hover:underline">
+              <Link
+                href="/login"
+                className="ml-1 text-primary hover:underline"
+              >
                 Login
               </Link>
             </p>

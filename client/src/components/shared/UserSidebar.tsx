@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart, Heart, LogOut, X } from "lucide-react";
+import { ShoppingCart, Heart, LogOut, X, Shield } from "lucide-react";
 import api from "@/lib/axios";
+import { useAuth } from "@/hooks/useAuth";
 
 type UserSidebarProps = {
   isOpen: boolean;
@@ -10,6 +11,8 @@ type UserSidebarProps = {
 };
 
 const UserSidebar: React.FC<UserSidebarProps> = ({ isOpen, onToggle }) => {
+  const { isAdmin } = useAuth();
+
   const handleLogout = async () => {
     try {
       await api.post("/auth/logout");
@@ -49,6 +52,18 @@ const UserSidebar: React.FC<UserSidebarProps> = ({ isOpen, onToggle }) => {
 
         {/* Sidebar Content */}
         <nav className="p-4 space-y-2">
+          {/* Admin Link - Only visible to admins */}
+          {isAdmin && (
+            <Link
+              href="/admin"
+              onClick={onToggle}
+              className="flex items-center gap-3 p-3 rounded-lg bg-primary/10 hover:bg-primary/20 transition-colors border border-primary/30"
+            >
+              <Shield className="w-5 h-5 text-primary" />
+              <span className="text-primary font-semibold">Admin Panel</span>
+            </Link>
+          )}
+
           <Link
             href="/cart"
             onClick={onToggle}
