@@ -161,7 +161,6 @@
     --animate-pulse: pulse 2s cubic-bezier(.4, 0, .6, 1) infinite;
     --blur-sm: 8px;
     --blur-md: 12px;
-    --blur-lg: 16px;
     --blur-xl: 24px;
     --blur-2xl: 40px;
     --blur-3xl: 64px;
@@ -2821,6 +2820,16 @@
     border-color: var(--color-base-300);
   }
 
+  .border-base-300\/50 {
+    border-color: var(--color-base-300);
+  }
+
+  @supports (color: color-mix(in lab, red, red)) {
+    .border-base-300\/50 {
+      border-color: color-mix(in oklab, var(--color-base-300) 50%, transparent);
+    }
+  }
+
   .border-blue-500 {
     border-color: var(--color-blue-500);
   }
@@ -2933,13 +2942,13 @@
     background-color: var(--color-base-100);
   }
 
-  .bg-base-100\/70 {
+  .bg-base-100\/80 {
     background-color: var(--color-base-100);
   }
 
   @supports (color: color-mix(in lab, red, red)) {
-    .bg-base-100\/70 {
-      background-color: color-mix(in oklab, var(--color-base-100) 70%, transparent);
+    .bg-base-100\/80 {
+      background-color: color-mix(in oklab, var(--color-base-100) 80%, transparent);
     }
   }
 
@@ -4154,11 +4163,6 @@
 
   .backdrop-blur-\[32px\] {
     --tw-backdrop-blur: blur(32px);
-    backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
-  }
-
-  .backdrop-blur-lg {
-    --tw-backdrop-blur: blur(var(--blur-lg));
     backdrop-filter: var(--tw-backdrop-blur, ) var(--tw-backdrop-brightness, ) var(--tw-backdrop-contrast, ) var(--tw-backdrop-grayscale, ) var(--tw-backdrop-hue-rotate, ) var(--tw-backdrop-invert, ) var(--tw-backdrop-opacity, ) var(--tw-backdrop-saturate, ) var(--tw-backdrop-sepia, );
   }
 

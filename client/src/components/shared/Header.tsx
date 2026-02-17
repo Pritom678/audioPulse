@@ -22,6 +22,7 @@ const Header: React.FC = () => {
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const [searchResults, setSearchResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const searchRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
@@ -37,6 +38,24 @@ const Header: React.FC = () => {
 
     checkAuth();
   }, []); // Add empty dependency array to run only once on mount
+
+  // Handle scroll effect for header transparency
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 10);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   // Handle outside click to collapse search
   useEffect(() => {
@@ -104,7 +123,16 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <header className="sticky top-0 z-30 w-full bg-base-100/70 backdrop-blur-lg border-b border-base-300">
+      <header
+        className={`
+          sticky top-0 z-30 w-full transition-all duration-300 ease-in-out
+          ${
+            isScrolled
+              ? "bg-base-100/80 backdrop-blur-md border-b border-base-300/50 shadow-sm"
+              : "bg-base-100 border-b border-base-300"
+          }
+        `}
+      >
         <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
           {/* Logo and Search Bar - Left Side */}
           <div className="flex items-center gap-2 sm:gap-4 lg:gap-6 flex-1">
@@ -116,7 +144,7 @@ const Header: React.FC = () => {
               className="relative flex-1 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
             >
               <div
-                className={`flex items-center bg-white/90 backdrop-blur-sm border border-gray-300 rounded-lg transition-all duration-300 ease-in-out ${
+                className={`flex items-center bg-white/90 backdrop-blur-sm border border-gray-300 rounded-lg transition-all duration-300 ease-in-out cursor-pointer ${
                   isSearchExpanded
                     ? "w-full sm:w-40 md:w-48 lg:w-64"
                     : "w-20 sm:w-24 md:w-32 lg:w-40"
@@ -138,66 +166,48 @@ const Header: React.FC = () => {
                 />
               </div>
 
-              {/* Expanded Search Bar - Absolute Position */}
-              {isSearchExpanded && (
-                <div className="absolute top-full left-0 z-50 w-full sm:w-40 md:w-48 lg:w-64">
-                  <div className="flex items-center bg-white/90 backdrop-blur-sm border border-gray-300 rounded-lg w-full">
-                    <Search className="w-4 h-4 text-gray-400 ml-2 sm:ml-3" />
-                    <input
-                      type="text"
-                      value={searchQuery}
-                      onChange={(e) => setSearchQuery(e.target.value)}
-                      onKeyDown={handleSearchKeyDown}
-                      placeholder="Search..."
-                      className="flex-1 bg-transparent outline-none px-2 py-2 text-xs sm:text-sm cursor-text"
-                      autoFocus
-                    />
-                  </div>
-
-                  {/* Search Results Dropdown */}
-                  {searchQuery.trim().length >= 2 && (
-                    <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto">
-                      {isLoading ? (
-                        <div className="p-4 text-center text-gray-500">
-                          Searching...
-                        </div>
-                      ) : searchResults.length === 0 ? (
-                        <div className="p-4 text-center text-gray-500">
-                          No products found
-                        </div>
-                      ) : (
-                        <div className="py-2">
-                          {searchResults.map((product: any) => (
-                            <Link
-                              key={product._id}
-                              href={`/products/${product._id}`}
-                              className="flex items-center gap-3 p-3 hover:bg-gray-50 transition-colors"
-                              onClick={() => {
-                                setSearchQuery("");
-                                setIsSearchExpanded(false);
-                              }}
-                            >
-                              <div className="w-10 h-10 rounded bg-gray-100 shrink-0">
-                                <Image
-                                  src={product.images[0] || "/placeholder.png"}
-                                  alt={product.name}
-                                  width={40}
-                                  height={40}
-                                  className="object-cover rounded"
-                                />
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h4 className="text-sm font-medium text-gray-900 truncate">
-                                  {product.name}
-                                </h4>
-                                <p className="text-xs text-gray-500">
-                                  ${product.price.toFixed(2)}
-                                </p>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      )}
+              {/* Search Results Dropdown */}
+              {isSearchExpanded && searchQuery.trim().length >= 2 && (
+                <div className="absolute top-full mt-2 w-full sm:w-40 md:w-48 lg:w-64 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto z-50">
+                  {isLoading ? (
+                    <div className="p-4 text-center text-gray-500">
+                      Searching...
+                    </div>
+                  ) : searchResults.length === 0 ? (
+                    <div className="p-4 text-center text-gray-500">
+                      No products found
+                    </div>
+                  ) : (
+                    <div className="py-2">
+                      {searchResults.map((product: any) => (
+                        <Link
+                          key={product._id}
+                          href={`/products/${product._id}`}
+                          className="flex items-center gap-3 p-3 hover:bg-gray-50 transition-colors"
+                          onClick={() => {
+                            setSearchQuery("");
+                            setIsSearchExpanded(false);
+                          }}
+                        >
+                          <div className="w-10 h-10 rounded bg-gray-100 shrink-0">
+                            <Image
+                              src={product.images[0] || "/placeholder.png"}
+                              alt={product.name}
+                              width={40}
+                              height={40}
+                              className="object-cover rounded"
+                            />
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <h4 className="text-sm font-medium text-gray-900 truncate">
+                              {product.name}
+                            </h4>
+                            <p className="text-xs text-gray-500">
+                              ${product.price.toFixed(2)}
+                            </p>
+                          </div>
+                        </Link>
+                      ))}
                     </div>
                   )}
                 </div>

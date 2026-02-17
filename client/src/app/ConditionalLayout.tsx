@@ -20,9 +20,7 @@ export default function ConditionalLayout({
   // Regular routes - with header/footer
   return (
     <>
-      <header>
-        <Header />
-      </header>
+      <Header />
       <main>{children}</main>
       <footer>
         <Footer />
