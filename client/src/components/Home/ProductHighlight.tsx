@@ -3,6 +3,8 @@
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
+import Link from "next/link";
+
 
 const ProductHighlight = () => {
   const textRef = useRef<HTMLDivElement>(null);
@@ -42,9 +44,9 @@ const ProductHighlight = () => {
           </p>
 
           {/* Glass Button */}
-          <button className="relative px-6 py-3 rounded-full backdrop-blur-md bg-primary/10 border border-white/40 text-neutral font-medium shadow-lg transition-all duration-300 hover:bg-primary/20 hover:scale-105">
+          <Link href="/about" className="relative px-6 py-3 rounded-full backdrop-blur-md bg-primary/10 border border-white/40 text-neutral font-medium shadow-lg transition-all duration-300 hover:bg-primary/20 hover:scale-105">
             Learn more
-          </button>
+          </Link>
         </div>
 
         {/* Video content */}

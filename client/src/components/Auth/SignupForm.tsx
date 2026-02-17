@@ -68,8 +68,10 @@ const SignupForm: React.FC = () => {
           password: "",
           confirmPassword: "",
         });
-        router.push("/");
       }, 1200);
+      router.push("/");
+      setTimeout(() => window.location.reload(), 300);
+      
     } catch (err: any) {
       setError(err?.response?.data?.message || "Signup failed.");
       setLoading(false);
@@ -88,17 +90,17 @@ const SignupForm: React.FC = () => {
         tl.fromTo(
           leftRef.current,
           { x: -60, opacity: 0 },
-          { x: 0, opacity: 1, duration: 0.8, clearProps: "all" }
+          { x: 0, opacity: 1, duration: 0.8, clearProps: "all" },
         ).fromTo(
           formRef.current,
           { x: 60, opacity: 0 },
           { x: 0, opacity: 1, duration: 0.8, clearProps: "all" },
-          "-=0.4"
+          "-=0.4",
         );
 
         // Animate form groups only (NOT inputs directly)
         const groups = formRef.current?.querySelectorAll(
-          "form > div, form > button, form > p"
+          "form > div, form > button, form > p",
         );
 
         if (groups) {
@@ -112,7 +114,7 @@ const SignupForm: React.FC = () => {
               duration: 0.5,
               delay: 0.3,
               clearProps: "all",
-            }
+            },
           );
         }
 
@@ -128,7 +130,7 @@ const SignupForm: React.FC = () => {
 
       return () => ctx.revert(); // Strict mode safe cleanup
     },
-    { scope: container }
+    { scope: container },
   );
 
   return (

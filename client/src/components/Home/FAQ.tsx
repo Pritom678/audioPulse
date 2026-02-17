@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import Link from "next/link";
 
 const FAQ = () => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
@@ -95,9 +96,9 @@ const FAQ = () => {
           <p className="text-sm text-neutral/70 mb-6">
             Our support team is here to help you with any inquiries.
           </p>
-          <button className="inline-flex items-center gap-2 rounded-full px-6 py-3 bg-primary text-white font-medium transition-all duration-200 hover:bg-primary/90 hover:shadow-lg">
+          <Link href="/support" className="inline-flex items-center gap-2 rounded-full px-6 py-3 bg-primary text-white font-medium transition-all duration-200 hover:bg-primary/90 hover:shadow-lg">
             Contact Support
-          </button>
+          </Link>
         </div>
       </div>
     </section>
