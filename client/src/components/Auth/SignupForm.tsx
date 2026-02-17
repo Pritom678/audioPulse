@@ -27,7 +27,7 @@ const SignupForm: React.FC = () => {
 
   const container = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -76,193 +76,216 @@ const SignupForm: React.FC = () => {
     }
   };
 
-  /* ✅ Proper GSAP Setup */
+  /* ==========================
+     PRODUCTION SAFE GSAP
+  ========================== */
   useGSAP(
     () => {
-      const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
+      const ctx = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-      tl.from(leftRef.current, {
-        x: -70,
-        opacity: 0,
-        duration: 0.9,
-      }).from(
-        formRef.current,
-        {
-          x: 70,
-          opacity: 0,
-          duration: 0.9,
-        },
-        "-=0.5",
-      );
-
-      // Animate form elements if they exist
-      const formElements =
-        formRef.current?.querySelectorAll("input, button, p");
-      if (formElements) {
-        tl.from(
-          formElements,
-          {
-            y: 20,
-            opacity: 0,
-            stagger: 0.1,
-            duration: 0.4,
-          },
-          "-=0.4",
+        // Animate panels
+        tl.fromTo(
+          leftRef.current,
+          { x: -60, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.8, clearProps: "all" }
+        ).fromTo(
+          formRef.current,
+          { x: 60, opacity: 0 },
+          { x: 0, opacity: 1, duration: 0.8, clearProps: "all" },
+          "-=0.4"
         );
-      }
 
-      // Glow Animation
-      gsap.to(".auth-glow", {
-        scale: 1.05,
-        duration: 2,
-        repeat: -1,
-        yoyo: true,
-        ease: "power1.inOut",
-      });
+        // Animate form groups only (NOT inputs directly)
+        const groups = formRef.current?.querySelectorAll(
+          "form > div, form > button, form > p"
+        );
+
+        if (groups) {
+          gsap.fromTo(
+            groups,
+            { y: 20, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              stagger: 0.08,
+              duration: 0.5,
+              delay: 0.3,
+              clearProps: "all",
+            }
+          );
+        }
+
+        // Glow animation
+        gsap.to(".auth-glow", {
+          scale: 1.06,
+          duration: 2.5,
+          repeat: -1,
+          yoyo: true,
+          ease: "power1.inOut",
+        });
+      }, container);
+
+      return () => ctx.revert(); // Strict mode safe cleanup
     },
-    { scope: container },
+    { scope: container }
   );
 
   return (
     <div
       ref={container}
-      className="min-h-screen flex items-center justify-center bg-base-200 px-4 sm:px-6"
+      className="min-h-screen flex items-center justify-center bg-base-200 px-4"
     >
-      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden shadow-2xl bg-base-100 my-8 sm:my-10">
-        {/* Left Section */}
+      <div className="w-full max-w-6xl grid grid-cols-1 md:grid-cols-[1fr_2fr] rounded-3xl overflow-hidden shadow-2xl bg-white border border-gray-200 my-8">
+        {/* LEFT SIDE */}
         <div
           ref={leftRef}
-          className="hidden md:flex flex-col bg-gradient-to-br from-primary to-accent py-8 sm:py-10 pl-3 sm:pl-6 mr-10 sm:mr-10 rounded-br-2xl sm:rounded-tr-2xl rounded-tr-2xl text-white"
+          className="hidden md:flex relative flex-col justify-center items-center bg-gradient-to-br from-primary to-accent text-white p-12 rounded-tr-3xl rounded-br-3xl"
         >
-          <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
-              Create Account
-            </h1>
+          <div className="text-center space-y-6">
+            <h1 className="text-4xl font-bold">Join AudioPulse</h1>
+            <p className="text-white/80 text-lg">
+              Create your account and start your journey.
+            </p>
 
-            <div className="relative my-4 sm:my-6 -ml-8 sm:-ml-16">
-              <div className="absolute inset-0 -z-10 flex items-center justify-center">
-                <div className="h-16 sm:h-20 w-16 sm:w-20 rounded-full bg-white/20 blur-3xl auth-glow" />
-              </div>
-
+            <div className="relative flex justify-center mt-6 right-24">
+              <div className="absolute w-44 h-44 bg-white/20 rounded-full blur-3xl auth-glow" />
               <Image
                 src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770711009/AirPods_Max-removebg-preview_mbxwbs.png"
-                width={120}
-                height={120}
-                className="object-contain"
+                width={190}
+                height={190}
+                alt="AirPods Max headphone"
+                className="relative object-contain drop-shadow-2xl"
               />
             </div>
           </div>
         </div>
 
-        {/* Right Section */}
+        {/* RIGHT SIDE */}
         <div
           ref={formRef}
-          className="w-full max-w-md sm:max-w-lg px-4 sm:px-6 py-6 sm:py-8"
+          className="flex items-center justify-center px-6 sm:px-12 py-10 bg-white"
         >
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-            {/* Name */}
-            <div>
-              <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium">
-                Name
-              </label>
-              <input
-                type="text"
-                name="name"
-                value={form.name}
-                onChange={handleChange}
-                className="input input-bordered w-full text-sm sm:text-base"
-                required
-              />
+          <div className="w-full max-w-md space-y-8">
+            <div className="text-center space-y-2">
+              <h2 className="text-3xl font-bold text-gray-800">
+                Create Account
+              </h2>
+              <p className="text-gray-500 text-sm">
+                Fill in the details to get started
+              </p>
             </div>
 
-            {/* Email */}
-            <div>
-              <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium">
-                Email
-              </label>
-              <input
-                type="email"
-                name="email"
-                value={form.email}
-                onChange={handleChange}
-                className="input input-bordered w-full text-sm sm:text-base"
-                required
-              />
-            </div>
-
-            {/* Password */}
-            <div>
-              <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium">
-                Password
-              </label>
-              <div className="relative">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              {/* Name */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Name
+                </label>
                 <input
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  value={form.password}
+                  type="text"
+                  name="name"
+                  value={form.name}
                   onChange={handleChange}
-                  className="input input-bordered w-full pr-10 sm:pr-12 text-sm sm:text-base"
+                  className="w-full h-12 px-4 rounded-xl border border-gray-300 bg-base-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
                   required
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-2 sm:right-3 top-1/2 sm:top-3 text-gray-500 hover:text-gray-700"
-                  aria-label={showPassword ? "Hide password" : "Show password"}
-                >
-                  {showPassword ? <Eye /> : <EyeClosed />}
-                </button>
               </div>
-            </div>
 
-            {/* Confirm Password */}
-            <div>
-              <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium">
-                Confirm Password
-              </label>
-              <div className="relative">
+              {/* Email */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Email
+                </label>
                 <input
-                  type={showConfirmPassword ? "text" : "password"}
-                  name="confirmPassword"
-                  value={form.confirmPassword}
+                  type="email"
+                  name="email"
+                  value={form.email}
                   onChange={handleChange}
-                  className="input input-bordered w-full pr-10 sm:pr-12 text-sm sm:text-base"
+                  className="w-full h-12 px-4 rounded-xl border border-gray-300 bg-base-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
                   required
                 />
-                <button
-                  type="button"
-                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-                  className="absolute right-2 sm:right-3 top-1/2 sm:top-3 text-gray-500 hover:text-gray-700"
-                  aria-label={
-                    showConfirmPassword ? "Hide password" : "Show password"
-                  }
+              </div>
+
+              {/* Password */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Password
+                </label>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    value={form.password}
+                    onChange={handleChange}
+                    className="w-full h-12 px-4 pr-12 rounded-xl border border-gray-300 bg-base-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-primary transition"
+                  >
+                    {showPassword ? <Eye size={20} /> : <EyeClosed size={20} />}
+                  </button>
+                </div>
+              </div>
+
+              {/* Confirm Password */}
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">
+                  Confirm Password
+                </label>
+                <div className="relative">
+                  <input
+                    type={showConfirmPassword ? "text" : "password"}
+                    name="confirmPassword"
+                    value={form.confirmPassword}
+                    onChange={handleChange}
+                    className="w-full h-12 px-4 pr-12 rounded-xl border border-gray-300 bg-base-300 text-gray-800 focus:outline-none focus:ring-2 focus:ring-primary transition-all"
+                    required
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute inset-y-0 right-4 flex items-center text-gray-500 hover:text-primary transition"
+                  >
+                    {showConfirmPassword ? (
+                      <Eye size={20} />
+                    ) : (
+                      <EyeClosed size={20} />
+                    )}
+                  </button>
+                </div>
+              </div>
+
+              {/* Error */}
+              {error && (
+                <div className="text-sm text-red-600 bg-red-100 border border-red-200 rounded-xl p-3 text-center">
+                  {error}
+                </div>
+              )}
+
+              {/* Button */}
+              <button
+                type="submit"
+                disabled={loading}
+                className="w-full h-12 bg-primary text-white font-semibold rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
+              >
+                {loading ? "Creating account..." : "Create Account"}
+              </button>
+
+              <p className="text-center text-sm text-gray-500">
+                Already have an account?{" "}
+                <Link
+                  href="/login"
+                  className="text-primary font-medium hover:underline"
                 >
-                  {showConfirmPassword ? <Eye /> : <EyeClosed />}
-                </button>
-              </div>
-            </div>
-
-            {error && (
-              <div className="mb-4 text-sm text-error bg-error/10 rounded-lg p-2 text-center">
-                {error}
-              </div>
-            )}
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="btn btn-primary w-full text-lg flex items-center justify-center gap-2"
-            >
-              {loading ? "Creating account..." : "Create Account"}
-            </button>
-
-            <p className="mt-6 text-center text-sm text-neutral/70">
-              Already have an account?
-              <Link href="/login" className="ml-1 text-primary hover:underline">
-                Login
-              </Link>
-            </p>
-          </form>
+                  Login
+                </Link>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     </div>

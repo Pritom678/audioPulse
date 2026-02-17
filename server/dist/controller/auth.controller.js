@@ -75,8 +75,29 @@ export const login = async (req, res) => {
     }
 };
 export const logout = async (req, res) => {
-    res.cookie("jwt", "", { maxAge: 0 });
-    res.status(200).json({ message: "Logged out successfully" });
+    try {
+        // Clear the JWT cookie with all the same options used to set it
+        res.cookie("jwt", "", {
+            maxAge: 0,
+            httpOnly: true,
+            secure: ENV.NODE_ENV === "production",
+            sameSite: ENV.NODE_ENV === "production" ? "none" : "lax",
+            path: "/",
+            expires: new Date(0), // Set expiration to past date
+        });
+        // Also try to clear with clearCookie as a fallback
+        res.clearCookie("jwt", {
+            httpOnly: true,
+            secure: ENV.NODE_ENV === "production",
+            sameSite: ENV.NODE_ENV === "production" ? "none" : "lax",
+            path: "/",
+        });
+        res.status(200).json({ message: "Logged out successfully" });
+    }
+    catch (error) {
+        console.error("Logout error:", error);
+        res.status(500).json({ message: "Logout failed" });
+    }
 };
 export const getCurrentUser = async (req, res) => {
     try {

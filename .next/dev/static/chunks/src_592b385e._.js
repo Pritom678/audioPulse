@@ -972,7 +972,7 @@ function HeroSection() {
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                     href: "/products",
-                                    className: "group relative mt-6 sm:mt-8 lg:mt-20 inline-flex items-center gap-2 rounded-full px-6 sm:px-8 lg:px-8 py-3 sm:py-4 lg:py-4   bg-white/25 backdrop-blur-xl   ring-1 ring-white/50   shadow-[0_10px_30px_rgba(0,0,0,0.15)]",
+                                    className: "group relative mt-6 sm:mt-8 lg:mt-20 inline-flex items-center gap-2 rounded-full px-6 sm:px-8 lg:px-8 py-3 sm:py-4 lg:py-4 bg-white/25 backdrop-blur-xl ring-1 ring-white/50 shadow-[0_10px_30px_rgba(0,0,0,0.15)]",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: "absolute inset-0 rounded-full opacity-[0.06]",
@@ -982,7 +982,7 @@ function HeroSection() {
                                             }
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Home/HeroSection.tsx",
-                                            lineNumber: 143,
+                                            lineNumber: 140,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -990,7 +990,7 @@ function HeroSection() {
                                             children: "Explore Collection"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Home/HeroSection.tsx",
-                                            lineNumber: 151,
+                                            lineNumber: 148,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -998,7 +998,7 @@ function HeroSection() {
                                             children: "→"
                                         }, void 0, false, {
                                             fileName: "[project]/src/components/Home/HeroSection.tsx",
-                                            lineNumber: 155,
+                                            lineNumber: 152,
                                             columnNumber: 15
                                         }, this)
                                     ]
@@ -1027,17 +1027,17 @@ function HeroSection() {
                                         priority: true
                                     }, void 0, false, {
                                         fileName: "[project]/src/components/Home/HeroSection.tsx",
-                                        lineNumber: 169,
+                                        lineNumber: 166,
                                         columnNumber: 17
                                     }, this)
                                 }, hp.id, false, {
                                     fileName: "[project]/src/components/Home/HeroSection.tsx",
-                                    lineNumber: 165,
+                                    lineNumber: 162,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/components/Home/HeroSection.tsx",
-                            lineNumber: 160,
+                            lineNumber: 157,
                             columnNumber: 11
                         }, this)
                     ]

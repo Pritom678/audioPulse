@@ -134,10 +134,7 @@ export default function HeroSection() {
             {/* 🧊 GLASS BUTTON */}
             <Link
               href={"/products"}
-              className="group relative mt-6 sm:mt-8 lg:mt-20 inline-flex items-center gap-2 rounded-full px-6 sm:px-8 lg:px-8 py-3 sm:py-4 lg:py-4
-              bg-white/25 backdrop-blur-xl
-              ring-1 ring-white/50
-              shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
+              className="group relative mt-6 sm:mt-8 lg:mt-20 inline-flex items-center gap-2 rounded-full px-6 sm:px-8 lg:px-8 py-3 sm:py-4 lg:py-4 bg-white/25 backdrop-blur-xl ring-1 ring-white/50 shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
             >
               {/* Noise */}
               <span
