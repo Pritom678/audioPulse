@@ -3,10 +3,9 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutDashboard, Package, Plus, LogOut, Home } from "lucide-react";
-import { useRouter } from "next/navigation";
-import api from "@/lib/axios";
 import toast from "react-hot-toast";
 import Image from "next/image";
+import { logout } from "@/utils/logout";
 
 const navItems = [
   {
@@ -28,16 +27,10 @@ const navItems = [
 
 export default function AdminSidebar() {
   const pathname = usePathname();
-  const router = useRouter();
 
-  const handleLogout = async () => {
-    try {
-      await api.post("/auth/logout");
-      toast.success("Logged out successfully");
-      router.push("/login");
-    } catch (error) {
-      toast.error("Logout failed");
-    }
+  const handleLogout = () => {
+    toast.success("Logging out...");
+    logout();
   };
 
   return (

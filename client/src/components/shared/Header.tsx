@@ -36,7 +36,7 @@ const Header: React.FC = () => {
     };
 
     checkAuth();
-  });
+  }, []); // Add empty dependency array to run only once on mount
 
   // Handle outside click to collapse search
   useEffect(() => {
@@ -105,27 +105,32 @@ const Header: React.FC = () => {
   return (
     <>
       <header className="sticky top-0 z-30 w-full bg-base-100/70 backdrop-blur-lg border-b border-base-300">
-        <nav className="max-w-7xl mx-auto flex items-center justify-between px-8 py-4">
+        <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
           {/* Logo and Search Bar - Left Side */}
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-2 sm:gap-4 lg:gap-6 flex-1">
             <Logo />
 
             {/* Clean Search Bar with Results */}
-            <div ref={searchRef} className="relative">
+            <div
+              ref={searchRef}
+              className="relative flex-1 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
+            >
               <div
                 className={`flex items-center bg-white/90 backdrop-blur-sm border border-gray-300 rounded-lg transition-all duration-300 ease-in-out ${
-                  isSearchExpanded ? "w-32" : "w-32"
+                  isSearchExpanded
+                    ? "w-full sm:w-40 md:w-48 lg:w-64"
+                    : "w-20 sm:w-24 md:w-32 lg:w-40"
                 }`}
                 onClick={handleSearchClick}
               >
-                <Search className="w-4 h-4 text-gray-400 ml-3" />
+                <Search className="w-4 h-4 text-gray-400 ml-2 sm:ml-3" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={handleSearchKeyDown}
                   placeholder="Search..."
-                  className={`flex-1 bg-transparent outline-none px-2 py-2 text-sm ${
+                  className={`flex-1 bg-transparent outline-none px-2 py-2 text-xs sm:text-sm ${
                     isSearchExpanded ? "cursor-text" : "cursor-pointer"
                   }`}
                   autoFocus={isSearchExpanded}
@@ -135,23 +140,23 @@ const Header: React.FC = () => {
 
               {/* Expanded Search Bar - Absolute Position */}
               {isSearchExpanded && (
-                <div className="absolute top-0 left-0 z-50">
-                  <div className="flex items-center bg-white/90 backdrop-blur-sm border border-gray-300 rounded-lg w-64">
-                    <Search className="w-4 h-4 text-gray-400 ml-3" />
+                <div className="absolute top-full left-0 z-50 w-full sm:w-40 md:w-48 lg:w-64">
+                  <div className="flex items-center bg-white/90 backdrop-blur-sm border border-gray-300 rounded-lg w-full">
+                    <Search className="w-4 h-4 text-gray-400 ml-2 sm:ml-3" />
                     <input
                       type="text"
                       value={searchQuery}
                       onChange={(e) => setSearchQuery(e.target.value)}
                       onKeyDown={handleSearchKeyDown}
                       placeholder="Search..."
-                      className="flex-1 bg-transparent outline-none px-2 py-2 text-sm cursor-text"
+                      className="flex-1 bg-transparent outline-none px-2 py-2 text-xs sm:text-sm cursor-text"
                       autoFocus
                     />
                   </div>
 
                   {/* Search Results Dropdown */}
                   {searchQuery.trim().length >= 2 && (
-                    <div className="absolute top-full mt-2 w-64 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto">
+                    <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto">
                       {isLoading ? (
                         <div className="p-4 text-center text-gray-500">
                           Searching...
@@ -176,9 +181,9 @@ const Header: React.FC = () => {
                                 <Image
                                   src={product.images[0] || "/placeholder.png"}
                                   alt={product.name}
-                                  className="w-full h-full object-cover rounded"
                                   width={40}
                                   height={40}
+                                  className="object-cover rounded"
                                 />
                               </div>
                               <div className="flex-1 min-w-0">
@@ -201,7 +206,7 @@ const Header: React.FC = () => {
           </div>
 
           {/* Navigation Links - Center */}
-          <ul className="flex gap-6">
+          <ul className="hidden md:flex items-center gap-4 lg:gap-6 mr-4">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
 
@@ -222,7 +227,7 @@ const Header: React.FC = () => {
 
           {/* Right Side - Auth Actions */}
           <div className="flex items-center">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               {authenticated ? (
                 <button
                   onClick={() => setIsSidebarOpen(true)}
@@ -238,7 +243,7 @@ const Header: React.FC = () => {
                     pathname === "/signup"
                       ? glassActive
                       : "border border-accent bg-white/20 text-primary hover:bg-primary/40 hover:text-white"
-                  } px-6`}
+                  } px-4 sm:px-6`}
                 >
                   Get Started
                 </Link>

@@ -30,14 +30,32 @@ const CartItems = () => {
   const [loading, setLoading] = useState(true);
   const [animatingId, setAnimatingId] = useState<string | null>(null);
   const [removingId, setRemovingId] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  console.log("=== CartItems Component Mounted ===");
 
   const fetchCart = async () => {
-    const { data } = await api.get("/cart");
-    setCart(data);
-    setLoading(false);
+    console.log("Fetching cart...");
+    try {
+      const { data } = await api.get("/cart");
+      console.log("Cart data received:", data);
+      setCart(data);
+      setError(null);
+    } catch (err: any) {
+      console.error("Cart fetch error:", err);
+      if (err.response?.status === 401) {
+        console.log("401 error - user not authenticated");
+        setError("Please log in to view your cart");
+      } else {
+        setError("Failed to load cart. Please try again.");
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
+    console.log("CartItems useEffect running");
     fetchCart();
   }, []);
 
@@ -48,6 +66,26 @@ const CartItems = () => {
       </div>
     );
   }
+
+  if (error) {
+    return (
+      <div className="flex flex-col items-center justify-center py-20">
+        <p className="text-center text-red-500 mb-4">{error}</p>
+        {error.includes("log in") && (
+          <a
+            href="/login"
+            className="px-6 py-3 rounded-xl font-semibold text-white
+              bg-primary/70 backdrop-blur-md border border-white/30
+              hover:bg-primary/80 hover:shadow-xl
+              transition-all duration-200"
+          >
+            Go to Login
+          </a>
+        )}
+      </div>
+    );
+  }
+
   if (!cart || cart.items.length === 0)
     return <p className="text-center mt-10">Your cart is empty 🛒</p>;
 
@@ -112,13 +150,15 @@ const CartItems = () => {
   /* -------------------- UI -------------------- */
 
   return (
-    <div className="max-w-7xl mx-auto p-6">
-      <h1 className="text-2xl font-semibold mb-6">Shopping Cart</h1>
+    <div className="max-w-7xl mx-auto p-4 sm:p-6">
+      <h1 className="text-xl sm:text-2xl font-semibold mb-4 sm:mb-6">
+        Shopping Cart
+      </h1>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* CART ITEMS */}
         <div className="lg:col-span-2 bg-base-200 rounded-xl border border-white/30 backdrop-blur-md">
-          <div className="p-5 border-b border-white/20">
+          <div className="p-4 sm:p-5 border-b border-white/20">
             <h2 className="font-semibold text-lg">Products</h2>
           </div>
 
@@ -130,7 +170,7 @@ const CartItems = () => {
                 <div
                   key={item._id}
                   className={`
-                    flex flex-col md:flex-row md:items-center justify-between gap-4 p-5
+                    flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 p-4 sm:p-5
                     transition-all duration-300
                     ${
                       removingId === item.product._id
@@ -140,87 +180,64 @@ const CartItems = () => {
                   `}
                 >
                   {/* PRODUCT */}
-                  <div className="flex items-center gap-4 flex-1">
+                  <div className="flex items-center gap-3 sm:gap-4 flex-1">
                     <Image
                       src={item.product.images?.[0] || "/placeholder.png"}
                       alt={item.product.name}
-                      width={72}
-                      height={72}
+                      width={60}
+                      height={60}
                       className="rounded-xl object-cover"
                     />
 
-                    <div>
-                      <p className="font-medium">{item.product.name}</p>
-                      <p className="text-sm text-gray-500">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm sm:text-base">
+                        {item.product.name}
+                      </p>
+                      <p className="text-sm sm:text-base text-gray-500">
                         {formatPrice(Number(item.product.price))}
                       </p>
                     </div>
                   </div>
 
                   {/* QUANTITY */}
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() =>
-                        handleQuantityChange(
-                          item.product._id,
-                          item.quantity - 1,
-                        )
-                      }
-                      className="w-9 h-9 rounded-lg bg-white/40 hover:bg-white/60 transition"
-                    >
-                      −
-                    </button>
-
-                    <span
-                      className={`
-                        min-w-[28px] text-center font-medium
-                        transition-all duration-200
-                        ${
-                          animatingId === item.product._id
-                            ? "scale-125 opacity-60"
-                            : ""
+                  <div className="flex items-center gap-2 sm:gap-3">
+                    <label className="text-xs sm:text-sm font-medium text-gray-700">
+                      Quantity:
+                    </label>
+                    <div className="flex items-center gap-2 sm:gap-3">
+                      <button
+                        onClick={() =>
+                          handleQuantityChange(item._id, item.quantity - 1)
                         }
-                      `}
-                    >
-                      {item.quantity}
-                    </span>
-
-                    <button
-                      onClick={() =>
-                        handleQuantityChange(
-                          item.product._id,
-                          item.quantity + 1,
-                        )
-                      }
-                      className="w-9 h-9 rounded-lg bg-white/40 hover:bg-white/60 transition"
-                    >
-                      +
-                    </button>
+                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center"
+                      >
+                        <span className="text-xs sm:text-sm font-medium">
+                          −
+                        </span>
+                      </button>
+                      <span className="text-sm sm:text-base font-medium w-8 sm:w-12 text-center">
+                        {item.quantity}
+                      </span>
+                      <button
+                        onClick={() =>
+                          handleQuantityChange(item._id, item.quantity + 1)
+                        }
+                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center"
+                      >
+                        <span className="text-xs sm:text-sm font-medium">
+                          +
+                        </span>
+                      </button>
+                    </div>
                   </div>
 
-                  {/* PRICE + REMOVE */}
-                  <div className="flex items-center gap-6">
-                    <p
-                      className={`
-                        font-semibold min-w-20 text-right
-                        transition-all duration-200
-                        ${
-                          animatingId === item.product._id
-                            ? "scale-110 text-primary"
-                            : ""
-                        }
-                      `}
-                    >
-                      {formatPrice(itemTotal)}
-                    </p>
-
-                    <button
-                      onClick={() => handleRemove(item.product._id)}
-                      className="text-red-500 hover:text-red-600 transition"
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                  </div>
+                  {/* REMOVE */}
+                  <button
+                    onClick={() => handleRemove(item.product._id)}
+                    className="text-red-500 hover:text-red-600 transition-colors p-2 sm:p-3"
+                  >
+                    <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
+                  </button>
                 </div>
               );
             })}

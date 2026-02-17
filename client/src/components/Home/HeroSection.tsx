@@ -92,18 +92,20 @@ export default function HeroSection() {
       });
     });
 
-    return () => tl.kill();
+    return () => {
+      tl.kill();
+    };
   }, []);
 
   return (
-    <section className="bg-white py-10 px-6 md:px-16">
-      <div className="relative max-w-7xl mx-auto rounded-4xl overflow-hidden">
+    <section className="bg-white py-6 sm:py-8 px-4 sm:px-6 lg:px-16">
+      <div className="relative max-w-7xl mx-auto rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden">
         {/* GLASS BACKGROUND */}
-        <div className="absolute inset-0 rounded-4xl overflow-hidden">
+        <div className="absolute inset-0 rounded-2xl sm:rounded-3xl lg:rounded-4xl overflow-hidden">
           <div className="absolute inset-0 bg-primary/50 backdrop-blur-[32px]" />
           <div className="absolute inset-0 bg-linear-to-br from-primary/50 via-white/20 to-transparent" />
-          <div className="absolute inset-0 rounded-4xl ring-1 ring-white/70" />
-          <div className="absolute inset-0 rounded-4xl shadow-[inset_0_1px_20px_rgba(255,255,255,0.35)]" />
+          <div className="absolute inset-0 rounded-2xl sm:rounded-3xl lg:rounded-4xl ring-1 ring-white/70" />
+          <div className="absolute inset-0 rounded-2xl sm:rounded-3xl lg:rounded-4xl shadow-[inset_0_1px_20px_rgba(255,255,255,0.35)]" />
           <div
             className="absolute inset-0 opacity-[0.05]"
             style={{
@@ -111,25 +113,28 @@ export default function HeroSection() {
               backgroundRepeat: "repeat",
             }}
           />
-          <div className="absolute inset-0 rounded-4xl shadow-[0_30px_80px_rgba(0,0,0,0.12)]" />
+          <div className="absolute inset-0 rounded-2xl sm:rounded-3xl lg:rounded-4xl shadow-[0_30px_80px_rgba(0,0,0,0.12)]" />
         </div>
 
         {/* CONTENT */}
-        <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-16 px-12 py-24">
+        <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 sm:gap-12 lg:gap-16 px-6 sm:px-8 lg:px-12 py-12 sm:py-16 lg:py-24">
           {/* LEFT TEXT + BUTTON */}
-          <div ref={textRef} className="max-w-xl text-center md:text-left">
-            <h1 className="text-4xl md:text-5xl font-semibold text-neutral">
+          <div
+            ref={textRef}
+            className="max-w-lg lg:max-w-xl text-center lg:text-left"
+          >
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold text-neutral">
               {headphones[current].name}
             </h1>
 
-            <p className="mt-4 text-lg text-neutral/80">
+            <p className="mt-3 sm:mt-4 text-sm sm:text-base lg:text-lg text-neutral/80">
               {headphones[current].description}
             </p>
 
             {/* 🧊 GLASS BUTTON */}
             <Link
               href={"/products"}
-              className="group relative mt-20 inline-flex items-center gap-2 rounded-full px-8 py-4
+              className="group relative mt-6 sm:mt-8 lg:mt-20 inline-flex items-center gap-2 rounded-full px-6 sm:px-8 lg:px-8 py-3 sm:py-4 lg:py-4
               bg-white/25 backdrop-blur-xl
               ring-1 ring-white/50
               shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
@@ -139,21 +144,22 @@ export default function HeroSection() {
                 className="absolute inset-0 rounded-full opacity-[0.06]"
                 style={{
                   backgroundImage: "url('/noise.jpg')",
+                  backgroundRepeat: "repeat",
                 }}
               />
 
-              <span className="relative text-sm font-medium text-neutral">
+              <span className="relative text-sm sm:text-base lg:text-lg font-medium text-neutral">
                 Explore Collection
               </span>
 
-              <span className="relative">→</span>
+              <span className="relative text-lg lg:text-xl">→</span>
             </Link>
           </div>
 
           {/* RIGHT IMAGE */}
           <div
             ref={imageRef}
-            className="relative w-115 h-115 flex items-center justify-center"
+            className="relative w-64 sm:w-72 lg:w-80 lg:w-96 h-64 sm:h-72 lg:h-80 lg:w-115 flex items-center justify-center"
           >
             {headphones.map((hp) => (
               <div
@@ -163,9 +169,9 @@ export default function HeroSection() {
                 <Image
                   src={hp.image}
                   alt={hp.name}
-                  width={420}
-                  height={420}
-                  className="object-contain"
+                  width={280}
+                  height={280}
+                  className="object-contain sm:w-64 sm:h-64 lg:w-80 lg:h-96"
                   priority
                 />
               </div>

@@ -61,12 +61,12 @@ const FeatureGrid = () => {
   }, []);
 
   return (
-    <section className="bg-base-100 py-20 my-5">
-      <div className="mx-auto max-w-6xl px-6">
+    <section className="bg-base-100 py-16 sm:py-20 my-5">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Section heading */}
-        <div className="mb-20 flex items-center gap-6">
-          <span className="h-px w-12 bg-neutral" />
-          <h2 className="text-2xl font-semibold tracking-tight text-neutral">
+        <div className="mb-16 sm:mb-20 flex items-center gap-4 sm:gap-6">
+          <span className="h-px w-12 sm:w-16 lg:w-20 bg-neutral" />
+          <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral">
             Feature Selections
           </h2>
         </div>
@@ -76,20 +76,22 @@ const FeatureGrid = () => {
           ref={containerRef}
           className="
             grid grid-cols-1 
-            md:grid-cols-6 
-            md:auto-rows-[240px] 
-            gap-8
+            sm:grid-cols-2 
+            lg:grid-cols-6 
+            sm:auto-rows-[200px] 
+            lg:auto-rows-[240px] 
+            gap-4 sm:gap-6
           "
         >
           {/* Text Block */}
           <div
             ref={textRef}
-            className="md:col-span-2 md:row-span-1 space-y-4 self-start"
+            className="md:col-span-2 md:row-span-1 space-y-3 sm:space-y-4 self-start"
           >
-            <h3 className="text-lg font-medium text-neutral">
+            <h3 className="text-lg sm:text-xl font-medium text-neutral">
               Crafted for Precision
             </h3>
-            <p className="text-sm text-neutral/70 leading-relaxed">
+            <p className="text-sm sm:text-base text-neutral/70 leading-relaxed">
               A balance of acoustic engineering, comfort, and refined design —
               built for immersive everyday listening.
             </p>
@@ -125,15 +127,16 @@ const FeatureGrid = () => {
             />
           </div>
 
-          {/* Image 4 – Landscape (right bottom, beside feature list) */}
+          {/* Image 4 – Landscape (right bottom) */}
           <div className="feature-image md:col-span-2 md:row-span-1 relative rounded-xl overflow-hidden">
             <Image
-              src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770359440/download_2_zplsrz.jpg"
+              src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770360691/download_2_zplsrz.jpg"
               alt="Additional product shot"
               fill
               className="object-cover hover:scale-105 transition-transform duration-300"
             />
           </div>
+
           {/* Image 5 */}
           <div className="feature-image md:col-span-2 md:row-span-1 relative rounded-xl overflow-hidden">
             <Image
@@ -147,7 +150,7 @@ const FeatureGrid = () => {
           {/* Feature List */}
           <div
             ref={listRef}
-            className="md:col-span-2 md:row-span-1 space-y-6 self-end"
+            className="md:col-span-2 md:row-span-1 space-y-4 sm:space-y-6 self-end"
           >
             {[
               "Precision-tuned sound",

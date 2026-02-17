@@ -149,13 +149,14 @@ const SearchBar: React.FC<SearchBarProps> = ({
 
       {/* Search Results Dropdown - Rendered via portal to escape container constraints */}
       {isOpen &&
+        searchRef.current &&
         createPortal(
           <div
             className="fixed bg-white border-2 border-blue-500 rounded-lg shadow-2xl max-h-96 overflow-y-auto z-[9999]"
             style={{
-              top: searchRef.current?.getBoundingClientRect().bottom + 8 + "px",
-              left: searchRef.current?.getBoundingClientRect().left + "px",
-              width: searchRef.current?.getBoundingClientRect().width + "px",
+              top: searchRef.current.getBoundingClientRect().bottom + 8 + "px",
+              left: searchRef.current.getBoundingClientRect().left + "px",
+              width: searchRef.current.getBoundingClientRect().width + "px",
               minHeight: "200px",
             }}
           >

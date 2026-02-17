@@ -67,7 +67,7 @@ const AudioExperience = () => {
 
   // Hover handlers for 3D pop-out
   const handleHover3D = (
-    ref: React.RefObject<HTMLDivElement>,
+    ref: React.RefObject<HTMLDivElement | null>,
     rotate: number,
     scale: number,
     z: number,

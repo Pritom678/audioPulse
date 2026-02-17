@@ -3,7 +3,6 @@
 import api from "@/lib/axios";
 import { Eye, EyeClosed } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -20,7 +19,7 @@ const LoginForm: React.FC = () => {
 
   const container = useRef<HTMLDivElement>(null);
   const leftRef = useRef<HTMLDivElement>(null);
-  const formRef = useRef<HTMLFormElement>(null);
+  const formRef = useRef<HTMLDivElement>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -45,10 +44,14 @@ const LoginForm: React.FC = () => {
       setTimeout(() => {
         setLoading(false);
         setForm({ email: "", password: "" });
-        router.push("/");
       }, 1200);
-    } catch (err: any) {
-      setError(err?.response?.data?.message || "Login failed.");
+
+      router.push("/");
+      setTimeout(() => {
+        window.location.reload();
+      }, 300);
+    } catch (err: unknown) {
+      setError((err as Error)?.message || "Login failed.");
       setLoading(false);
     }
   };
@@ -62,26 +65,31 @@ const LoginForm: React.FC = () => {
         x: -70,
         opacity: 0,
         duration: 0.9,
-      })
-        .from(
-          formRef.current,
-          {
-            x: 70,
-            opacity: 0,
-            duration: 0.9,
-          },
-          "-=0.5"
-        )
-        .from(
-          formRef.current?.querySelectorAll("input, button, p"),
+      }).from(
+        formRef.current,
+        {
+          x: 70,
+          opacity: 0,
+          duration: 0.9,
+        },
+        "-=0.5",
+      );
+
+      // Animate form elements if they exist
+      const formElements =
+        formRef.current?.querySelectorAll("input, button, p");
+      if (formElements) {
+        tl.from(
+          formElements,
           {
             y: 20,
             opacity: 0,
             stagger: 0.1,
             duration: 0.4,
           },
-          "-=0.4"
+          "-=0.4",
         );
+      }
 
       // Glow Animation
       gsap.to(".auth-glow", {
@@ -92,58 +100,49 @@ const LoginForm: React.FC = () => {
         ease: "power1.inOut",
       });
     },
-    { scope: container }
+    { scope: container },
   );
 
   return (
     <div
       ref={container}
-      className="min-h-screen flex items-center justify-center bg-base-200 px-4"
+      className="min-h-screen flex items-center justify-center bg-base-200 px-4 sm:px-6"
     >
-      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden shadow-2xl bg-base-100 my-10">
-        
+      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden shadow-2xl bg-base-100 my-8 sm:my-10">
         {/* Left Section */}
         <div
           ref={leftRef}
-          className="hidden md:flex flex-col bg-gradient-to-br from-primary to-accent py-8 pl-3 mr-10 rounded-br-2xl rounded-tr-2xl text-white"
+          className="hidden md:flex flex-col bg-gradient-to-br from-primary to-accent py-6 sm:py-8 pl-3 sm:pl-6 mr-10 sm:mr-10 rounded-br-2xl sm:rounded-tr-2xl rounded-tr-2xl text-white"
         >
           <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <h1 className="text-4xl font-bold leading-tight">
+            <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
               Welcome back to AudioPulse
             </h1>
 
-            <div className="relative my-5 -ml-64">
+            <div className="relative my-4 sm:my-5 -ml-8 sm:-ml-16">
               <div className="absolute inset-0 -z-10 flex items-center justify-center">
-                <div className="h-72 w-72 rounded-full bg-white/20 blur-3xl auth-glow" />
+                <div className="h-16 sm:h-20 w-16 sm:w-20 rounded-full bg-white/20 blur-3xl auth-glow" />
               </div>
 
               <Image
                 src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770711009/AirPods_Max-removebg-preview_mbxwbs.png"
-                width={260}
-                height={240}
-                alt="Auth Illustration"
+                width={120}
+                height={120}
                 className="object-contain"
-                priority
+                alt="AirPods Max headphone"
               />
-            </div>
-
-            <p className="text-white/90 max-w-sm">
-              Sign in to continue where you left off and manage your audio
-              experience seamlessly.
-            </p>
           </div>
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center justify-center p-8 sm:p-12">
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="w-full max-w-md"
-          >
+        <div
+          ref={formRef}
+          className="w-full max-w-md sm:max-w-lg px-4 sm:px-6 py-6 sm:py-8"
+        >
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Email */}
-            <div className="mb-4">
-              <label className="block mb-1 text-sm font-medium">
+            <div>
+              <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium">
                 Email
               </label>
               <input
@@ -151,14 +150,14 @@ const LoginForm: React.FC = () => {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="input input-bordered w-full text-sm sm:text-base"
                 required
               />
             </div>
 
             {/* Password */}
-            <div className="mb-6">
-              <label className="block mb-1 text-sm font-medium">
+            <div>
+              <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium">
                 Password
               </label>
               <div className="relative">
@@ -167,22 +166,23 @@ const LoginForm: React.FC = () => {
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  className="input input-bordered w-full pr-12"
+                  className="input input-bordered w-full pr-10 sm:pr-12 text-sm sm:text-base"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-primary"
+                  className="absolute right-2 sm:right-3 top-1/2 sm:top-3 text-gray-500 hover:text-gray-700"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <Eye /> : <EyeClosed />}
                 </button>
               </div>
             </div>
 
-            {/* Error */}
+            {/* Error Message */}
             {error && (
-              <div className="mb-4 text-sm text-error bg-error/10 rounded-lg p-2 text-center">
+              <div className="mb-4 text-sm text-error bg-error/10 rounded-lg p-3 sm:p-4 text-center">
                 {error}
               </div>
             )}
@@ -191,21 +191,10 @@ const LoginForm: React.FC = () => {
             <button
               type="submit"
               disabled={loading}
-              className="btn btn-primary w-full text-lg flex items-center justify-center gap-2"
+              className="btn btn-primary w-full text-base sm:text-lg py-3 sm:py-4 flex items-center justify-center gap-2"
             >
               {loading ? "Logging in..." : "Login"}
             </button>
-
-            {/* Footer */}
-            <p className="mt-6 text-center text-sm text-neutral/70">
-              Don’t have an account?
-              <Link
-                href="/signup"
-                className="ml-1 text-primary hover:underline"
-              >
-                Signup
-              </Link>
-            </p>
           </form>
         </div>
       </div>

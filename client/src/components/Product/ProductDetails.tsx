@@ -97,7 +97,9 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
 
   if (loading || !product) {
     return (
-      <Loading className="flex flex-col items-center justify-center" />
+      <div className="flex flex-col items-center justify-center py-20">
+        <Loading size="lg" text="Loading product..." />
+      </div>
     );
   }
 

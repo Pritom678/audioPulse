@@ -24,6 +24,10 @@ export const getRandomProducts = async (req, res) => {
 export const getProductById = async (req, res) => {
     try {
         const { id } = req.params;
+        // Type guard for id
+        if (!id || typeof id !== "string") {
+            return res.status(400).json({ message: "Invalid product ID format" });
+        }
         if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: "Invalid product ID" });
         }
@@ -87,10 +91,14 @@ export const searchProducts = async (req, res) => {
 export const addRating = async (req, res) => {
     try {
         const userId = req.user?.id;
-        const { productId } = req.params;
+        const { id: productId } = req.params;
         const { rating, review } = req.body;
         if (!userId) {
             return res.status(401).json({ message: "Unauthorized" });
+        }
+        // Type guard for productId
+        if (!productId || typeof productId !== "string") {
+            return res.status(400).json({ message: "Invalid product ID format" });
         }
         if (!mongoose.Types.ObjectId.isValid(productId)) {
             return res.status(400).json({ message: "Invalid product ID" });
@@ -106,7 +114,7 @@ export const addRating = async (req, res) => {
         }
         const existingRating = await Rating.findOne({
             user: userId,
-            product: productId,
+            product: new mongoose.Types.ObjectId(productId),
         });
         if (existingRating) {
             const oldRating = existingRating.rating;
@@ -117,7 +125,12 @@ export const addRating = async (req, res) => {
             await product.save();
         }
         else {
-            await Rating.create({ user: userId, product: productId, rating, review });
+            await Rating.create({
+                user: userId,
+                product: new mongoose.Types.ObjectId(productId),
+                rating,
+                review,
+            });
             product.ratingSum += rating;
             product.reviewCount += 1;
             await product.save();
@@ -133,17 +146,25 @@ export const addRating = async (req, res) => {
 };
 export const getProductRatings = async (req, res) => {
     try {
-        const { productId } = req.params;
+        const { id: productId } = req.params;
         const { page = 1, limit = 10 } = req.query;
+        // Type guard for productId
+        if (!productId || typeof productId !== "string") {
+            return res.status(400).json({ message: "Invalid product ID format" });
+        }
         if (!mongoose.Types.ObjectId.isValid(productId)) {
             return res.status(400).json({ message: "Invalid product ID" });
         }
-        const ratings = await Rating.find({ product: productId })
+        const ratings = await Rating.find({
+            product: new mongoose.Types.ObjectId(productId),
+        })
             .populate("user", "name")
             .sort({ createdAt: -1 })
             .limit(Number(limit) * Number(page))
             .skip((Number(page) - 1) * Number(limit));
-        const total = await Rating.countDocuments({ product: productId });
+        const total = await Rating.countDocuments({
+            product: new mongoose.Types.ObjectId(productId),
+        });
         res.json({
             ratings,
             totalPages: Math.ceil(total / Number(limit)),

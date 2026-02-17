@@ -85,26 +85,31 @@ const SignupForm: React.FC = () => {
         x: -70,
         opacity: 0,
         duration: 0.9,
-      })
-        .from(
-          formRef.current,
-          {
-            x: 70,
-            opacity: 0,
-            duration: 0.9,
-          },
-          "-=0.5"
-        )
-        .from(
-          formRef.current?.querySelectorAll("input, button, p"),
+      }).from(
+        formRef.current,
+        {
+          x: 70,
+          opacity: 0,
+          duration: 0.9,
+        },
+        "-=0.5",
+      );
+
+      // Animate form elements if they exist
+      const formElements =
+        formRef.current?.querySelectorAll("input, button, p");
+      if (formElements) {
+        tl.from(
+          formElements,
           {
             y: 20,
             opacity: 0,
             stagger: 0.1,
             duration: 0.4,
           },
-          "-=0.4"
+          "-=0.4",
         );
+      }
 
       // Glow Animation
       gsap.to(".auth-glow", {
@@ -115,73 +120,64 @@ const SignupForm: React.FC = () => {
         ease: "power1.inOut",
       });
     },
-    { scope: container }
+    { scope: container },
   );
 
   return (
     <div
       ref={container}
-      className="min-h-screen flex items-center justify-center bg-base-200 px-4"
+      className="min-h-screen flex items-center justify-center bg-base-200 px-4 sm:px-6"
     >
-      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden shadow-2xl bg-base-100 my-10">
-        
+      <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 rounded-3xl overflow-hidden shadow-2xl bg-base-100 my-8 sm:my-10">
         {/* Left Section */}
         <div
           ref={leftRef}
-          className="hidden md:flex flex-col bg-gradient-to-br from-primary to-accent py-8 pl-3 mr-10 rounded-br-2xl rounded-tr-2xl text-white"
+          className="hidden md:flex flex-col bg-gradient-to-br from-primary to-accent py-8 sm:py-10 pl-3 sm:pl-6 mr-10 sm:mr-10 rounded-br-2xl sm:rounded-tr-2xl rounded-tr-2xl text-white"
         >
           <div className="flex flex-1 flex-col items-center justify-center text-center">
-            <h1 className="text-4xl font-bold leading-tight">
-              Join AudioPulse today
+            <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
+              Create Account
             </h1>
 
-            <div className="relative my-5 -ml-64">
+            <div className="relative my-4 sm:my-6 -ml-8 sm:-ml-16">
               <div className="absolute inset-0 -z-10 flex items-center justify-center">
-                <div className="h-72 w-72 rounded-full bg-white/20 blur-3xl auth-glow" />
+                <div className="h-16 sm:h-20 w-16 sm:w-20 rounded-full bg-white/20 blur-3xl auth-glow" />
               </div>
 
               <Image
-                src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770711759/AirPods_Max__1_-removebg-preview_huhoie.png"
-                width={260}
-                height={240}
-                alt="Auth Illustration"
+                src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770711009/AirPods_Max-removebg-preview_mbxwbs.png"
+                width={120}
+                height={120}
                 className="object-contain"
-                priority
               />
             </div>
-
-            <p className="text-white/90 max-w-sm">
-              Create your account and start managing your audio experience
-              seamlessly.
-            </p>
           </div>
         </div>
 
         {/* Right Section */}
-        <div className="flex items-center justify-center p-8 sm:p-12">
-          <form
-            ref={formRef}
-            onSubmit={handleSubmit}
-            className="w-full max-w-md"
-          >
+        <div
+          ref={formRef}
+          className="w-full max-w-md sm:max-w-lg px-4 sm:px-6 py-6 sm:py-8"
+        >
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             {/* Name */}
-            <div className="mb-4">
-              <label className="block mb-1 text-sm font-medium">
-                Full Name
+            <div>
+              <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium">
+                Name
               </label>
               <input
                 type="text"
                 name="name"
                 value={form.name}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="input input-bordered w-full text-sm sm:text-base"
                 required
               />
             </div>
 
             {/* Email */}
-            <div className="mb-4">
-              <label className="block mb-1 text-sm font-medium">
+            <div>
+              <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium">
                 Email
               </label>
               <input
@@ -189,14 +185,14 @@ const SignupForm: React.FC = () => {
                 name="email"
                 value={form.email}
                 onChange={handleChange}
-                className="input input-bordered w-full"
+                className="input input-bordered w-full text-sm sm:text-base"
                 required
               />
             </div>
 
             {/* Password */}
-            <div className="mb-4">
-              <label className="block mb-1 text-sm font-medium">
+            <div>
+              <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium">
                 Password
               </label>
               <div className="relative">
@@ -205,13 +201,14 @@ const SignupForm: React.FC = () => {
                   name="password"
                   value={form.password}
                   onChange={handleChange}
-                  className="input input-bordered w-full pr-12"
+                  className="input input-bordered w-full pr-10 sm:pr-12 text-sm sm:text-base"
                   required
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-primary"
+                  className="absolute right-2 sm:right-3 top-1/2 sm:top-3 text-gray-500 hover:text-gray-700"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? <Eye /> : <EyeClosed />}
                 </button>
@@ -219,8 +216,8 @@ const SignupForm: React.FC = () => {
             </div>
 
             {/* Confirm Password */}
-            <div className="mb-6">
-              <label className="block mb-1 text-sm font-medium">
+            <div>
+              <label className="block mb-1 sm:mb-2 text-sm sm:text-base font-medium">
                 Confirm Password
               </label>
               <div className="relative">
@@ -229,15 +226,16 @@ const SignupForm: React.FC = () => {
                   name="confirmPassword"
                   value={form.confirmPassword}
                   onChange={handleChange}
-                  className="input input-bordered w-full pr-12"
+                  className="input input-bordered w-full pr-10 sm:pr-12 text-sm sm:text-base"
                   required
                 />
                 <button
                   type="button"
-                  onClick={() =>
-                    setShowConfirmPassword(!showConfirmPassword)
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-2 sm:right-3 top-1/2 sm:top-3 text-gray-500 hover:text-gray-700"
+                  aria-label={
+                    showConfirmPassword ? "Hide password" : "Show password"
                   }
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-primary"
                 >
                   {showConfirmPassword ? <Eye /> : <EyeClosed />}
                 </button>
@@ -260,10 +258,7 @@ const SignupForm: React.FC = () => {
 
             <p className="mt-6 text-center text-sm text-neutral/70">
               Already have an account?
-              <Link
-                href="/login"
-                className="ml-1 text-primary hover:underline"
-              >
+              <Link href="/login" className="ml-1 text-primary hover:underline">
                 Login
               </Link>
             </p>

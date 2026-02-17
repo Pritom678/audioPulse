@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { ShoppingCart, Heart, LogOut, X, Shield } from "lucide-react";
-import api from "@/lib/axios";
 import { useAuth } from "@/hooks/useAuth";
+import { logout } from "@/utils/logout";
 
 type UserSidebarProps = {
   isOpen: boolean;
@@ -13,13 +13,11 @@ type UserSidebarProps = {
 const UserSidebar: React.FC<UserSidebarProps> = ({ isOpen, onToggle }) => {
   const { isAdmin } = useAuth();
 
-  const handleLogout = async () => {
-    try {
-      await api.post("/auth/logout");
+  const handleLogout = () => {
+    logout();
+    setTimeout(() => {
       window.location.reload();
-    } catch (error) {
-      console.error("Logout error:", error);
-    }
+    }, 300);
   };
 
   return (

@@ -118,6 +118,11 @@ export const updateProduct = async (req: Request, res: Response) => {
       isActive,
     } = req.body;
 
+    // Type guard for id
+    if (!id || typeof id !== "string") {
+      return res.status(400).json({ message: "Invalid product ID format" });
+    }
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid product ID" });
     }
@@ -174,6 +179,11 @@ export const deleteProduct = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
+    // Type guard for id
+    if (!id || typeof id !== "string") {
+      return res.status(400).json({ message: "Invalid product ID format" });
+    }
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid product ID" });
     }
@@ -197,6 +207,11 @@ export const deleteProduct = async (req: Request, res: Response) => {
 export const permanentDeleteProduct = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
+
+    // Type guard for id
+    if (!id || typeof id !== "string") {
+      return res.status(400).json({ message: "Invalid product ID format" });
+    }
 
     if (!mongoose.Types.ObjectId.isValid(id)) {
       return res.status(400).json({ message: "Invalid product ID" });
