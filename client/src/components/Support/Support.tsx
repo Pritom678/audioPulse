@@ -321,7 +321,7 @@ export default function Support() {
       {isEmailModalOpen && (
         <div
           ref={emailModalRef}
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-4"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-4 mobile-scale-modal"
         >
           <div className="relative w-full max-w-md p-8 rounded-3xl bg-white/20 backdrop-blur-2xl border border-white/30 shadow-2xl">
             {/* Close Button */}
@@ -392,7 +392,7 @@ export default function Support() {
       {isCallModalOpen && (
         <div
           ref={callModalRef}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 mobile-scale-modal"
         >
           <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative text-center">
             <button

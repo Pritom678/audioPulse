@@ -116,9 +116,9 @@ const AudioExperience = () => {
           </div>
         </div>
 
-        {/* Floating Images */}
+        {/* Floating Images - Hidden on smaller devices */}
       </section>
-      <div className="absolute pointer-events-auto">
+      <div className="absolute pointer-events-auto hidden sm:block">
         {/* Image 1 */}
         <div
           ref={imgOneRef}

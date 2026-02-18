@@ -125,7 +125,7 @@ const Header: React.FC = () => {
     <>
       <header
         className={`
-          sticky top-0 z-30 w-full transition-all duration-300 ease-in-out
+          sticky top-0 z-30 w-full transition-all duration-300 ease-in-out mobile-scale-fixed
           ${
             isScrolled
               ? "bg-base-100/80 backdrop-blur-md border-b border-base-300/50 shadow-sm"
@@ -133,32 +133,34 @@ const Header: React.FC = () => {
           }
         `}
       >
-        <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4">
+        <nav className="w-full flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4">
           {/* Logo and Search Bar - Left Side */}
-          <div className="flex items-center gap-2 sm:gap-4 lg:gap-6 flex-1">
-            <Logo />
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-4 lg:gap-6 flex-1">
+            <div className="flex-shrink-0">
+              <Logo />
+            </div>
 
-            {/* Clean Search Bar with Results */}
+            {/* Clean Search Bar with Results - Hidden on very small screens */}
             <div
               ref={searchRef}
-              className="relative flex-1 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg"
+              className="relative flex-1 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg hidden xs:block"
             >
               <div
                 className={`flex items-center bg-white/90 backdrop-blur-sm border border-gray-300 rounded-lg transition-all duration-300 ease-in-out cursor-pointer ${
                   isSearchExpanded
-                    ? "w-full sm:w-40 md:w-48 lg:w-64"
-                    : "w-20 sm:w-24 md:w-32 lg:w-40"
+                    ? "w-full xs:w-full sm:w-40 md:w-48 lg:w-64"
+                    : "w-16 xs:w-20 sm:w-24 md:w-32 lg:w-40"
                 }`}
                 onClick={handleSearchClick}
               >
-                <Search className="w-4 h-4 text-gray-400 ml-2 sm:ml-3" />
+                <Search className="w-3 h-3 xs:w-4 xs:h-4 text-gray-400 ml-1 xs:ml-2 sm:ml-3" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={handleSearchKeyDown}
                   placeholder="Search..."
-                  className={`flex-1 bg-transparent outline-none px-2 py-2 text-xs sm:text-sm ${
+                  className={`flex-1 bg-transparent outline-none px-1 xs:px-2 py-1 xs:py-2 text-xs xs:text-xs sm:text-sm ${
                     isSearchExpanded ? "cursor-text" : "cursor-pointer"
                   }`}
                   autoFocus={isSearchExpanded}
@@ -168,55 +170,71 @@ const Header: React.FC = () => {
 
               {/* Search Results Dropdown */}
               {isSearchExpanded && searchQuery.trim().length >= 2 && (
-                <div className="absolute top-full mt-2 w-full sm:w-40 md:w-48 lg:w-64 bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto z-50">
+                <div className="absolute top-full mt-2 w-full xs:w-full sm:w-40 md:w-48 lg:w-64 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 xs:max-h-80 overflow-y-auto z-50 mobile-scale-dropdown">
                   {isLoading ? (
-                    <div className="p-4 text-center text-gray-500">
+                    <div className="p-2 xs:p-4 text-center text-gray-500 text-xs xs:text-sm">
                       Searching...
                     </div>
                   ) : searchResults.length === 0 ? (
-                    <div className="p-4 text-center text-gray-500">
+                    <div className="p-2 xs:p-4 text-center text-gray-500 text-xs xs:text-sm">
                       No products found
                     </div>
                   ) : (
-                    <div className="py-2">
-                      {searchResults.map((product: any) => (
-                        <Link
-                          key={product._id}
-                          href={`/products/${product._id}`}
-                          className="flex items-center gap-3 p-3 hover:bg-gray-50 transition-colors"
-                          onClick={() => {
-                            setSearchQuery("");
-                            setIsSearchExpanded(false);
-                          }}
-                        >
-                          <div className="w-10 h-10 rounded bg-gray-100 shrink-0">
-                            <Image
-                              src={product.images[0] || "/placeholder.png"}
-                              alt={product.name}
-                              width={40}
-                              height={40}
-                              className="object-cover rounded"
-                            />
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <h4 className="text-sm font-medium text-gray-900 truncate">
-                              {product.name}
-                            </h4>
-                            <p className="text-xs text-gray-500">
-                              ${product.price.toFixed(2)}
-                            </p>
-                          </div>
-                        </Link>
-                      ))}
+                    <div className="py-1 xs:py-2">
+                      {searchResults.map(
+                        (product: {
+                          _id: string;
+                          name: string;
+                          images: string[];
+                          price: number;
+                        }) => (
+                          <Link
+                            key={product._id}
+                            href={`/products/${product._id}`}
+                            className="flex items-center gap-2 xs:gap-3 p-2 xs:p-3 hover:bg-gray-50 transition-colors"
+                            onClick={() => {
+                              setSearchQuery("");
+                              setIsSearchExpanded(false);
+                            }}
+                          >
+                            <div className="w-8 h-8 xs:w-10 xs:h-10 rounded bg-gray-100 shrink-0">
+                              <Image
+                                src={product.images[0] || "/placeholder.png"}
+                                alt={product.name}
+                                width={40}
+                                height={40}
+                                className="object-cover rounded"
+                              />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="text-xs xs:text-sm font-medium text-gray-900 truncate">
+                                {product.name}
+                              </h4>
+                              <p className="text-xs text-gray-500">
+                                ${product.price.toFixed(2)}
+                              </p>
+                            </div>
+                          </Link>
+                        ),
+                      )}
                     </div>
                   )}
                 </div>
               )}
             </div>
+
+            {/* Mobile Search Button - Visible only on very small screens */}
+            <button
+              onClick={() => setIsSearchExpanded(!isSearchExpanded)}
+              className="flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 xs:hidden"
+              aria-label="Toggle search"
+            >
+              <Search className="w-4 h-4 text-gray-600" />
+            </button>
           </div>
 
-          {/* Navigation Links - Center */}
-          <ul className="hidden md:flex items-center gap-4 lg:gap-6 mr-4">
+          {/* Navigation Links - Hidden on small, visible on medium+ */}
+          <ul className="hidden sm:flex items-center gap-2 md:gap-4 lg:gap-6 mr-2">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
 
@@ -224,7 +242,7 @@ const Header: React.FC = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className={`border border-white/20 ${glassBase} ${
+                    className={`border border-white/20 text-xs sm:text-sm px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg ${glassBase} ${
                       isActive ? glassActive : glassInactive
                     }`}
                   >
@@ -236,29 +254,27 @@ const Header: React.FC = () => {
           </ul>
 
           {/* Right Side - Auth Actions */}
-          <div className="flex items-center">
-            <div className="flex items-center gap-2 sm:gap-3">
-              {authenticated ? (
-                <button
-                  onClick={() => setIsSidebarOpen(true)}
-                  className="p-2 rounded-lg hover:bg-gray-100 transition-all duration-200"
-                  aria-label="Open menu"
-                >
-                  <Menu className="w-5 h-5 text-gray-600" />
-                </button>
-              ) : (
-                <Link
-                  href="/signup"
-                  className={`${glassBase} ${
-                    pathname === "/signup"
-                      ? glassActive
-                      : "border border-accent bg-white/20 text-primary hover:bg-primary/40 hover:text-white"
-                  } px-4 sm:px-6`}
-                >
-                  Get Started
-                </Link>
-              )}
-            </div>
+          <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+            {authenticated ? (
+              <button
+                onClick={() => setIsSidebarOpen(true)}
+                className="p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 transition-all duration-200"
+                aria-label="Open menu"
+              >
+                <Menu className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+              </button>
+            ) : (
+              <Link
+                href="/signup"
+                className={`${glassBase} text-xs sm:text-sm px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-lg ${
+                  pathname === "/signup"
+                    ? glassActive
+                    : "border border-accent bg-white/20 text-primary hover:bg-primary/40 hover:text-white"
+                }`}
+              >
+                Get Started
+              </Link>
+            )}
           </div>
         </nav>
       </header>

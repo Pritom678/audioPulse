@@ -27,3 +27,114 @@
 }
 
 @custom-variant dark (&:where([data-theme=night], [data-theme=night] *));
+
+/* Mobile Proportional Scaling for screens around 450px */
+@media (max-width: 450px) {
+  html {
+    font-size: 14px; /* Base font size scaling */
+  }
+
+  body {
+    transform: scale(0.85);
+    transform-origin: top left;
+    width: 117.65%; /* Compensate for scale to prevent horizontal scroll */
+    overflow-x: hidden;
+  }
+
+  /* Ensure all containers scale properly */
+  * {
+    box-sizing: border-box;
+  }
+
+  /* Fix fixed positioning for scaled content */
+  .fixed,
+  .sticky,
+  .mobile-scale-fixed {
+    transform: scale(0.85);
+    transform-origin: top left;
+  }
+
+  /* Adjust modal positioning */
+  .modal,
+  .dropdown,
+  .mobile-scale-dropdown,
+  .mobile-scale-modal {
+    transform: scale(0.85);
+    transform-origin: center;
+  }
+}
+
+/* Small screens (400px - 450px) */
+@media (max-width: 400px) {
+  html {
+    font-size: 13px;
+  }
+
+  body {
+    transform: scale(0.8);
+    width: 125%;
+  }
+
+  .fixed,
+  .sticky,
+  .mobile-scale-fixed {
+    transform: scale(0.8);
+  }
+
+  .modal,
+  .dropdown,
+  .mobile-scale-dropdown,
+  .mobile-scale-modal {
+    transform: scale(0.8);
+  }
+}
+
+/* Extra small screens (320px - 400px) */
+@media (max-width: 400px) {
+  html {
+    font-size: 12px;
+  }
+
+  body {
+    transform: scale(0.75);
+    width: 133.33%;
+  }
+
+  .fixed,
+  .sticky,
+  .mobile-scale-fixed {
+    transform: scale(0.75);
+  }
+
+  .modal,
+  .dropdown,
+  .mobile-scale-dropdown,
+  .mobile-scale-modal {
+    transform: scale(0.75);
+  }
+}
+
+/* Ultra small screens (below 320px) */
+@media (max-width: 320px) {
+  html {
+    font-size: 11px;
+  }
+
+  body {
+    transform: scale(0.65);
+    width: 153.85%;
+  }
+
+  .fixed,
+  .sticky,
+  .mobile-scale-fixed {
+    transform: scale(0.65);
+  }
+
+  .modal,
+  .dropdown,
+  .mobile-scale-dropdown,
+  .mobile-scale-modal {
+    transform: scale(0.65);
+  }
+}
