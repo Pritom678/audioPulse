@@ -19,12 +19,10 @@ export default function ConditionalLayout({
 
   // Regular routes - with header/footer
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <main>{children}</main>
-      <footer>
-        <Footer />
-      </footer>
-    </>
+      <main className="flex-1">{children}</main>
+      <Footer />
+    </div>
   );
 }

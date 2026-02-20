@@ -41,17 +41,13 @@ const Header: React.FC = () => {
 
   // Handle scroll effect for header transparency
   useEffect(() => {
-    let ticking = false;
-
     const handleScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          setIsScrolled(window.scrollY > 10);
-          ticking = false;
-        });
-        ticking = true;
-      }
+      const scrolled = window.scrollY > 100;
+      setIsScrolled(scrolled);
     };
+
+    // Set initial state
+    handleScroll();
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
@@ -64,7 +60,7 @@ const Header: React.FC = () => {
         searchRef.current &&
         !searchRef.current.contains(event.target as Node)
       ) {
-        // Only collapse if search is empty
+        // Collapse search if empty
         if (searchQuery.trim() === "") {
           setIsSearchExpanded(false);
         }
@@ -125,62 +121,62 @@ const Header: React.FC = () => {
     <>
       <header
         className={`
-          sticky top-0 z-30 w-full transition-all duration-300 ease-in-out mobile-scale-fixed
+          w-full transition-all duration-300 ease-in-out
           ${
             isScrolled
-              ? "bg-base-100/80 backdrop-blur-md border-b border-base-300/50 shadow-sm"
-              : "bg-base-100 border-b border-base-300"
+              ? "fixed top-0 left-0 right-0 z-50 bg-base-100/80 backdrop-blur-xl border-b border-base-300/50 shadow-lg"
+              : "relative bg-base-100 border-b border-base-300"
           }
         `}
       >
-        <nav className="w-full flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8 py-3 sm:py-4">
-          {/* Logo and Search Bar - Left Side */}
-          <div className="flex items-center gap-1 sm:gap-2 md:gap-4 lg:gap-6 flex-1">
-            <div className="flex-shrink-0">
+        <nav className="w-full flex items-center justify-between px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
+          {/* Left Side - Logo and Search */}
+          <div className="flex items-center gap-3 sm:gap-4 flex-1">
+            {/* Logo */}
+            <div className="shrink-0">
               <Logo />
             </div>
 
-            {/* Clean Search Bar with Results - Hidden on very small screens */}
+            {/* Search Bar - Desktop */}
             <div
               ref={searchRef}
-              className="relative flex-1 max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg hidden xs:block"
+              className="relative hidden md:block max-w-xs lg:max-w-sm"
             >
               <div
                 className={`flex items-center bg-white/90 backdrop-blur-sm border border-gray-300 rounded-lg transition-all duration-300 ease-in-out cursor-pointer ${
-                  isSearchExpanded
-                    ? "w-full xs:w-full sm:w-40 md:w-48 lg:w-64"
-                    : "w-16 xs:w-20 sm:w-24 md:w-32 lg:w-40"
+                  isSearchExpanded ? "w-64 lg:w-80" : "w-32"
                 }`}
                 onClick={handleSearchClick}
               >
-                <Search className="w-3 h-3 xs:w-4 xs:h-4 text-gray-400 ml-1 xs:ml-2 sm:ml-3" />
+                <Search className="w-4 h-4 text-gray-400 ml-3 shrink-0" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyDown={handleSearchKeyDown}
                   placeholder="Search..."
-                  className={`flex-1 bg-transparent outline-none px-1 xs:px-2 py-1 xs:py-2 text-xs xs:text-xs sm:text-sm ${
-                    isSearchExpanded ? "cursor-text" : "cursor-pointer"
+                  className={`flex-1 bg-transparent outline-none px-3 py-2 text-sm transition-all duration-300 ${
+                    isSearchExpanded
+                      ? "cursor-text opacity-100"
+                      : "cursor-pointer opacity-0 w-0 px-0"
                   }`}
-                  autoFocus={isSearchExpanded}
                   readOnly={!isSearchExpanded}
                 />
               </div>
 
               {/* Search Results Dropdown */}
               {isSearchExpanded && searchQuery.trim().length >= 2 && (
-                <div className="absolute top-full mt-2 w-full xs:w-full sm:w-40 md:w-48 lg:w-64 bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 xs:max-h-80 overflow-y-auto z-50 mobile-scale-dropdown">
+                <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-80 overflow-y-auto z-50">
                   {isLoading ? (
-                    <div className="p-2 xs:p-4 text-center text-gray-500 text-xs xs:text-sm">
+                    <div className="p-4 text-center text-gray-500 text-sm">
                       Searching...
                     </div>
                   ) : searchResults.length === 0 ? (
-                    <div className="p-2 xs:p-4 text-center text-gray-500 text-xs xs:text-sm">
+                    <div className="p-4 text-center text-gray-500 text-sm">
                       No products found
                     </div>
                   ) : (
-                    <div className="py-1 xs:py-2">
+                    <div className="py-2">
                       {searchResults.map(
                         (product: {
                           _id: string;
@@ -191,13 +187,13 @@ const Header: React.FC = () => {
                           <Link
                             key={product._id}
                             href={`/products/${product._id}`}
-                            className="flex items-center gap-2 xs:gap-3 p-2 xs:p-3 hover:bg-gray-50 transition-colors"
+                            className="flex items-center gap-3 p-3 hover:bg-gray-50 transition-colors"
                             onClick={() => {
                               setSearchQuery("");
                               setIsSearchExpanded(false);
                             }}
                           >
-                            <div className="w-8 h-8 xs:w-10 xs:h-10 rounded bg-gray-100 shrink-0">
+                            <div className="w-10 h-10 rounded bg-gray-100 shrink-0">
                               <Image
                                 src={product.images[0] || "/placeholder.png"}
                                 alt={product.name}
@@ -207,7 +203,7 @@ const Header: React.FC = () => {
                               />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="text-xs xs:text-sm font-medium text-gray-900 truncate">
+                              <h4 className="text-sm font-medium text-gray-900 truncate">
                                 {product.name}
                               </h4>
                               <p className="text-xs text-gray-500">
@@ -222,19 +218,10 @@ const Header: React.FC = () => {
                 </div>
               )}
             </div>
-
-            {/* Mobile Search Button - Visible only on very small screens */}
-            <button
-              onClick={() => setIsSearchExpanded(!isSearchExpanded)}
-              className="flex-shrink-0 p-2 rounded-lg hover:bg-gray-100 transition-all duration-200 xs:hidden"
-              aria-label="Toggle search"
-            >
-              <Search className="w-4 h-4 text-gray-600" />
-            </button>
           </div>
 
-          {/* Navigation Links - Hidden on small, visible on medium+ */}
-          <ul className="hidden sm:flex items-center gap-2 md:gap-4 lg:gap-6 mr-2">
+          {/* Navigation Links - Desktop */}
+          <ul className="hidden lg:flex items-center gap-4 xl:gap-6">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
 
@@ -242,7 +229,7 @@ const Header: React.FC = () => {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className={`border border-white/20 text-xs sm:text-sm px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg ${glassBase} ${
+                    className={`border border-white/20 text-sm px-4 py-2 rounded-full ${glassBase} ${
                       isActive ? glassActive : glassInactive
                     }`}
                   >
@@ -254,29 +241,136 @@ const Header: React.FC = () => {
           </ul>
 
           {/* Right Side - Auth Actions */}
-          <div className="flex items-center gap-1 sm:gap-2 md:gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            {/* Mobile Search Button */}
+            <button
+              onClick={() => setIsSearchExpanded(!isSearchExpanded)}
+              className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-all duration-200"
+              aria-label="Toggle search"
+            >
+              <Search className="w-5 h-5 text-gray-600" />
+            </button>
+
             {authenticated ? (
               <button
                 onClick={() => setIsSidebarOpen(true)}
-                className="p-1.5 sm:p-2 rounded-lg hover:bg-gray-100 transition-all duration-200"
+                className="p-2 rounded-lg hover:bg-gray-100 transition-all duration-200"
                 aria-label="Open menu"
               >
-                <Menu className="w-4 h-4 sm:w-5 sm:h-5 text-gray-600" />
+                <Menu className="w-5 h-5 text-gray-600" />
               </button>
             ) : (
               <Link
                 href="/signup"
-                className={`${glassBase} text-xs sm:text-sm px-3 sm:px-4 md:px-6 py-1.5 sm:py-2 rounded-lg ${
+                className={`${glassBase} text-sm px-4 sm:px-6 py-2 rounded-full ${
                   pathname === "/signup"
                     ? glassActive
                     : "border border-accent bg-white/20 text-primary hover:bg-primary/40 hover:text-white"
                 }`}
               >
-                Get Started
+                <span className="hidden sm:inline">Get Started</span>
+                <span className="sm:hidden">Sign Up</span>
               </Link>
             )}
           </div>
         </nav>
+
+        {/* Mobile Search Bar */}
+        {isSearchExpanded && (
+          <div className="md:hidden px-4 pb-4">
+            <div className="relative">
+              <div className="flex items-center bg-white/90 backdrop-blur-sm border border-gray-300 rounded-lg">
+                <Search className="w-4 h-4 text-gray-400 ml-3" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Search products..."
+                  className="flex-1 bg-transparent outline-none px-3 py-2 text-sm"
+                  autoFocus
+                />
+              </div>
+
+              {/* Mobile Search Results */}
+              {searchQuery.trim().length >= 2 && (
+                <div className="absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg max-h-60 overflow-y-auto z-50">
+                  {isLoading ? (
+                    <div className="p-3 text-center text-gray-500 text-sm">
+                      Searching...
+                    </div>
+                  ) : searchResults.length === 0 ? (
+                    <div className="p-3 text-center text-gray-500 text-sm">
+                      No products found
+                    </div>
+                  ) : (
+                    <div className="py-1">
+                      {searchResults.map(
+                        (product: {
+                          _id: string;
+                          name: string;
+                          images: string[];
+                          price: number;
+                        }) => (
+                          <Link
+                            key={product._id}
+                            href={`/products/${product._id}`}
+                            className="flex items-center gap-2 p-2 hover:bg-gray-50 transition-colors"
+                            onClick={() => {
+                              setSearchQuery("");
+                              setIsSearchExpanded(false);
+                            }}
+                          >
+                            <div className="w-8 h-8 rounded bg-gray-100 shrink-0">
+                              <Image
+                                src={product.images[0] || "/placeholder.png"}
+                                alt={product.name}
+                                width={32}
+                                height={32}
+                                className="object-cover rounded"
+                              />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h4 className="text-xs font-medium text-gray-900 truncate">
+                                {product.name}
+                              </h4>
+                              <p className="text-xs text-gray-500">
+                                ${product.price.toFixed(2)}
+                              </p>
+                            </div>
+                          </Link>
+                        ),
+                      )}
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Mobile Navigation Menu */}
+        <div className="lg:hidden border-t border-base-300">
+          <ul className="flex items-center justify-around px-4 py-2">
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+
+              return (
+                <li key={link.name}>
+                  <Link
+                    href={link.href}
+                    className={`text-xs px-3 py-1.5 rounded-full transition-all duration-200 ${
+                      isActive
+                        ? "bg-primary/20 text-primary font-medium"
+                        : "text-gray-600 hover:bg-gray-100"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
       </header>
 
       {/* User Sidebar - Only when authenticated */}

@@ -96,12 +96,38 @@ export default function ProductCard({
     <div className="relative h-full flex flex-col">
       <div
         ref={cardRef}
-        className={`relative rounded-3xl p-6 inset-0 flex-1 flex flex-col ${gradient}`}
+        className={`relative rounded-2xl sm:rounded-3xl p-4 sm:p-6 inset-0 flex-1 flex flex-col ${gradient}`}
       >
+        {/* Wishlist Button - Top Left */}
+        <button
+          onClick={handleWishlistClick}
+          className={`
+            absolute top-3 left-3 sm:top-4 sm:left-4 z-10
+            flex items-center justify-center
+            w-9 h-9 sm:w-10 sm:h-10
+            backdrop-blur-md border rounded-full
+            transition-all duration-300
+            hover:scale-110
+            ${
+              isWishlisted(id)
+                ? "bg-red-500 text-white border-red-500 shadow-lg"
+                : "bg-white/40 border-white/50 hover:bg-white/60 text-gray-700"
+            }
+          `}
+          title={isWishlisted(id) ? "Remove from wishlist" : "Add to wishlist"}
+        >
+          <Heart
+            ref={heartRef}
+            className={`w-4 h-4 sm:w-5 sm:h-5 transition-all duration-300 ${
+              isWishlisted(id) ? "fill-white" : ""
+            }`}
+          />
+        </button>
+
         {/* Product Image */}
         <div
           ref={imageRef}
-          className="relative h-48 flex items-center justify-center"
+          className="relative h-40 sm:h-48 flex items-center justify-center"
         >
           <Image
             src={image}
@@ -113,62 +139,43 @@ export default function ProductCard({
         </div>
 
         {/* Content Panel */}
-        <div className="mt-4 flex-1 flex flex-col">
+        <div className="mt-3 sm:mt-4 flex-1 flex flex-col">
           {/* Product Info */}
-          <div className="flex justify-between items-center mb-2">
-            <div className="flex-1">
-              <h3 className="text-sm font-semibold text-gray-900">{name}</h3>
+          <div className="flex justify-between items-start mb-2 gap-2">
+            <div className="flex-1 min-w-0">
+              <h3 className="text-sm sm:text-base font-semibold text-gray-900 line-clamp-2">
+                {name}
+              </h3>
               <StarRating rating={rating} reviewCount={reviewCount} size="sm" />
             </div>
-            <div className="text-sm font-bold text-gray-900">
+            <div className="text-sm sm:text-base font-bold text-gray-900 shrink-0">
               {formatPrice(price)}
             </div>
           </div>
 
           {/* Description */}
-          <div className="text-xs text-gray-600 mb-4">
-            <p>{truncateDescription(description, 80)}</p>
+          <div className="text-xs sm:text-sm text-gray-600 mb-3 sm:mb-4 flex-1">
+            <p className="line-clamp-2 sm:line-clamp-3">
+              {truncateDescription(description, 80)}
+            </p>
           </div>
 
-          {/* Buttons */}
-          <div className="mt-auto flex justify-between px-4">
-            {/* Wishlist Button */}
-            <button
-              onClick={handleWishlistClick}
-              className={`
-                flex items-center gap-2
-                backdrop-blur-md border px-4 py-2 rounded-full
-                text-sm font-semibold
-                transition-all duration-300
-                ${
-                  isWishlisted(id)
-                    ? "bg-red-500 text-white border-red-500 shadow-lg"
-                    : "bg-white/30 border-white/30 hover:bg-white/40"
-                }
-              `}
-            >
-              <Heart
-                ref={heartRef}
-                className={`w-4 h-4 transition-all duration-300 ${
-                  isWishlisted(id) ? "fill-white" : ""
-                }`}
-              />
-            </button>
-
-            {/* View Details Button */}
+          {/* View Details Button */}
+          <div className="mt-auto">
             <Link
               href={`/products/${id}`}
               className="
-                flex items-center gap-2
+                flex items-center justify-center gap-2
                 bg-accent/30 backdrop-blur-md border border-white/30
                 text-neutral px-4 py-2 rounded-full
-                text-sm font-semibold
+                text-xs sm:text-sm font-semibold
                 hover:bg-accent/40 hover:scale-105 hover:shadow-lg
                 transition-all duration-300
+                w-full
               "
             >
               View Details
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4" />
             </Link>
           </div>
         </div>

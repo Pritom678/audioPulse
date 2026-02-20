@@ -204,19 +204,19 @@ export default function About() {
   return (
     <section
       ref={containerRef}
-      className="min-h-screen bg-linear-to-b from-base-100 to-base-200 py-20 px-6 relative overflow-hidden"
+      className="min-h-screen bg-linear-to-b from-base-100 to-base-200 py-12 sm:py-20 px-4 sm:px-6 relative overflow-hidden"
     >
       <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-primary/5 rounded-full blur-3xl" />
 
       <div className="max-w-7xl mx-auto relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-16 items-center">
           {/* Left Section */}
-          <div className="relative">
+          <div className="relative order-2 lg:order-1">
             {/* Top Stat Card */}
             <div
               ref={topStatRef}
-              className="absolute top-0 right-0 z-20 bg-white/50 backdrop-blur-2xl rounded-3xl p-6 border border-white/60 shadow-2xl max-w-xs hover:scale-105 transition-transform duration-300"
+              className="hidden sm:block absolute top-0 right-0 z-20 bg-white/50 backdrop-blur-2xl rounded-3xl p-4 sm:p-6 border border-white/60 shadow-2xl max-w-[280px] sm:max-w-xs hover:scale-105 transition-transform duration-300"
             >
               <div
                 className="absolute inset-0 rounded-3xl opacity-[0.03] pointer-events-none"
@@ -268,7 +268,7 @@ export default function About() {
             </div>
 
             {/* Image Grid */}
-            <div className="grid grid-cols-2 gap-6 mt-32">
+            <div className="grid grid-cols-2 gap-4 sm:gap-6 mt-8 sm:mt-32">
               {/* Image 1 */}
               <div className="relative">
                 <div
@@ -337,23 +337,23 @@ export default function About() {
           </div>
 
           {/* Right Section */}
-          <div className="space-y-8">
+          <div className="space-y-8 order-1 lg:order-2">
             <div>
               <p
                 ref={subtitleRef}
-                className="text-sm uppercase tracking-wider text-primary/70 mb-3 font-semibold"
+                className="text-xs sm:text-sm uppercase tracking-wider text-primary/70 mb-3 font-semibold"
               >
                 A BIT
               </p>
               <h1
                 ref={titleRef}
-                className="text-4xl md:text-6xl font-bold text-neutral mb-6 tracking-tight"
+                className="text-3xl sm:text-4xl md:text-6xl font-bold text-neutral mb-6 tracking-tight"
               >
                 ABOUT US
               </h1>
               <p
                 ref={descriptionRef}
-                className="text-gray-600 leading-relaxed text-lg"
+                className="text-gray-600 leading-relaxed text-base sm:text-lg"
               >
                 From the finest audio engineering to exceptional customer care,
                 we deliver premium sound experiences. Our passion for audio
@@ -363,7 +363,7 @@ export default function About() {
               </p>
             </div>
 
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {stats.slice(1).map((stat, index) => {
                 const Icon = stat.icon;
                 return (

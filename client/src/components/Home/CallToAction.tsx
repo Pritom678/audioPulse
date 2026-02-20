@@ -21,7 +21,7 @@ const CallToAction = () => {
 
   return (
     <section
-      className="my-10 relative bg-gradient-to-tr from-primary/20 to-base-200 py-32 overflow-hidden rounded-2xl"
+      className="my-6 sm:my-8 lg:my-10 relative bg-gradient-to-tr from-primary/20 to-base-200 py-16 sm:py-24 lg:py-32 overflow-hidden rounded-2xl"
       style={{ perspective: 1200 }}
     >
       {/* Optional floating wave background */}
@@ -29,17 +29,17 @@ const CallToAction = () => {
 
       <div
         ref={ref}
-        className="relative mx-auto max-w-4xl text-center space-y-6 z-10"
+        className="relative mx-auto max-w-4xl text-center space-y-4 sm:space-y-6 z-10 px-4 sm:px-6"
       >
-        <h2 className="text-3xl md:text-4xl font-bold text-neutral">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-neutral">
           Experience AudioPluse Like Never Before
         </h2>
-        <p className="text-neutral/70 text-lg md:text-xl">
+        <p className="text-neutral/70 text-base sm:text-lg md:text-xl">
           Discover premium sound, tailored for every moment and every mood.
         </p>
         <Link
           href={"/products"}
-          className="btn bg-primary/50 backdrop-blur-md border border-white/30 hover:bg-primary/40 hover:scale-105 transition-all duration-300 rounded-full px-12 py-4 text-lg font-semibold text-white shadow-lg"
+          className="inline-flex items-center justify-center gap-2 btn bg-primary/50 backdrop-blur-md border border-white/30 hover:bg-primary/40 hover:scale-105 transition-all duration-300 rounded-full px-8 sm:px-10 lg:px-12 py-3 sm:py-4 text-base sm:text-lg font-semibold text-white shadow-lg"
         >
           Shop Now
         </Link>

@@ -159,7 +159,7 @@ const CartItems = () => {
         {/* CART ITEMS */}
         <div className="lg:col-span-2 bg-base-200 rounded-xl border border-white/30 backdrop-blur-md">
           <div className="p-4 sm:p-5 border-b border-white/20">
-            <h2 className="font-semibold text-lg">Products</h2>
+            <h2 className="font-semibold text-base sm:text-lg">Products</h2>
           </div>
 
           <div className="divide-y divide-white/90">
@@ -170,7 +170,7 @@ const CartItems = () => {
                 <div
                   key={item._id}
                   className={`
-                    flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4 p-4 sm:p-5
+                    flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4 p-4 sm:p-5
                     transition-all duration-300
                     ${
                       removingId === item.product._id
@@ -186,58 +186,86 @@ const CartItems = () => {
                       alt={item.product.name}
                       width={60}
                       height={60}
-                      className="rounded-xl object-cover"
+                      className="rounded-xl object-cover w-14 h-14 sm:w-16 sm:h-16"
                     />
 
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium text-sm sm:text-base">
+                      <p className="font-medium text-sm sm:text-base truncate">
                         {item.product.name}
                       </p>
-                      <p className="text-sm sm:text-base text-gray-500">
+                      <p className="text-xs sm:text-sm text-gray-500">
                         {formatPrice(Number(item.product.price))}
                       </p>
                     </div>
                   </div>
 
-                  {/* QUANTITY */}
-                  <div className="flex items-center gap-2 sm:gap-3">
-                    <label className="text-xs sm:text-sm font-medium text-gray-700">
-                      Quantity:
-                    </label>
-                    <div className="flex items-center gap-2 sm:gap-3">
+                  {/* QUANTITY & ACTIONS */}
+                  <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4">
+                    {/* QUANTITY */}
+                    <div className="flex items-center gap-2">
                       <button
                         onClick={() =>
-                          handleQuantityChange(item._id, item.quantity - 1)
+                          handleQuantityChange(
+                            item.product._id,
+                            item.quantity - 1,
+                          )
                         }
-                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center"
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/40 hover:bg-white/60 transition flex items-center justify-center text-sm sm:text-base"
                       >
-                        <span className="text-xs sm:text-sm font-medium">
-                          −
-                        </span>
+                        −
                       </button>
-                      <span className="text-sm sm:text-base font-medium w-8 sm:w-12 text-center">
+
+                      <span
+                        className={`
+                          min-w-[24px] sm:min-w-[28px] text-center font-medium text-sm sm:text-base
+                          transition-all duration-200
+                          ${
+                            animatingId === item.product._id
+                              ? "scale-125 opacity-60"
+                              : ""
+                          }
+                        `}
+                      >
                         {item.quantity}
                       </span>
+
                       <button
                         onClick={() =>
-                          handleQuantityChange(item._id, item.quantity + 1)
+                          handleQuantityChange(
+                            item.product._id,
+                            item.quantity + 1,
+                          )
                         }
-                        className="w-6 h-6 sm:w-8 sm:h-8 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors flex items-center justify-center"
+                        className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-white/40 hover:bg-white/60 transition flex items-center justify-center text-sm sm:text-base"
                       >
-                        <span className="text-xs sm:text-sm font-medium">
-                          +
-                        </span>
+                        +
+                      </button>
+                    </div>
+
+                    {/* PRICE + REMOVE */}
+                    <div className="flex items-center gap-3 sm:gap-6">
+                      <p
+                        className={`
+                          font-semibold min-w-[60px] sm:min-w-20 text-right text-sm sm:text-base
+                          transition-all duration-200
+                          ${
+                            animatingId === item.product._id
+                              ? "scale-110 text-primary"
+                              : ""
+                          }
+                        `}
+                      >
+                        {formatPrice(itemTotal)}
+                      </p>
+
+                      <button
+                        onClick={() => handleRemove(item.product._id)}
+                        className="text-red-500 hover:text-red-600 transition p-1"
+                      >
+                        <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                     </div>
                   </div>
-
-                  {/* REMOVE */}
-                  <button
-                    onClick={() => handleRemove(item.product._id)}
-                    className="text-red-500 hover:text-red-600 transition-colors p-2 sm:p-3"
-                  >
-                    <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
-                  </button>
                 </div>
               );
             })}
@@ -245,8 +273,10 @@ const CartItems = () => {
         </div>
 
         {/* ORDER SUMMARY */}
-        <div className="bg-base-200 rounded-xl border border-white/30 p-6 h-fit backdrop-blur-md">
-          <h2 className="font-semibold text-lg mb-4">Order Summary</h2>
+        <div className="bg-base-200 rounded-xl border border-white/30 p-5 sm:p-6 h-fit backdrop-blur-md lg:sticky lg:top-24">
+          <h2 className="font-semibold text-base sm:text-lg mb-4">
+            Order Summary
+          </h2>
 
           <div className="space-y-3 text-sm">
             <div className="flex justify-between">
@@ -277,7 +307,7 @@ const CartItems = () => {
           </div>
 
           <button
-            className="mt-6 w-full px-6 py-3 rounded-xl font-semibold text-white
+            className="mt-6 w-full px-6 py-3 rounded-xl font-semibold text-sm sm:text-base text-white
               bg-primary/70 backdrop-blur-md border border-white/30
               hover:bg-primary/80 hover:shadow-xl
               transition-all duration-200"

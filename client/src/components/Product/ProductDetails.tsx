@@ -143,18 +143,18 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
   return (
     <div
       ref={container}
-      className="min-h-screen flex items-center justify-center px-6 bg-gradient-to-br from-primary/40 via-secondary/30 to-primary/50 py-10"
+      className="min-h-screen flex items-center justify-center px-4 sm:px-6 bg-gradient-to-br from-primary/40 via-secondary/30 to-primary/50 py-6 sm:py-10"
     >
       {/* Glass Container */}
-      <div className="w-full max-w-6xl py-20 px-10 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-3xl shadow-2xl">
-        <div className="grid md:grid-cols-3 gap-12">
+      <div className="w-full max-w-6xl py-8 sm:py-12 lg:py-20 px-4 sm:px-6 lg:px-10 bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl sm:rounded-3xl shadow-2xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 lg:gap-12">
           {/* LEFT THUMBNAILS */}
-          <div className="flex md:flex-col gap-4 items-center">
+          <div className="flex flex-row md:flex-col gap-3 sm:gap-4 items-center justify-center md:justify-start overflow-x-auto md:overflow-x-visible">
             {product.images.map((img, index) => (
               <div
                 key={index}
                 onClick={() => setActiveImage(img)}
-                className={`thumb w-20 h-20 bg-white/20 backdrop-blur-md cursor-pointer flex items-center justify-center border rounded-xl transition ${
+                className={`thumb w-16 h-16 sm:w-20 sm:h-20 bg-white/20 backdrop-blur-md cursor-pointer flex items-center justify-center border rounded-xl transition flex-shrink-0 ${
                   activeImage === img ? "border-white" : "border-white/30"
                 }`}
               >
@@ -170,28 +170,30 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
           </div>
 
           {/* CENTER IMAGE */}
-          <div className="flex items-center justify-center">
+          <div className="flex items-center justify-center order-first md:order-none">
             {activeImage && (
               <Image
                 src={activeImage}
                 alt={product.name}
-                width={500}
-                height={500}
-                className="product-image object-contain drop-shadow-2xl"
+                width={400}
+                height={400}
+                className="product-image object-contain drop-shadow-2xl w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px]"
                 priority
               />
             )}
           </div>
 
           {/* RIGHT INFO */}
-          <div className="product-info flex flex-col justify-center space-y-6 text-neutral">
-            <h1 className="text-4xl font-semibold tracking-wide">
+          <div className="product-info flex flex-col justify-center space-y-4 sm:space-y-6 text-neutral">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-wide">
               {product.name}
             </h1>
 
-            <p className="text-xl font-medium">{formatPrice(product.price)}</p>
+            <p className="text-lg sm:text-xl font-medium">
+              {formatPrice(product.price)}
+            </p>
 
-            <div className="text-neutral leading-relaxed opacity-90">
+            <div className="text-sm sm:text-base text-neutral leading-relaxed opacity-90">
               {showFullDescription
                 ? product.description || ""
                 : truncateDescription(product.description || "", 150)}
@@ -199,7 +201,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
               {product.description && product.description.length > 150 && (
                 <button
                   onClick={toggleDescription}
-                  className="ml-2 underline text-sm"
+                  className="ml-2 underline text-xs sm:text-sm"
                 >
                   {showFullDescription ? "Show less" : "Show more"}
                 </button>
@@ -207,11 +209,11 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
             </div>
 
             {/* BUTTONS */}
-            <div className="flex items-center gap-4 mt-4">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mt-4">
               <button
                 onClick={handleAddToCart}
                 disabled={product.stock === 0}
-                className="px-8 py-3 rounded-xl font-semibold text-white bg-primary/70 backdrop-blur-md border border-white/30 hover:bg-primary/80 hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 px-6 sm:px-8 py-3 sm:py-3 rounded-xl font-semibold text-sm sm:text-base text-white bg-primary/70 backdrop-blur-md border border-white/30 hover:bg-primary/80 hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {product.stock > 0 ? "Buy Now" : "Out of Stock"}
               </button>
@@ -219,7 +221,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
               {/* Wishlist Button */}
               <button
                 onClick={handleWishlistClick}
-                className={`w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
+                className={`w-full sm:w-12 h-12 rounded-full flex items-center justify-center transition-all duration-300 ${
                   isWishlisted(product._id)
                     ? "bg-red-500 hover:bg-red-600"
                     : "bg-white/20 hover:bg-white/30"

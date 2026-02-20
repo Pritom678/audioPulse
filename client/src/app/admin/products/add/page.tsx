@@ -129,7 +129,7 @@ export default function AddProductPage() {
           </div>
 
           {/* Price and Stock */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Price ($) <span className="text-red-500">*</span>
@@ -164,7 +164,7 @@ export default function AddProductPage() {
           </div>
 
           {/* Category and Brand */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Category <span className="text-red-500">*</span>
@@ -233,7 +233,7 @@ export default function AddProductPage() {
           </div>
 
           {/* Submit Button */}
-          <div className="flex gap-4 pt-4">
+          <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button
               type="submit"
               disabled={loading}
@@ -243,7 +243,7 @@ export default function AddProductPage() {
             </button>
             <Link
               href="/admin/products"
-              className="px-6 py-3 border border-gray-300 rounded-full font-semibold text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+              className="px-6 py-3 border border-gray-300 rounded-full font-semibold text-gray-700 hover:bg-gray-50 transition-colors duration-200 text-center"
             >
               Cancel
             </Link>

@@ -61,12 +61,12 @@ const FeatureGrid = () => {
   }, []);
 
   return (
-    <section className="bg-base-100 py-16 sm:py-20 my-5">
+    <section className="bg-base-100 py-12 sm:py-16 lg:py-20 my-5">
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         {/* Section heading */}
-        <div className="mb-16 sm:mb-20 flex items-center gap-4 sm:gap-6">
-          <span className="h-px w-12 sm:w-16 lg:w-20 bg-neutral" />
-          <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-neutral">
+        <div className="mb-12 sm:mb-16 lg:mb-20 flex items-center gap-3 sm:gap-4 lg:gap-6">
+          <span className="h-px w-8 sm:w-12 lg:w-20 bg-neutral" />
+          <h2 className="text-lg sm:text-xl lg:text-2xl font-semibold tracking-tight text-neutral">
             Feature Selections
           </h2>
         </div>
@@ -78,27 +78,28 @@ const FeatureGrid = () => {
             grid grid-cols-1 
             sm:grid-cols-2 
             lg:grid-cols-6 
+            auto-rows-[180px]
             sm:auto-rows-[200px] 
             lg:auto-rows-[240px] 
-            gap-4 sm:gap-6
+            gap-3 sm:gap-4 lg:gap-6
           "
         >
           {/* Text Block */}
           <div
             ref={textRef}
-            className="md:col-span-2 md:row-span-1 space-y-3 sm:space-y-4 self-start"
+            className="sm:col-span-2 lg:row-span-1 space-y-2 sm:space-y-3 lg:space-y-4 self-start p-4 sm:p-0"
           >
-            <h3 className="text-lg sm:text-xl font-medium text-neutral">
+            <h3 className="text-base sm:text-lg lg:text-xl font-medium text-neutral">
               Crafted for Precision
             </h3>
-            <p className="text-sm sm:text-base text-neutral/70 leading-relaxed">
+            <p className="text-xs sm:text-sm lg:text-base text-neutral/70 leading-relaxed">
               A balance of acoustic engineering, comfort, and refined design —
               built for immersive everyday listening.
             </p>
           </div>
 
           {/* Image 1 – Square */}
-          <div className="feature-image md:col-span-2 md:row-span-1 relative rounded-xl overflow-hidden">
+          <div className="feature-image sm:col-span-2 lg:row-span-1 relative rounded-xl overflow-hidden min-h-[180px]">
             <Image
               src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770279842/Golden_Sounds__Immerse_Yourself_in_JBL_y15a0b.jpg"
               alt="Headphone product"
@@ -108,7 +109,7 @@ const FeatureGrid = () => {
           </div>
 
           {/* Image 2 – Portrait */}
-          <div className="feature-image md:col-span-2 md:row-span-2 relative rounded-xl overflow-hidden">
+          <div className="feature-image sm:col-span-2 lg:row-span-2 relative rounded-xl overflow-hidden min-h-[180px]">
             <Image
               src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770359440/Whether_you_re_an_over-ear_or_in-ear_fan_quality_noise_cancellation_is_here___Both_the_MW75_Headphones_and_MW09_Earphones_are_equipped_with_three_modes_of_ANC_so_you_only_hear_the_sound_you_want__fu2x4n.jpg"
               alt="Portrait headphone"
@@ -118,7 +119,7 @@ const FeatureGrid = () => {
           </div>
 
           {/* Image 3 – Landscape (left bottom) */}
-          <div className="feature-image md:col-span-4 md:row-span-1 relative rounded-xl overflow-hidden">
+          <div className="feature-image sm:col-span-2 lg:col-span-4 lg:row-span-1 relative rounded-xl overflow-hidden min-h-[180px]">
             <Image
               src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770359440/Headphone_Poster____Headphone_Manipulation_qxlcxs.jpg"
               alt="Wide headphone shot"
@@ -128,7 +129,7 @@ const FeatureGrid = () => {
           </div>
 
           {/* Image 4 – Landscape (right bottom) */}
-          <div className="feature-image md:col-span-2 md:row-span-1 relative rounded-xl overflow-hidden">
+          <div className="feature-image sm:col-span-2 lg:row-span-1 relative rounded-xl overflow-hidden min-h-[180px]">
             <Image
               src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770360691/download_2_zplsrz.jpg"
               alt="Additional product shot"
@@ -138,7 +139,7 @@ const FeatureGrid = () => {
           </div>
 
           {/* Image 5 */}
-          <div className="feature-image md:col-span-2 md:row-span-1 relative rounded-xl overflow-hidden">
+          <div className="feature-image sm:col-span-2 lg:row-span-1 relative rounded-xl overflow-hidden min-h-[180px]">
             <Image
               src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770360691/AirPods_Max_Infographic_Premium_A_Content_for_Amazon_jt5tb5.jpg"
               alt="Additional product shot"
@@ -150,7 +151,7 @@ const FeatureGrid = () => {
           {/* Feature List */}
           <div
             ref={listRef}
-            className="md:col-span-2 md:row-span-1 space-y-4 sm:space-y-6 self-end"
+            className="sm:col-span-2 lg:row-span-1 space-y-3 sm:space-y-4 lg:space-y-6 self-end p-4 sm:p-0"
           >
             {[
               "Precision-tuned sound",
@@ -160,7 +161,7 @@ const FeatureGrid = () => {
             ].map((item) => (
               <div
                 key={item}
-                className="border-b border-base-300 pb-3 text-sm text-neutral cursor-pointer"
+                className="border-b border-base-300 pb-2 sm:pb-3 text-xs sm:text-sm text-neutral cursor-pointer"
               >
                 {item}
               </div>

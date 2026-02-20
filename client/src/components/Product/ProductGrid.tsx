@@ -227,17 +227,17 @@ export default function ProductGrid({
 
       {/* Pagination Controls */}
       {pagination && pagination.totalPages > 1 && (
-        <div className="mt-12 flex flex-col items-center gap-4">
+        <div className="mt-8 sm:mt-12 flex flex-col items-center gap-3 sm:gap-4">
           {/* Showing text */}
-          <p className="text-sm text-gray-600">{getShowingText()}</p>
+          <p className="text-xs sm:text-sm text-gray-600">{getShowingText()}</p>
 
           {/* Pagination buttons */}
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1 sm:gap-2 flex-wrap justify-center">
             {/* Previous button */}
             <button
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={!pagination.hasPrev}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               Previous
             </button>
@@ -247,11 +247,13 @@ export default function ProductGrid({
               <div key={index}>
                 {pageNum === -1 ? (
                   // Ellipsis
-                  <span className="px-4 py-2 text-gray-500">...</span>
+                  <span className="px-2 sm:px-4 py-1.5 sm:py-2 text-gray-500 text-xs sm:text-sm">
+                    ...
+                  </span>
                 ) : (
                   <button
                     onClick={() => handlePageChange(pageNum)}
-                    className={`px-4 py-2 text-sm font-medium rounded-md transition-colors ${
+                    className={`px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium rounded-md transition-colors ${
                       pageNum === currentPage
                         ? "bg-blue-600 text-white"
                         : "text-gray-700 bg-white border border-gray-300 hover:bg-gray-50"
@@ -267,7 +269,7 @@ export default function ProductGrid({
             <button
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={!pagination.hasNext}
-              className="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+              className="px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
             >
               Next
             </button>

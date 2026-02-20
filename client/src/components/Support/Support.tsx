@@ -181,10 +181,10 @@ export default function Support() {
   return (
     <section
       ref={containerRef}
-      className="min-h-screen bg-gradient-to-b from-base-200 to-base-100"
+      className="min-h-screen bg-linear-to-b from-base-200 to-base-100"
     >
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-base-200 via-base-100 to-base-200 py-20 px-6 overflow-hidden">
+      <div className="relative bg-linear-to-br from-base-200 via-base-100 to-base-200 py-12 sm:py-20 px-4 sm:px-6 overflow-hidden">
         <div className="absolute bottom-10 left-20 opacity-10">
           <Image
             src="https://res.cloudinary.com/do3iu9q7d/image/upload/v1770393143/title3_jwghlb.png"
@@ -207,7 +207,7 @@ export default function Support() {
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <h1
             ref={heroRef}
-            className="text-5xl md:text-6xl font-semibold text-neutral mb-6 tracking-tight"
+            className="text-4xl sm:text-5xl md:text-6xl font-semibold text-neutral mb-6 tracking-tight"
           >
             HELP CENTER
           </h1>
@@ -227,8 +227,8 @@ export default function Support() {
       </div>
 
       {/* Categories */}
-      <div ref={categoriesRef} className="max-w-6xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div ref={categoriesRef} className="max-w-6xl mx-auto px-4 sm:px-6 py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
           {categories.map((category, i) => {
             const Icon = category.icon;
             return (
@@ -265,8 +265,8 @@ export default function Support() {
       </div>
 
       {/* Quick Links */}
-      <div ref={linksRef} className="max-w-6xl mx-auto px-6 py-12">
-        <div className="grid md:grid-cols-3 gap-12">
+      <div ref={linksRef} className="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {quickLinks.map((section, index) => (
             <div key={index} className="quick-link-section">
               <h3 className="text-lg font-semibold text-primary mb-4">
@@ -287,12 +287,15 @@ export default function Support() {
       </div>
 
       {/* CTA */}
-      <div ref={ctaRef} className="max-w-4xl mx-auto px-6 py-16 text-center">
-        <div className="bg-gradient-to-br from-primary/10 via-white to-primary/5 rounded-3xl p-12 border border-primary/20 shadow-xl">
-          <h2 className="text-3xl font-semibold text-neutral mb-4">
+      <div
+        ref={ctaRef}
+        className="max-w-4xl mx-auto px-4 sm:px-6 py-16 text-center"
+      >
+        <div className="bg-linear-to-br from-primary/10 via-white to-primary/5 rounded-3xl p-8 sm:p-12 border border-primary/20 shadow-xl">
+          <h2 className="text-2xl sm:text-3xl font-semibold text-neutral mb-4">
             Still Need Help?
           </h2>
-          <p className="text-gray-600 mb-8 max-w-xl mx-auto">
+          <p className="text-sm sm:text-base text-gray-600 mb-8 max-w-xl mx-auto">
             Our support team is ready to assist you with any questions or
             concerns about your audio experience.
           </p>
@@ -321,7 +324,7 @@ export default function Support() {
       {isEmailModalOpen && (
         <div
           ref={emailModalRef}
-          className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-4 mobile-scale-modal"
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50 px-4"
         >
           <div className="relative w-full max-w-md p-8 rounded-3xl bg-white/20 backdrop-blur-2xl border border-white/30 shadow-2xl">
             {/* Close Button */}
@@ -374,7 +377,7 @@ export default function Support() {
               <button
                 type="submit"
                 disabled={isSending}
-                className="w-full py-3 rounded-2xl font-bold text-white bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary transition-all shadow-lg hover:shadow-2xl active:scale-95"
+                className="w-full py-3 rounded-2xl font-bold text-white bg-linear-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary transition-all shadow-lg hover:shadow-2xl active:scale-95"
               >
                 {isSending ? "Sending..." : "Send Message"}
               </button>
@@ -392,7 +395,7 @@ export default function Support() {
       {isCallModalOpen && (
         <div
           ref={callModalRef}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 mobile-scale-modal"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 px-4"
         >
           <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl relative text-center">
             <button
